@@ -14,36 +14,43 @@ def ComputePath(self,rgrid):
     loggrid = [101][101]
     
 
-    
-#need to create closedlists and open list. 
-#open list is a priority que that organizes lists by nodes which represents the 
+#openlist is a priority que that organizes lists by nodes which represents the 
 
 class node:
-    def __init__(self, name, x, y, costToGo, costToCome,parent):
+    def __init__(self, name, x, y, costToGo, parent):
         self.name = name
         self.x = x
         self.y = y
         self.costToGo = costToGo
-        self.costToCome = costToCome
+        #self.costToCome = costToCome
         self.parent = parent
+        self.findCostToCome()
+        
+    def findCostToCome():
+        self.costToCome = abs(self.x - goal_x) + abs(self.y - goal_y)
+        
+    def goalPosition(x, y):
+        goal_x = x
+        goal_y = y
+        return
 
     def expand()
-        for i in closedlist:
-            if (this.x == i.x and this.y == i.y):
-                openlist.remove(this)
-                #closedlist.append(this) #doesn't really need to be in the closed list, only takes up space
+        for i in closedlist:    #note: will need to put all the blocked cells into the closed list for this to work
+            if (self.x == i.x and self.y == i.y):
+                openlist.remove(self)
+                #closedlist.append(self) #doesn't really need to be in the closed list, only takes up extra space
                 return
             
         #need code to find the cost to come
-        n = node(this.name + "_north", this.y-1, this.x, this.costToGo+1, *COSTTOCOMEVAR, this)
+        n = node(self.name + "_north", self.y-1, self.x, self.costToGo+1, self)
         openlist.append(n)
-        s = node(this.name + "_south", this.y+1, this.x, this.costToGo+1, *COSTTOCOMEVAR, this)
-        openlist.append(n)
-        e = node(this.name + "_east", this.y, this.x+1, this.costToGo+1, *COSTTOCOMEVAR, this)
-        openlist.append(n)
-        w = node(this.name + "_west", this.y, this.x-1, this.costToGo+1, *COSTTOCOMEVAR, this)
-        openlist.append(n)
+        s = node(self.name + "_south", self.y+1, self.x, self.costToGo+1, self)
+        openlist.append(s)
+        e = node(self.name + "_east", self.y, self.x+1, self.costToGo+1, self)
+        openlist.append(e)
+        w = node(self.name + "_west", self.y, self.x-1, self.costToGo+1, self)
+        openlist.append(w)
         
-        openlist.remove(this)
-        closedlist.append(this)
+        openlist.remove(self)
+        closedlist.append(self)
         return
