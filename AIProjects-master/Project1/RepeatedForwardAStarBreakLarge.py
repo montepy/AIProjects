@@ -1,24 +1,55 @@
 import BreakLargeHeap
 
-
-grid = open("..\\arrs\\randGrid\\00.txt")
-rgrid = [][]
-for i in list(range(101)):  #converts text grid to more easily used array form
-    line = grid.readline()
-    for s in list(range(101)):
-        rgrid[i][s] = (line[s:s+2].rstrip(), False) #(blocked, visited)
-
-openlist = []
-closedlist = []
-
-heap = []
-def ComputePath(self,rgrid):
+def ComputePath(self,rgrid,goal,openlist,closedlist):
     loggrid = [101][101]
+    #TODO implement A* in earnest
+
+
+def main():
+    counter = 0 #set iteration counter
+    grid = open("..\\arrs\\randGrid\\00.txt")
+    rgrid = [][]
+    for i in list(range(101)):  #converts text grid to more easily used array form
+        line = grid.readline()
+        for s in list(range(101)):
+            rgrid[i][s] = (line[s:s+2].rstrip(), False,0) #(blocked, visited,generated during xth search)
+    
+    goal = # tuple(column,row)
+    start = # tuple(column, row)
+    #don't know how I'm supposed to generate these
+    search = 0
+    while start != goal:
+        #increment counter to keep track of nodes over iterations
+        counter = counter+1
+        
+        #initialize start and goal nodes
+        lstart = node(start[0],start[1],0,None,counter)
+        lgoal = node(goal[0],goal[1],0,None,counter)
+        lgoal.costToGo = float('inf')
+        lstart.goalPosition(goal[0],goal[1])
+
+        #initialize lists
+        openlist = BlHeap()
+        closedlist = BLHeap()
+        openlist.insert(lstart)
+        #run A* 
+        ComputePath(rgrid,goal,openlist,closedlist)
+        if openlist.size == 0:
+            print("Cannot reach target")
+            return
+        path = []
+        #TODO move along path and implement action-cost adjustments
+
+
+
+
+
+    
     
 
 
 class node:
-    def __init__(self, x, y, costToGo, parent):
+    def __init__(self, x, y, costToGo, parent,search):
         #self.name = name
         self.x = x
         self.y = y
@@ -56,3 +87,7 @@ class node:
         openlist.remove(self)
         closedlist.append(self)
         return
+
+
+if __name__== "__main__":
+    main()

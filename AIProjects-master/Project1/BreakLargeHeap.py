@@ -2,15 +2,18 @@ import sys
 
 class BLHeap:
 
-    def __init__(self,maxsize):
-        self.maxsize = maxsize
+    def __init__(self):
         self.size = 0
         self.array = []
+
+    
         
     def getMin(self):
         return self.array[0]
 
     def removeMin(self):
+        if self.size == 0:
+            return None
         out = self.array[0]
         i = 0
         while i < len(self.array):
@@ -27,7 +30,8 @@ class BLHeap:
             else:
                 self.array[i] = self.array[i*2+2]
                 i = i*2+2
-            
+        self.array.pop()
+        self.size -= 1
         return out
     
     def insert(self, node):
@@ -42,11 +46,14 @@ class BLHeap:
                 self.array[i] = self.array[(i-1)/2]
                 i = (i-1)/2
                 self.array[i] = node
+        self.size += 1
 
         return
     
     def delete(self,index):
         i = index
+        if i >= size:
+            return False
         self.array[i].costToGo = -10000
         while self.array[i].fvalue() < self.array[(i-1)/2].fvalue() and i > 0:
             temp = self.array[i]
@@ -60,7 +67,8 @@ class BLHeap:
                 i = (i-1)/2
                 self.array[i] = temp
         removeMin()
-        return
+        self.size -= 1
+        return True
 
 
 
