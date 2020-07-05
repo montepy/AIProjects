@@ -6,8 +6,6 @@ class BLHeap:
         self.size = 0
         self.array = []
 
-    
-        
     def getMin(self):
         return self.array[0]
 
@@ -20,11 +18,11 @@ class BLHeap:
             if self.array[i*2+1].fvalue() < self.array[i*2+2].fvalue():
                 self.array[i] = self.array[i*2+1]
                 i = i*2+1
-            else if self.array[i*2+1].fvalue() == self.array[i*2+2].fvalue():
+            elif self.array[i*2+1].fvalue() == self.array[i*2+2].fvalue():
                 if self.array[i*2+1].costToGo > self.array[i*2+2].costToGo:
                     self.array[i] = self.array[i*2+1]
                     i = i*2+1
-                else self.array[i*2+1].costToGo < self.array[i*2+2].costToGo:
+                elif self.array[i*2+1].costToGo < self.array[i*2+2].costToGo:
                     self.array[i] = self.array[i*2+2]
                     i = i*2+2
             else:
@@ -47,12 +45,11 @@ class BLHeap:
                 i = (i-1)/2
                 self.array[i] = node
         self.size += 1
-
         return
-    
-    def delete(self,index):
+
+    def delete(self, index):
         i = index
-        if i >= size:
+        if i >= self.size:
             return False
         self.array[i].costToGo = -10000
         while self.array[i].fvalue() < self.array[(i-1)/2].fvalue() and i > 0:
@@ -66,7 +63,7 @@ class BLHeap:
                 self.array[i] = self.array[(i-1)/2]
                 i = (i-1)/2
                 self.array[i] = temp
-        removeMin()
+        self.removeMin()
         self.size -= 1
         return True
 
