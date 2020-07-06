@@ -67,6 +67,16 @@ class BLHeap:
         self.size -= 1
         return True
 
+    def check(self, node):
+        #i'm lazy, so simple linear search for now
+        counter = 0
+        for i in self.array:
+            if i.x == node.x and i.y == node.y:
+                return counter
+            counter += 1
+        return -1
+
+
 
 
 

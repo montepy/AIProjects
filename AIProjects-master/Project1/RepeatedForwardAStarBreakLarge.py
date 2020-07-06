@@ -5,14 +5,27 @@ def ComputePath(rgrid, goal, openlist, closedlist):
     #loggrid = [101][101]
     #TODO finish implementing A* later.
     while goal.costToGo > openlist.getMin().fvalue():  #while smallest f-value less than goal g value
-
+        #basically, while goal has not been reached
         #take smallest node and expand
         node = openlist.removeMin()
-        node.expand(openlist,closedlist,rgrid)
+        node.expand(openlist, closedlist, rgrid)
         closedlist.add(node)
-        for node in openlist:
-            if node.search < counter:
-                node.costToGo = float('inf')
+        for subnode in openlist:
+            if subnode.search < counter:
+                #if search value(last time encountered) is less than counter, set search to counter and 
+                #set g value to infinity to ensure next if statement triggers
+                subnode.costToGo = float('inf')
+                subnode.search = counter
+            if subnode.costToGo > (node.CosttoGo + 1): #should be 1 for cost of moving to node, right?
+                #sets subnode g value appropriately and establishes tree
+                subnode.costToGo = node.CosttoGo + 1
+                subnode.parent = node
+                #update subnode values if the node was in the openlist
+                ind = openlist.check(subnode)
+                if ind != -1:
+                    openlist.delete(ind)
+                openlist.insert()
+
 
 
 
@@ -56,6 +69,13 @@ def main():
         path = []
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
+        node = lgoal
+        while node.parent != None:
+            path.append(node)
+            node = node.parent
+        for i in list(len(path)):
+            #TODO implement later. 
+        
 
 
 class node:
