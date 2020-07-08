@@ -11,6 +11,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         #basically, while goal has not been reached, or fvalue() is greater than infinity, indicating a blocked path
         #take smallest node and expand
         node = openlist.removeMin()
+        #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
         closedlist.append(node)
         for subnode in actions_possible:
@@ -54,7 +55,7 @@ def main():
         lstart = rgrid[start[0]][start[1]]
         lgoal = rgrid[goal[0]][goal[1]]
     lgoal.costToGo = math.inf
-    lstart.findCostToCome(goal[0], goal[1])
+    lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
     while lstart != lgoal:
         #increment counter to keep track of nodes over iterations

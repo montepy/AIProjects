@@ -16,7 +16,7 @@ class node:
         self.search = nval
         return
 
-    def findCostToCome(self, goal_x, goal_y):
+    def setCostToCome(self, goal_x, goal_y):
         self.costToCome = abs(self.x - goal_x) + abs(self.y - goal_y)
         return
 
