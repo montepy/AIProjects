@@ -12,6 +12,8 @@ def ComputePath(rgrid, goal, openlist, closedlist):
         closedlist.add(node)
         for subnode in out:
             action_cost = 1
+            if subnode.blocked:
+                action_cost = 100000000
             subnode.goalPosition(goal.x,goal.y)
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and 
@@ -74,16 +76,20 @@ def main():
             path.append(node)
             node = node.parent
         check = path[len(path)-1]
+        flagnode = None
         for i in list(len(path)):
             #TODO implement later. 
-            if check.blocked:
-                break
             if check == goal:
+                break
+            if path[len(path)-1-i].costToGo- check.costToGo > 1:
+                flagnode = path[len(path)-1-i]
                 break
             check = path[len(path)-1-i]
         lstart = check
-        #ugh
-
+        if flagnode:
+            flagnode.costToGo = int('inf')
+    print("target reached")
+    return
 
             
             
