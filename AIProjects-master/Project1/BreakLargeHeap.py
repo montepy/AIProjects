@@ -16,7 +16,7 @@ class BLHeap:
         if self.size == 0:
             return None
         out = self.array[0]
-        childl,childr = out,out
+        childl = childr = out
         self.array[0],self.array[self.size-1] = self.array[self.size-1], self.array[0]#swap first and last elements
         self.array.pop()
         self.size -= 1
