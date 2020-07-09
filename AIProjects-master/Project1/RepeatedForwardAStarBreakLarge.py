@@ -37,7 +37,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
 
 
 def main():
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     counter = 0  #set iteration counter
     text = sys.argv[1]
     grid = open(text)
