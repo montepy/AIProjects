@@ -1,4 +1,3 @@
-
 class BLHeap:
 
     def __init__(self):
@@ -18,7 +17,7 @@ class BLHeap:
             return None
         out = self.array[0]
         i = 0
-        while i < len(self.array) and len(self.array) > 1:
+        while i*2 < len(self.array) and len(self.array) > 1:
             if self.array[int(i*2+1)].fvalue() < self.array[int(i*2+2)].fvalue():
                 self.array[i] = self.array[int(i*2+1)]
                 i = int(i*2+1)
