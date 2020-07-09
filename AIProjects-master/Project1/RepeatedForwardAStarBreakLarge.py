@@ -13,6 +13,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         node = openlist.removeMin()
         #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
+        print("\nexpanding node at : \nx - " + str(node.x) + "\ny - " + str(node.y) + "\n\n")
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
@@ -24,9 +25,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
                 #set g value to infinity to ensure next if statement triggers
                 subnode.costToGo = math.inf
                 subnode.search = counter
-            if subnode.costToGo > (node.CosttoGo + action_cost): #should be 1 for cost of moving to node, right?
+            if subnode.costToGo > (node.costToGo + action_cost): #should be 1 for cost of moving to node, right?
                 #sets subnode g value appropriately and establishes tree
-                subnode.costToGo = node.CosttoGo + action_cost
+                subnode.costToGo = node.costToGo + action_cost
                 subnode.parent = node
                 #update subnode values if the node was in the openlist
                 ind = openlist.check(subnode)
