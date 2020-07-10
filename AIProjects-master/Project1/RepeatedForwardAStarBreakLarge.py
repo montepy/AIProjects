@@ -13,7 +13,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         node = openlist.removeMin()
         #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
-        print("\nexpanding node at : \nx - " + str(node.x) + "\ny - " + str(node.y) + "\n")
+        print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+        print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist), '\n')
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
