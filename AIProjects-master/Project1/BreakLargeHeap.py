@@ -12,20 +12,26 @@ class BLHeap:
     def getMin(self):
         return self.array[0]
 
+    def getPC(self, i, out):
+        parent = self.array[i]
+        childl = childr = out
+        if len(self.array)>i*2+1:
+                childl = self.array[i*2+1]
+        if len(self.array)>i*2+2:
+                childr = self.array[i*2+2]
+        return parent, childl, childr
+
+
     def removeMin(self):
         if self.size == 0:
             return None
         out = self.array[0]
-        childl = childr = out
         self.array[0],self.array[self.size-1] = self.array[self.size-1], self.array[0]#swap first and last elements
         self.array.pop()
         self.size -= 1
         i = 0
-        parent = self.array[i]
-        if len(self.array)>i*2+1:
-            childl = self.array[i*2+1]
-        if len(self.array)>i*2+2:
-            childr = self.array[i*2+2]
+        parent, childl, childr = BLHeap.getPC(self,i,out)
+
         #NOTE need to add code to manage when both children are equal and to address costToGo 
         while (parent.fvalue() > childl.fvalue or parent.fvalue() > childr.fvalue()) and len(self.array) > 1:
             if childl.fvalue() < childr.fvalue():
