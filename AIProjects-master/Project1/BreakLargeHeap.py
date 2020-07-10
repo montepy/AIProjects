@@ -26,18 +26,20 @@ class BLHeap:
         if self.size == 0:
             return None
         out = self.array[0]
-        self.array[0],self.array[self.size-1] = self.array[self.size-1], self.array[0]#swap first and last elements
         self.array.pop()
         self.size -= 1
+        if self.size == 0:
+                return out
+        self.array[0],self.array[self.size-1] = self.array[self.size-1], self.array[0]#swap first and last elements
         i = 0
         parent, childl, childr = BLHeap.getPC(self,i,out)
 
         #NOTE need to add code to manage when both children are equal and to address costToGo 
-        while (parent.fvalue() > childl.fvalue or parent.fvalue() > childr.fvalue()) and len(self.array) > 1:
+        while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and len(self.array) > 1:
             if childl.fvalue() < childr.fvalue():
                 self.array[i],self.array[i*2+1] = self.array[int(i*2+1),self.array[i]]
                 i = int(i*2+1)
-            elif childl.fvalue > childr.fvalue():
+            elif childl.fvalue() > childr.fvalue():
                 self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
                 i = int(i*2+2)
             else:
@@ -51,18 +53,20 @@ class BLHeap:
                 childr = self.array[i*2+2]
 
         while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue(): 
-            if parent.fvalue() == childl.fvalue():
+            if parent.fvalue() == childl.fvalue() and len(self.array) > i*2:
                 if parent.costToGo > childl.costToGo:
                     break
                 else:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1),self.array[i]]
                     i = int(i*2+1)
-            else:
+            elif parent.fvalue() == childr.fvalue() and len(self.array) > i*2+1:
                 if parent.costToGo > childr.costToGo:
                     break
                 else:
                     self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
                     i = int(i*2+2)
+            else:
+                break
 
             parent = self.array[i]
             if len(self.array)>i*2+1:
