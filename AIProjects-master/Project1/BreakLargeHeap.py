@@ -76,9 +76,26 @@ class BLHeap:
             if len(self.array)>i*2+2:
                 childr = self.array[i*2+2]
 
-
+        #original code
         #self.array.pop()
         #self.size -= 1
+#       i = 0
+#        while i*2 < len(self.array) and len(self.array) > 1:
+#            if self.array[int(i*2+1)].fvalue() < self.array[int(i*2+2)].fvalue():
+#                self.array[i] = self.array[int(i*2+1)]
+#                i = int(i*2+1)
+#            elif self.array[int(i*2+1)].fvalue() == self.array[int(i*2+2)].fvalue():
+#                if self.array[int(i*2+1)].costToGo > self.array[int(i*2+2)].costToGo:
+#                    self.array[i] = self.array[int(i*2+1)]
+#                    i = int(i*2+1)
+#                elif self.array[int(i*2+1)].costToGo < self.array[int(i*2+2)].costToGo:
+#                    self.array[i] = self.array[int(i*2+2)]
+#                    i = int(i*2+2)
+#            else:
+#                self.array[i] = self.array[int(i*2+2)]
+#                i = int(i*2+2)
+#        self.array.pop()
+#        self.size -= 1
         return out
     
     def insert(self, node):
@@ -88,8 +105,6 @@ class BLHeap:
             self.array[i] = self.array[int((i-1)/2)]
             i = int((i-1)/2)
             self.array[i] = node
-        #NOTE the if statement below might need to be changed to a while loop 
-            #because multiple nodes may have the same fvalue
         if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
             if node.costToGo > self.array[int((i-1)/2)].costToGo:
                 self.array[i] = self.array[int((i-1)/2)]

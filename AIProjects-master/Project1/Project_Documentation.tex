@@ -19,6 +19,86 @@ The number of moves the agent can make is bounded from above by the number of un
 \section{Part 3}
 
 \section{Part 4}
+\subsection{Manhattan distances}
+The manhattan distance is calculated with the following formula
+\begin{equation}
+	h(s) = |X_s - X_{goal}| + |Y_s - Y_{goal}|
+\end{equation}
+To be considered a consistent heuristic, it must prove true for the following formula
+\begin{equation}
+	h(s) <= h(s')+c(s,a,s')
+\end{equation}
+ We substitute all instances of h(s) and h(s') with the corresponding manhattan distance definition.
+\begin{equation}
+	|X_s - X_{goal}| + |Y_s - Y_{goal}| <= |X_s' - X_{goal}| + |Y_s' - Y_{goal}| + c(s,a,s')
+\end{equation}
+Then simplify
+\begin{equation}
+	|X_s - X_{goal}| + |Y_s - Y_{goal}| - |X_s' - X_{goal}| + |Y_s' - Y_{goal}| <= c(s,a,s')
+\end{equation}
+Say s and s' are neighboring cells, s' being the immediate successor of the initial state. Furthermore, let us say that s' is vertically adjacent to s. Hence, the following proves true.
+\begin{equation}
+	|X_s - X_{goal}| - |X_s' - X_{goal}| = 0	
+\end{equation}
+\begin{equation} 
+	|Y_s - Y_{goal}| - |Y_s' - Y_{goal}| = 1
+\end{equation}
+\begin{equation} 
+	|Y_s - Y_s'| = 1
+\end{equation}
+\begin{equation} 
+	|Y_s - Y_{goal}| - |Y_s' - Y_{goal}| = c(s,a,s')
+\end{equation}
+\begin{equation} 
+	h(s) - h(s') = |Y_s - Y_{goal}| - |Y_s' - Y_{goal}|
+\end{equation}
+Then, given the following inequality
+\begin{equation}
+	|A| - |B| <= |A-B|
+\end{equation}
+we say
+\begin{equation}
+	h(s) - h(s') <= |(Y_s - Y_{goal}) - (Y_s' - Y_{goal})|
+		= 1
+		= c(s,a,s')
+\end{equation}
+Therefore, manhattan distances can be said to be consistent heuristics.
+\subsection{Adaptive A*}
+To prove conclusively that Adaptive A* leaves heuristics consistent over iterations, we must prove it's validity for the following three cases
+\subsubsection{In the case both s and s' are expanded}
+The new heuristics for both of the nodes are as follows
+\begin{equation}
+h_new(s) = g(s_{goal})-g(s)
+\end{equation}
+\begin{equation}
+h_new(s') = g(s_{goal})-g(s')
+\end{equation}
+We then substitute them into the consistency inequality like so
+\begin{equation}
+h_new(s) <= h_new(s')+c(s,a,s')
+\end{equation}
+\begin{equation}
+g(s_{goal}) - g(s) <= g(s_{goal}) - g(s') + c(s,a,s')
+\end{equation}
+\begin{equation}
+g(s') <= g(s) + c(s,a,s')
+\end{equation}
+Using the above equation, we can conclusively state that the heuristic remains consistent because the algorithm calculates the g value of the successor state based off of the g value of its predecessor with the cost to transition added, so the inequality will never be false.
+\subsubsection{In the case s, but not s' is expanded}
+The consistency inequality in this case is as follows
+\begin{equation}
+h_new(s) <= h(s') + c(s,a,s')
+\end{equation}
+\begin{equation}
+g(s_{goal}() - g(s) <= h(s') + c(s,a,s')
+\end{equation}
+Firstly, considering that case 1 holds true, we can similarly say that case 2 holds true, because the inequality would still be valid if the node were to be expanded. Nothing changed with regards to the situation, only the amount of information we have has changed. 
+Furthermore,
+\begin{equation}
+f_prev(s) >= f_prev(s') for s' \in A 
+\end{equation}
+where A is the set of all nodes in the previous search
+\subsubsection{In the case neither are expanded}
 
 \section{Part 5}
 
