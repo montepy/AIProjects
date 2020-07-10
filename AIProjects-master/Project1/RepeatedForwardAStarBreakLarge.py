@@ -19,7 +19,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         for subnode in actions_possible:
             action_cost = 1
             if subnode.blocked:
-                action_cost = 100000000
+                continue
+                #action_cost = 100000000
             subnode.setCostToCome(goal.x, goal.y)
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and 
@@ -35,7 +36,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
                 if ind != -1:
                     openlist.delete(ind)
                 openlist.insert(subnode)
-
+        actions_possible = []
 
 def main():
     #import pdb;pdb.set_trace()
