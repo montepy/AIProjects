@@ -1,13 +1,16 @@
+import math
 class BLHeap:
 
     def __init__(self):
         #TODO deal with heap memory allocation
         self.size = 0
-        self.array = []
+        self.maxsize = 3
+        self.array = [None]*self.maxsize
 
     def wipe(self):
-        self.array = []
         self.size = 0
+        self.maxsize = 3
+        self.array = [None]*self.maxsize
 
     def getMin(self):
         return self.array[0]
@@ -15,10 +18,10 @@ class BLHeap:
     def getPC(self, i, out):
         parent = self.array[i]
         childl = childr = out
-        if len(self.array)>i*2+1:
-                childl = self.array[i*2+1]
-        if len(self.array)>i*2+2:
-                childr = self.array[i*2+2]
+        if self.size>i*2+1:
+            childl = self.array[i*2+1]
+        if self.size>i*2+2:
+            childr = self.array[i*2+2]
         return parent, childl, childr
 
 
@@ -26,42 +29,46 @@ class BLHeap:
         if self.size == 0:
             return None
         out = self.array[0]
-        self.array.pop()
+        self.array[0] = None
         self.size -= 1
         if self.size == 0:
-                return out
-        self.array[0],self.array[self.size-1] = self.array[self.size-1], self.array[0]#swap first and last elements
+            return out
+        self.array[0],self.array[self.size] = self.array[self.size], self.array[0]#swap first and last elements
         i = 0
         parent, childl, childr = BLHeap.getPC(self,i,out)
 
         #NOTE need to add code to manage when both children are equal and to address costToGo 
-        while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and len(self.array) > 1:
-            if childl.fvalue() < childr.fvalue() and len(self.array) >= i*2+1:
+        while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and self.size > 1:
+            if childl.fvalue() < childr.fvalue() and self.size > i*2+2:
                 self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                 i = int(i*2+1)
-            elif childl.fvalue() > childr.fvalue() and len(self.array) >= i*2+2:
+            elif childl.fvalue() > childr.fvalue() and self.size > i*2+2:
                 self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
                 i = int(i*2+2)
-            elif childl.fvalue() == childr.fvalue() and len(self.array) >= i*2+1:
-                self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
-                i = int(i*2+1)
+            elif childl.fvalue() == childr.fvalue() and self.size > i*2+1:
+                if childl.costToGo > childr.costToGo:
+                    self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
+                    i = int(i*2+1)
+                else:
+                    self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
+                    i = int(i*2+2)
             else:
                 break
 
             parent = self.array[i]
-            if len(self.array)>i*2+1:
+            if self.size>i*2+1:
                 childl = self.array[i*2+1]
-            if len(self.array)>i*2+2:
+            if self.size>i*2+2:
                 childr = self.array[i*2+2]
 
         while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue(): 
-            if parent.fvalue() == childl.fvalue() and len(self.array) > i*2+1:
+            if parent.fvalue() == childl.fvalue() and self.size > i*2+1:
                 if parent.costToGo > childl.costToGo:
                     break
                 else:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                     i = int(i*2+1)
-            elif parent.fvalue() == childr.fvalue() and len(self.array) > i*2+2:
+            elif parent.fvalue() == childr.fvalue() and self.size > i*2+2:
                 if parent.costToGo > childr.costToGo:
                     break
                 else:
@@ -71,9 +78,9 @@ class BLHeap:
                 break
 
             parent = self.array[i]
-            if len(self.array)>i*2+1:
+            if self.size>i*2+1:
                 childl = self.array[i*2+1]
-            if len(self.array)>i*2+2:
+            if self.size>i*2+2:
                 childr = self.array[i*2+2]
 
         #original code
@@ -99,8 +106,13 @@ class BLHeap:
         return out
     
     def insert(self, node):
-        self.array.append(node)
-        i = len(self.array)-1
+        
+        if (self.size + 1) == self.maxsize:
+            self.allocateMemory()
+        self.size += 1
+        self.array[self.size-1] = node
+        #self.array.append(node)
+        i = self.size-1  #len(self.array)-1
         while node.fvalue() < self.array[int((i-1)/2)].fvalue() and i > 0:
             self.array[i] = self.array[int((i-1)/2)]
             i = int((i-1)/2)
@@ -110,7 +122,6 @@ class BLHeap:
                 self.array[i] = self.array[int((i-1)/2)]
                 i = int((i-1)/2)
                 self.array[i] = node
-        self.size += 1
         return
 
     def delete(self, index):
@@ -129,18 +140,28 @@ class BLHeap:
                 self.array[i] = self.array[int((i-1)/2)]
                 i = int((i-1)/2)
                 self.array[i] = temp
-        self.removeMin()
-        self.size -= 1
+        ex = self.removeMin()
+        ex.costToGo = math.inf
+        #self.size -= 1
         return True
 
     def check(self, node):
         #i'm lazy, so simple linear search for now
         counter = 0
-        for i in self.array:
-            if i.x == node.x and i.y == node.y:
+        for i in list(range(self.size-1)):
+            if self.array[i].x == node.x and self.array[i].y == node.y:
                 return counter
             counter += 1
         return -1
+    
+    def allocateMemory(self):
+        self.maxsize = self.maxsize*2
+        newarray = [None]*self.maxsize
+        for i in list(range(self.size)):
+            newarray[i] = self.array[i]
+        self.array = newarray
+        return
+
 
 
 

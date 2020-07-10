@@ -85,21 +85,26 @@ g(s') <= g(s) + c(s,a,s')
 \end{equation}
 Using the above equation, we can conclusively state that the heuristic remains consistent because the algorithm calculates the g value of the successor state based off of the g value of its predecessor with the cost to transition added, so the inequality will never be false.
 \subsubsection{In the case s, but not s' is expanded}
-The consistency inequality in this case is as follows
+The consistency inequality we want to prove in this case is as follows
 \begin{equation}
 h_new(s) <= h(s') + c(s,a,s')
-\end{equation}
-\begin{equation}
-g(s_{goal}() - g(s) <= h(s') + c(s,a,s')
 \end{equation}
 Firstly, considering that case 1 holds true, we can similarly say that case 2 holds true, because the inequality would still be valid if the node were to be expanded. Nothing changed with regards to the situation, only the amount of information we have has changed. 
 Furthermore,
 \begin{equation}
-f_prev(s) >= f_prev(s') for s' \in A 
+f(s) <= f(s')
 \end{equation}
-where A is the set of all nodes in the previous search
+because the algorithm prioritizes the smallest f-value to expand nodes. Therefore, if we substitute into the equation above as follows, splitting the f-value into h+g values,
+\begin{equation}
+	h_new(s) + g(s) <= h(s') + c(s,a,s') + g(s)
+\end{equation}
+we find that 
+\begin{equation}
+h_new(s) <= h(s') + c(s,a,s')
+\end{equation}
+proving the inequality true
 \subsubsection{In the case neither are expanded}
-
+Unlike the other cases, the adaptive A* algorithm modifies neither s or s', so considering the fact that the consistency inequality should hold true in normal A*, we can conclude that this case holds true as well.
 \section{Part 5}
 
 \section{Part 6}
