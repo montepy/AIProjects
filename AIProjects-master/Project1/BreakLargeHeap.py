@@ -12,27 +12,90 @@ class BLHeap:
     def getMin(self):
         return self.array[0]
 
+    def getPC(self, i, out):
+        parent = self.array[i]
+        childl = childr = out
+        if len(self.array)>i*2+1:
+                childl = self.array[i*2+1]
+        if len(self.array)>i*2+2:
+                childr = self.array[i*2+2]
+        return parent, childl, childr
+
+
     def removeMin(self):
         if self.size == 0:
             return None
         out = self.array[0]
-        i = 0
-        while i*2 < len(self.array) and len(self.array) > 1:
-            if self.array[int(i*2+1)].fvalue() < self.array[int(i*2+2)].fvalue():
-                self.array[i] = self.array[int(i*2+1)]
-                i = int(i*2+1)
-            elif self.array[int(i*2+1)].fvalue() == self.array[int(i*2+2)].fvalue():
-                if self.array[int(i*2+1)].costToGo > self.array[int(i*2+2)].costToGo:
-                    self.array[i] = self.array[int(i*2+1)]
-                    i = int(i*2+1)
-                elif self.array[int(i*2+1)].costToGo < self.array[int(i*2+2)].costToGo:
-                    self.array[i] = self.array[int(i*2+2)]
-                    i = int(i*2+2)
-            else:
-                self.array[i] = self.array[int(i*2+2)]
-                i = int(i*2+2)
         self.array.pop()
         self.size -= 1
+        if self.size == 0:
+                return out
+        self.array[0],self.array[self.size-1] = self.array[self.size-1], self.array[0]#swap first and last elements
+        i = 0
+        parent, childl, childr = BLHeap.getPC(self,i,out)
+
+        #NOTE need to add code to manage when both children are equal and to address costToGo 
+        while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and len(self.array) > 1:
+            if childl.fvalue() < childr.fvalue() and len(self.array) >= i*2+1:
+                self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
+                i = int(i*2+1)
+            elif childl.fvalue() > childr.fvalue() and len(self.array) >= i*2+2:
+                self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
+                i = int(i*2+2)
+            elif childl.fvalue() == childr.fvalue() and len(self.array) >= i*2+1:
+                self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
+                i = int(i*2+1)
+            else:
+                break
+
+            parent = self.array[i]
+            if len(self.array)>i*2+1:
+                childl = self.array[i*2+1]
+            if len(self.array)>i*2+2:
+                childr = self.array[i*2+2]
+
+        while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue(): 
+            if parent.fvalue() == childl.fvalue() and len(self.array) > i*2+1:
+                if parent.costToGo > childl.costToGo:
+                    break
+                else:
+                    self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
+                    i = int(i*2+1)
+            elif parent.fvalue() == childr.fvalue() and len(self.array) > i*2+2:
+                if parent.costToGo > childr.costToGo:
+                    break
+                else:
+                    self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
+                    i = int(i*2+2)
+            else:
+                break
+
+            parent = self.array[i]
+            if len(self.array)>i*2+1:
+                childl = self.array[i*2+1]
+            if len(self.array)>i*2+2:
+                childr = self.array[i*2+2]
+
+        #original code
+        #self.array.pop()
+        #self.size -= 1
+#       i = 0
+#        while i*2 < len(self.array) and len(self.array) > 1:
+#            if self.array[int(i*2+1)].fvalue() < self.array[int(i*2+2)].fvalue():
+#                self.array[i] = self.array[int(i*2+1)]
+#                i = int(i*2+1)
+#            elif self.array[int(i*2+1)].fvalue() == self.array[int(i*2+2)].fvalue():
+#                if self.array[int(i*2+1)].costToGo > self.array[int(i*2+2)].costToGo:
+#                    self.array[i] = self.array[int(i*2+1)]
+#                    i = int(i*2+1)
+#                elif self.array[int(i*2+1)].costToGo < self.array[int(i*2+2)].costToGo:
+#                    self.array[i] = self.array[int(i*2+2)]
+#                    i = int(i*2+2)
+#            else:
+#                self.array[i] = self.array[int(i*2+2)]
+#                i = int(i*2+2)
+#        self.array.pop()
+#        self.size -= 1
         return out
     
     def insert(self, node):

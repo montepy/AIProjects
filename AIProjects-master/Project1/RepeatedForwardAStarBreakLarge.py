@@ -13,7 +13,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         node = openlist.removeMin()
         #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
-        print("\nexpanding node at : \nx - " + str(node.x) + "\ny - " + str(node.y) + "\n")
+        print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+        print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist), '\n')
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
@@ -47,8 +48,8 @@ def main():
         for s in list(range(101)):
             rgrid[i][s] = GridNode.node(i, s, math.inf, None, 0, line[s:s+2].rstrip() == "1")
             #(x, y, costToGo, parent, search, blocked)
-    lstart = None
-    lgoal = None
+
+    lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
         goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
@@ -59,6 +60,9 @@ def main():
     lgoal.costToGo = math.inf
     lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
+    print("start: (", start[0], ',', start[1],")")
+    print("goal: (", goal[0], ',', goal[1],")")
+
     while lstart != lgoal:
         #increment counter to keep track of nodes over iterations
         counter = counter+1
