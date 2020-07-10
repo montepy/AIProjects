@@ -36,15 +36,17 @@ class BLHeap:
 
         #NOTE need to add code to manage when both children are equal and to address costToGo 
         while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and len(self.array) > 1:
-            if childl.fvalue() < childr.fvalue():
+            if childl.fvalue() < childr.fvalue() and len(self.array) >= i*2+1:
                 self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                 i = int(i*2+1)
-            elif childl.fvalue() > childr.fvalue():
+            elif childl.fvalue() > childr.fvalue() and len(self.array) >= i*2+2:
                 self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
                 i = int(i*2+2)
-            else:
+            elif childl.fvalue() == childr.fvalue() and len(self.array) >= i*2+1:
                 self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                 i = int(i*2+1)
+            else:
+                break
 
             parent = self.array[i]
             if len(self.array)>i*2+1:
