@@ -54,12 +54,26 @@ class BLHeap:
                     i = int(i*2+2)
             else:
                 break
-
+            #previous issue with this code is that child object stayed constant if next level 
+            #not existent resulting in erroneous swaps
             parent = self.array[i]
             if self.size>i*2+1:
                 childl = self.array[i*2+1]
+            else:
+                childl = None
             if self.size>i*2+2:
                 childr = self.array[i*2+2]
+            else:
+                childr = None
+            #only handle case where (childl and not childr) because (not childl and childr) is not a case that should ever happen
+            #if working correctly
+            if not childr:
+                if childl:
+                    if childl.fvalue() < parent.fvalue() or (childl.fvalue() == parent.fvalue() and childl.costToGo > parent.costToGo):
+                        self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
+                        i = int(i*2+1)
+                return out
+
 
         while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue(): 
             if parent.fvalue() == childl.fvalue() and self.size > i*2+1:
@@ -80,8 +94,21 @@ class BLHeap:
             parent = self.array[i]
             if self.size>i*2+1:
                 childl = self.array[i*2+1]
+            else:
+                childl = None
             if self.size>i*2+2:
                 childr = self.array[i*2+2]
+            else:
+                childr = None
+            #only handle case where (childl and not childr) because (not childl and childr) is not a case that should ever happen
+            #if working correctly
+            if not childr:
+                if childl:
+                    if childl.fvalue() < parent.fvalue() or (childl.fvalue() == parent.fvalue() and childl.costToGo > parent.costToGo):
+                        self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
+                        i = int(i*2+1)
+
+                break
 
         #original code
         #self.array.pop()
