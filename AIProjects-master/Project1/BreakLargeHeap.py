@@ -39,7 +39,7 @@ class BLHeap:
 
         #why is this so much more complicated than it needs to be?
         while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and self.size > 1:
-            #if left child lesser
+            #if left child lesser. Wait, why are these size checks here when the bottom code handles it? Commenting out.
             if childl.fvalue() < childr.fvalue() and self.size > i*2+1:
                 self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                 i = int(i*2+1)
@@ -48,7 +48,7 @@ class BLHeap:
                 self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
                 i = int(i*2+2)
             #if the two are equal
-            elif childl.fvalue() == childr.fvalue() and self.size > i*2+1:
+            elif childl.fvalue() == childr.fvalue() and self.size > i*2+2:
                 if childl.costToGo > childr.costToGo:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                     i = int(i*2+1)
@@ -71,8 +71,9 @@ class BLHeap:
                 childr = None
             #only handle case where (childl and not childr) because (not childl and childr) is not a case that should ever happen
             #if working correctly
-            if not childr:
-                if childl:
+            #sometimes i wish python could just take None as a False value.
+            if childr is None:
+                if childl is not None:
                     #swap in and break if left child better, otherwise return because this is end of array
                     if childl.fvalue() < parent.fvalue() or (childl.fvalue() == parent.fvalue() and childl.costToGo > parent.costToGo):
                         self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
@@ -81,6 +82,7 @@ class BLHeap:
 
 
         while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue(): 
+            #removed break statements
             if parent.fvalue() == childl.fvalue() and self.size > i*2+1:
                 #swap if the left child lesser or if the two are equal
                 if parent.costToGo > childl.costToGo:
@@ -88,9 +90,10 @@ class BLHeap:
                 else:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                     i = int(i*2+1)
+                
             elif parent.fvalue() == childr.fvalue() and self.size > i*2+2:
                 #swap if the right child lesser or if the two are equal
-                if parent.costToGo > childr.costToGo:
+                if parent.costToGo < childr.costToGo:
                     break
                 else:
                     self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
@@ -109,13 +112,13 @@ class BLHeap:
                 childr = None
             #only handle case where (childl and not childr) because (not childl and childr) is not a case that should ever happen
             #if working correctly
-            if not childr:
-                if childl:
+            if childr is None:
+                if childl is not None:
                     #the edgiest of edge cases. gonna leave the first term here just in case
                     if childl.fvalue() < parent.fvalue() or (childl.fvalue() == parent.fvalue() and childl.costToGo > parent.costToGo):
                         self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                         i = int(i*2+1)
-
+                #should break whether or not childl b
                 break
 
         #original code
@@ -149,14 +152,15 @@ class BLHeap:
         #self.array.append(node)
         i = self.size-1  #len(self.array)-1
         while node.fvalue() < self.array[int((i-1)/2)].fvalue() and i > 0:
-            self.array[i] = self.array[int((i-1)/2)]
+            self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
             i = int((i-1)/2)
-            self.array[i] = node
+            #self.array[i] = node
         if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
             if node.costToGo > self.array[int((i-1)/2)].costToGo:
-                self.array[i] = self.array[int((i-1)/2)]
+                
+                self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
                 i = int((i-1)/2)
-                self.array[i] = node
+                #self.array[i] = node
         return
 
     def delete(self, index):

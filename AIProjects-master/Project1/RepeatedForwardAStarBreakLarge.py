@@ -4,6 +4,7 @@ import BreakLargeHeap
 import GridNode
 import random
 import sys
+from time import time
 
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
@@ -43,6 +44,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
+    start_time = time()
     #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
@@ -113,6 +115,7 @@ def main():
     print("path_length:" + str(len(path)))
     print("start: (", start[0], ',', start[1],")")
     print("goal: (", goal[0], ',', goal[1],")")
+    print("execution_time:",str(time()-start_time))
 
     return
 
