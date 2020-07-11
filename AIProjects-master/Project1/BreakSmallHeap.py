@@ -157,7 +157,7 @@ class BSHeap:
             i = int((i-1)/2)
             #self.array[i] = node
         if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
-            if node.costToGo > self.array[int((i-1)/2)].costToGo:
+            if node.costToGo < self.array[int((i-1)/2)].costToGo:
                 
                 self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
                 i = int((i-1)/2)

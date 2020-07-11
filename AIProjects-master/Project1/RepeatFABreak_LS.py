@@ -2,6 +2,7 @@
 #analyzing the difference between bigger and smaller g values
 import math
 import BreakLargeHeap
+import BreakSmallHeap
 import GridNode
 import random
 import sys
@@ -78,10 +79,10 @@ def main():
         counter = counter+1
         #initialize lists
         openlist = BreakLargeHeap.BLHeap()
-        closedlist = [] #make array for now. #TODO make closed list consistent over code
+        closedlist1 = [] #make array for now. #TODO make closed list consistent over code
         openlist.insert(lstart)
         #run A*
-        ComputePathLarge(rgrid, lgoal, openlist, closedlist, counter)
+        ComputePath(rgrid, lgoal, openlist, closedlist, counter)
         expanded += len(closedlist)
         if openlist.size == 0:
             print("Cannot reach target")
