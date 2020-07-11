@@ -86,7 +86,7 @@ class BSHeap:
             #removed break statements
             if parent.fvalue() == childl.fvalue() and self.size > i*2+1:
                 #swap if the left child lesser or if the two are equal
-                if parent.costToGo > childl.costToGo:
+                if parent.costToGo < childl.costToGo:
                     break
                 else:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
