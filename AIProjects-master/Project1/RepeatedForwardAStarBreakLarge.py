@@ -15,6 +15,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
         print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+        print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
         print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist), '\n')
         closedlist.append(node)
         for subnode in actions_possible:
@@ -22,7 +23,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             if closedlist.count(subnode):
                 continue
             #if subnode.blocked:
-            #    action_cost = 100000000
+                #continue
+            #subnode.setCostToCome(goal.x, goal.y)
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and 
                 #set g value to infinity to ensure next if statement triggers
@@ -38,7 +40,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
                 if ind != -1:
                     openlist.delete(ind)
                 openlist.insert(subnode)
-
+        actions_possible = []
 
 def main():
     #import pdb;pdb.set_trace()
