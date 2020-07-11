@@ -77,12 +77,12 @@ class node:
         #Considering we're always popping off the top of the heap, we shouldn't need the above
         #closedlist.insert(self)
         out = []
-        if self.x <= 100: 
+        if self.x+1 <101:
             out.append(rgrid[self.x+1][self.y])
-        if self.x >= 1:
+        if self.x-1 > 0:
             out.append(rgrid[self.x-1][self.y])
-        if self.y <= 100:
+        if self.y+1 < 101:
             out.append(rgrid[self.x][self.y+1])
-        if self.y >= 1:
+        if self.y-1 > 0:
             out.append(rgrid[self.x][self.y-1])
         return out

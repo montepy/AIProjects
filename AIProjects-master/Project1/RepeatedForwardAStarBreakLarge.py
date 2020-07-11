@@ -1,8 +1,9 @@
+
+import math
 import BreakLargeHeap
 import GridNode
 import random
 import sys
-import math
 
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
@@ -19,10 +20,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
-            if subnode.blocked:
-                continue
-                #action_cost = 100000000
-            subnode.setCostToCome(goal.x, goal.y)
+            #if subnode.blocked:
+                #continue
+            #subnode.setCostToCome(goal.x, goal.y)
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and 
                 #set g value to infinity to ensure next if statement triggers
@@ -34,6 +34,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
                 subnode.parent = node
                 #update subnode values if the node was in the openlist
                 ind = openlist.check(subnode)
+                subnode.setCostToCome(goal.x, goal.y)
                 if ind != -1:
                     openlist.delete(ind)
                 openlist.insert(subnode)
@@ -53,8 +54,8 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        goal = (26,13)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row) 26,13
+        start = (60,67)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row) 60,67
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]
@@ -81,20 +82,24 @@ def main():
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
         node = lgoal
-        while node.parent is None:
+        while node.parent is not None:
             path.append(node)
             node = node.parent
         check = path[-1]
+        nstart = None
         flagnode = None
         for i in list(len(path)):
             #TODO implement later. 
             if check == goal:
+                nstart = check
                 break
-            if path[len(path)-1-i].costToGo - check.costToGo > 1:
-                flagnode = path[len(path)-1-i]
+            if check.blocked:
+                flagnode = check
                 break
+            i += 1
+            nstart = check
             check = path[len(path)-1-i]
-        lstart = check
+        lstart = nstart
         if flagnode:
             flagnode.costToGo = math.inf
     print("target reached")
