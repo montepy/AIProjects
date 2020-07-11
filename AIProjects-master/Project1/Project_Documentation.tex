@@ -17,7 +17,27 @@ The number of moves the agent can make is bounded from above by the number of un
 \section{Part 2}
 
 \section{Part 3}
+To test and compare the performance of Repeated Forward A* against Repeated Backward A*, we conducted ten runs of both algorithms. Firstly, we applied Forward A*, randomly choosing nodes for both the goal and start, then swapped those same nodes and ran it again to simulate Backward A*. We then took the resulting values for the number of expanded nodes and compared them to determine their efficiency.
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Percent Difference & Forward A* & Backward A* \\
+		\hline
+		60.6\% & 816 & 508 \\
+		62.8\% & 482 & 296 \\
+		-20.8\% & 19 & 24 \\
+		-44.2\% & 829 & 1487 \\
+		12.8\% & 2024 & 1793 \\
+		-36.5\% & 453 & 713 \\
+		246\% & 1974 & 517 \\
+		56.4\% & 341 & 218 \\
+		20.6\% & 262 & 330 \\
+		-42.2\% & 1783 & 3086 \\
+		\hline
+	\end{tabular}
+\end{center}
 
+On average, we determined that Forward A* had a runtime 31.55\% greater that that of Backward A* for the same grids and nodes. Overall, the data seems to suggest that Forward A* is significantly less efficient that Backward A*. However, it is also important to note that, in theory, the two algorithms should have similar performance, given that the obstacles/blocked nodes are spaced largely randomly. The results we have found are may largely be due to our small sample size. As such, it is hard to conclude off of our data that Forward A* is in fact slower than Backward A*
 \section{Part 4}
 \subsection{Manhattan distances}
 The manhattan distance is calculated with the following formula
@@ -68,14 +88,14 @@ To prove conclusively that Adaptive A* leaves heuristics consistent over iterati
 \subsubsection{In the case both s and s' are expanded}
 The new heuristics for both of the nodes are as follows
 \begin{equation}
-h_new(s) = g(s_{goal})-g(s)
+h_{new}(s) = g(s_{goal})-g(s)
 \end{equation}
 \begin{equation}
-h_new(s') = g(s_{goal})-g(s')
+h_{new}(s') = g(s_{goal})-g(s')
 \end{equation}
 We then substitute them into the consistency inequality like so
 \begin{equation}
-h_new(s) <= h_new(s')+c(s,a,s')
+h_{new}(s) <= h_{new}(s')+c(s,a,s')
 \end{equation}
 \begin{equation}
 g(s_{goal}) - g(s) <= g(s_{goal}) - g(s') + c(s,a,s')
@@ -87,7 +107,7 @@ Using the above equation, we can conclusively state that the heuristic remains c
 \subsubsection{In the case s, but not s' is expanded}
 The consistency inequality we want to prove in this case is as follows
 \begin{equation}
-h_new(s) <= h(s') + c(s,a,s')
+h_{new}(s) <= h(s') + c(s,a,s')
 \end{equation}
 Firstly, considering that case 1 holds true, we can similarly say that case 2 holds true, because the inequality would still be valid if the node were to be expanded. Nothing changed with regards to the situation, only the amount of information we have has changed. 
 Furthermore,
@@ -96,11 +116,11 @@ f(s) <= f(s')
 \end{equation}
 because the algorithm prioritizes the smallest f-value to expand nodes. Therefore, if we substitute into the equation above as follows, splitting the f-value into h+g values,
 \begin{equation}
-	h_new(s) + g(s) <= h(s') + c(s,a,s') + g(s)
+	h_{new}(s) + g(s) <= h(s') + c(s,a,s') + g(s)
 \end{equation}
 we find that 
 \begin{equation}
-h_new(s) <= h(s') + c(s,a,s')
+h_{new}(s) <= h(s') + c(s,a,s')
 \end{equation}
 proving the inequality true
 \subsubsection{In the case neither are expanded}
