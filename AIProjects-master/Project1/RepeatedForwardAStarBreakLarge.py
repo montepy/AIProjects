@@ -19,6 +19,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
+            if closedlist.count(subnode):
+                continue
             #if subnode.blocked:
             #    action_cost = 100000000
             if subnode.search < counter:
@@ -26,9 +28,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
                 #set g value to infinity to ensure next if statement triggers
                 subnode.costToGo = math.inf
                 subnode.search = counter
-            if subnode.costToGo > (node.costToGo + action_cost): #should be 1 for cost of moving to node, right?
+            if subnode.costToGo > (node.costToGo + action_cost):  #should be 1 for cost of moving to node, right?
                 #sets subnode g value appropriately and establishes tree
-                subnode.costToGo = node.costToGo + action_cost
+                subnode.costToGo = node.costToGo + subnode.action_cost
                 subnode.parent = node
                 #update subnode values if the node was in the openlist
                 ind = openlist.check(subnode)
@@ -82,11 +84,11 @@ def main():
         node = lgoal
         while node.parent is not None:
             path.append(node)
-            node = node.parent
+            node = node.parent #why
         check = path[-1]
         nstart = None
         flagnode = None
-        for i in list(len(path)):
+        for i in range(len(path)):
             #TODO implement later. 
             if check == goal:
                 nstart = check
@@ -98,8 +100,8 @@ def main():
             nstart = check
             check = path[len(path)-1-i]
         lstart = nstart
-        if flagnode:
-            flagnode.costToGo = math.inf
+        if flagnode is not None:
+            flagnode.action_cost = math.inf
     print("target reached")
     return
 

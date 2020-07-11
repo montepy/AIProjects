@@ -11,6 +11,7 @@ class node:
         self.blocked = blocked
         self.search = search
         self.costToCome = 0
+        self.action_cost = 1
         
     def setSearch(self, nval):
         self.search = nval
