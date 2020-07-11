@@ -88,14 +88,14 @@ To prove conclusively that Adaptive A* leaves heuristics consistent over iterati
 \subsubsection{In the case both s and s' are expanded}
 The new heuristics for both of the nodes are as follows
 \begin{equation}
-h_new(s) = g(s_{goal})-g(s)
+h_{new}(s) = g(s_{goal})-g(s)
 \end{equation}
 \begin{equation}
-h_new(s') = g(s_{goal})-g(s')
+h_{new}(s') = g(s_{goal})-g(s')
 \end{equation}
 We then substitute them into the consistency inequality like so
 \begin{equation}
-h_new(s) <= h_new(s')+c(s,a,s')
+h_{new}(s) <= h_{new}(s')+c(s,a,s')
 \end{equation}
 \begin{equation}
 g(s_{goal}) - g(s) <= g(s_{goal}) - g(s') + c(s,a,s')
@@ -107,7 +107,7 @@ Using the above equation, we can conclusively state that the heuristic remains c
 \subsubsection{In the case s, but not s' is expanded}
 The consistency inequality we want to prove in this case is as follows
 \begin{equation}
-h_new(s) <= h(s') + c(s,a,s')
+h_{new}(s) <= h(s') + c(s,a,s')
 \end{equation}
 Firstly, considering that case 1 holds true, we can similarly say that case 2 holds true, because the inequality would still be valid if the node were to be expanded. Nothing changed with regards to the situation, only the amount of information we have has changed. 
 Furthermore,
@@ -116,11 +116,11 @@ f(s) <= f(s')
 \end{equation}
 because the algorithm prioritizes the smallest f-value to expand nodes. Therefore, if we substitute into the equation above as follows, splitting the f-value into h+g values,
 \begin{equation}
-	h_new(s) + g(s) <= h(s') + c(s,a,s') + g(s)
+	h_{new}(s) + g(s) <= h(s') + c(s,a,s') + g(s)
 \end{equation}
 we find that 
 \begin{equation}
-h_new(s) <= h(s') + c(s,a,s')
+h_{new}(s) <= h(s') + c(s,a,s')
 \end{equation}
 proving the inequality true
 \subsubsection{In the case neither are expanded}
