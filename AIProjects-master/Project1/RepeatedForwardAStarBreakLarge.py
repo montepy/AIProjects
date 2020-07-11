@@ -84,7 +84,7 @@ def main():
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
         node = lgoal
-        while node.parent is not None:
+        while node.parent is not lstart:
             path.append(node)
             node = node.parent #why
         check = path[-1]
