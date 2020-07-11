@@ -1,5 +1,6 @@
+#finds smaller g values than with BGHeap
 import math
-class BLHeap:
+class BSHeap:
 
     def __init__(self):
         #TODO deal with heap memory allocation
@@ -93,7 +94,7 @@ class BLHeap:
                 
             elif parent.fvalue() == childr.fvalue() and self.size > i*2+2:
                 #swap if the right child lesser or if the two are equal
-                if parent.costToGo > childr.costToGo:
+                if parent.costToGo < childr.costToGo:
                     break
                 else:
                     self.array[i],self.array[int(i*2+2)]= self.array[int(i*2+2)],self.array[i]
