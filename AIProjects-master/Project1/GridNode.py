@@ -80,10 +80,10 @@ class node:
         out = []
         if self.x+1 <101:
             out.append(rgrid[self.x+1][self.y])
-        if self.x-1 > 0:
+        if self.x-1 >= 0:
             out.append(rgrid[self.x-1][self.y])
         if self.y+1 < 101:
             out.append(rgrid[self.x][self.y+1])
-        if self.y-1 > 0:
+        if self.y-1 >= 0:
             out.append(rgrid[self.x][self.y-1])
         return out
