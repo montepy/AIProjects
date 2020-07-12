@@ -2,6 +2,7 @@
 #analyzing the difference between bigger and smaller g values
 import math
 import BreakLargeHeap
+import BreakSmallHeap
 import GridNode
 import random
 import sys
@@ -71,6 +72,9 @@ def main():
     lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
 
+    lstartCopy = copy.deepcopy(lstart)
+    lgoalCopy = copy.deepcopy(lgoal) 
+
     start_time = time()
     while lstart != lgoal:
         lgoal.costToGo = math.inf
@@ -81,7 +85,7 @@ def main():
         closedlist = [] #make array for now. #TODO make closed list consistent over code
         openlist.insert(lstart)
         #run A*
-        ComputePathLarge(rgrid, lgoal, openlist, closedlist, counter)
+        ComputePath(rgrid, lgoal, openlist, closedlist, counter)
         expanded += len(closedlist)
         if openlist.size == 0:
             print("Cannot reach target")

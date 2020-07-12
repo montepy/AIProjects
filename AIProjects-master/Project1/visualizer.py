@@ -55,6 +55,3 @@ if __name__ == "__main__":
     other = output.readline().strip()
     grid = open(other)
     visualizer(output, grid)
-
-
-

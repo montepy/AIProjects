@@ -30,7 +30,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             #if subnode.blocked and subnode.costToGo == math.inf:
                 #continue
             if subnode.search < counter:
-                #if search value(last time encountered) is less than counter, set search to counter and 
+                #if search value(last time encountered) is less than counter, set search to counter and
                 #set g value to infinity to ensure next if statement triggers
                 subnode.costToGo = math.inf
                 subnode.search = counter
@@ -64,8 +64,8 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal =(100,16) #(random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
-        start =(26,23) #(random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
+        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]

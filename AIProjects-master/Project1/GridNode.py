@@ -12,6 +12,17 @@ class node:
         self.search = search
         self.costToCome = 0
         self.action_cost = 1
+
+    def printAtr(self):
+        print('(', self.x, ',', self.y, ')')
+        print("costToGo - ", self.costToGo)
+        print("parent - ", self.parent)
+        print("costToCome - ", self.costToCome)
+        print("blocked - ", self.blocked)
+        print("search - ", self.search)
+        print("action cost - ", self.action_cost)
+        print("fvalue() - ", self.fvalue())
+        
         
     def setSearch(self, nval):
         self.search = nval
