@@ -8,7 +8,7 @@ import random
 import sys
 from time import time
 
-DEBUGFLAG = False
+DEBUGFLAG = True
 
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
@@ -94,7 +94,7 @@ def main():
         #increment counter to keep track of nodes over iterations
         counter = counter+1
         #initialize lists
-        openlist = BreakLargeHeap.BLHeap()
+        openlist = BreakSmallHeap.BSHeap()
         closedlist = [] #make array for now. #TODO make closed list consistent over code
         openlist.insert(lstart)
         #run A*

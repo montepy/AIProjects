@@ -9,10 +9,10 @@ class BSHeap:
         self.array = [None]*self.maxsize
 
     def printHeap(self):
-        BLHeap.recursiveDisplay(self,0)
+        BSHeap.recursiveDisplay(self,0)
 
     def recursiveDisplay(self, i):
-        node,childl,childr = BLHeap.getPC(self,i,None)
+        node,childl,childr = BSHeap.getPC(self,i,None)
         print("list number - ", i)
         print(node)
         print("Cord. - (", node.x,',', node.y,')')
@@ -20,9 +20,9 @@ class BSHeap:
         print("childr - ", childr)
         print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
         if self.size>i*2+1:
-            BLHeap.recursiveDisplay(self,i*2+1)
+            BSHeap.recursiveDisplay(self,i*2+1)
         if self.size>i*2+2:
-            BLHeap.recursiveDisplay(self,i*2+2)
+            BSHeap.recursiveDisplay(self,i*2+2)
 
     def wipe(self):
         self.size = 0
@@ -52,7 +52,7 @@ class BSHeap:
             return out
         self.array[0],self.array[self.size] = self.array[self.size], self.array[0]#swap first and last elements
         i = 0
-        parent, childl, childr = BLHeap.getPC(self,i,out)
+        parent, childl, childr = BSHeap.getPC(self,i,out)
 
         #why is this so much more complicated than it needs to be?
         while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and self.size > 1:
