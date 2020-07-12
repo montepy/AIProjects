@@ -7,6 +7,19 @@ class BLHeap:
         self.maxsize = 3
         self.array = [None]*self.maxsize
 
+    def printHeap(self):
+        BLHeap.recursiveDisplay(self,0)
+
+    def recursiveDisplay(self, i):
+        node = self.array[i]
+        print("Node - (", node.x,',', node.y,')')
+        print("Parent - ", node.parent)
+        print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
+        if self.size>i*2+1:
+            BLHeap.recursiveDisplay(self,i*2+1)
+        if self.size>i*2+2:
+            BLHeap.recursiveDisplay(self,i*2+2)
+
     def wipe(self):
         self.size = 0
         self.maxsize = 3
@@ -58,7 +71,7 @@ class BLHeap:
                     i = int(i*2+2)
             else:
                 break
-            #previous issue with this code is that child object stayed constant if next level 
+            #previous issue with this code is that child object stayed constant if next level
             #not existent resulting in erroneous swaps
             parent = self.array[i]
             if self.size>i*2+1:
@@ -81,7 +94,7 @@ class BLHeap:
                 return out
 
 
-        while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue(): 
+        while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue():
             #removed break statements
             if parent.fvalue() == childl.fvalue() and self.size > i*2+1:
                 #swap if the left child lesser or if the two are equal
@@ -90,7 +103,7 @@ class BLHeap:
                 else:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                     i = int(i*2+1)
-                
+
             elif parent.fvalue() == childr.fvalue() and self.size > i*2+2:
                 #swap if the right child lesser or if the two are equal
                 if parent.costToGo > childr.costToGo:
@@ -142,9 +155,9 @@ class BLHeap:
 #        self.array.pop()
 #        self.size -= 1
         return out
-    
+
     def insert(self, node):
-        
+
         if (self.size + 1) == self.maxsize:
             self.allocateMemory()
         self.size += 1
@@ -157,7 +170,7 @@ class BLHeap:
             #self.array[i] = node
         if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
             if node.costToGo > self.array[int((i-1)/2)].costToGo:
-                
+
                 self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
                 i = int((i-1)/2)
                 #self.array[i] = node
@@ -192,7 +205,7 @@ class BLHeap:
                 return counter
             counter += 1
         return -1
-    
+
     def allocateMemory(self):
         self.maxsize = self.maxsize*2
         newarray = [None]*self.maxsize
@@ -200,9 +213,3 @@ class BLHeap:
             newarray[i] = self.array[i]
         self.array = newarray
         return
-
-
-
-
-
-
