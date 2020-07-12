@@ -15,19 +15,20 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         node = openlist.removeMin()
         #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
-        print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
-        print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
-        print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist), '\n')
+        #commenting for now
+        #print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+        #print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
+        #print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist),"\n")
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
             if closedlist.count(subnode):
                 continue
-            #if subnode.blocked:
-                #continue
+            if subnode.blocked:
+                continue
             #subnode.setCostToCome(goal.x, goal.y)
             if subnode.search < counter:
-                #if search value(last time encountered) is less than counter, set search to counter and 
+                #if search value(last time encountered) is less than counter, set search to counter and
                 #set g value to infinity to ensure next if statement triggers
                 subnode.costToGo = math.inf
                 subnode.search = counter
@@ -44,12 +45,14 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
+    sys.stdout = open('output.txt','w')
     start_time = time()
     #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
     grid = open(text)
+    print(text)
     rgrid = [[None for x in range(101)]for y in range(101)]
     for i in list(range(101)):  #converts text grid to more easily used array form
         line = grid.readline()
@@ -59,8 +62,8 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
+        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]
@@ -96,13 +99,14 @@ def main():
         nstart = None
         flagnode = None
         for i in range(len(path)):
-            #TODO implement later. 
+            #TODO implement later.
             if check == goal:
                 nstart = check
                 break
             if check.blocked:
                 flagnode = check
                 break
+            print(str(counter),check.x,check.y,str(check.blocked))
             i += 1
             nstart = check
             check = path[len(path)-1-i]
