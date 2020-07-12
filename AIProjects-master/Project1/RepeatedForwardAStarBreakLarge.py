@@ -15,9 +15,10 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         node = openlist.removeMin()
         #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
-        print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
-        print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
-        print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist), '\n')
+        #commenting for now
+        #print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+        #print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
+        #print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist),"\n")
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
@@ -44,12 +45,14 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
+    sys.stdout = open('output.txt','w')
     start_time = time()
     #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
     grid = open(text)
+    print(text)
     rgrid = [[None for x in range(101)]for y in range(101)]
     for i in list(range(101)):  #converts text grid to more easily used array form
         line = grid.readline()
@@ -103,6 +106,7 @@ def main():
             if check.blocked:
                 flagnode = check
                 break
+            print(str(counter),check.x,check.y,str(check.blocked))
             i += 1
             nstart = check
             check = path[len(path)-1-i]

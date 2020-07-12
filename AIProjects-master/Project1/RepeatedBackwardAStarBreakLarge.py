@@ -58,8 +58,8 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
+        goal = (80,8) # tuple(column, row) 
+        start = (33,33) # tuple(column, row) 
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]

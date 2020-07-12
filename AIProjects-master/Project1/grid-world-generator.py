@@ -86,6 +86,7 @@ def backTrackerMaze(number, width=101, height=101):
     plt.figure()
     plt.imshow(Z, cmap=plt.cm.binary, interpolation='nearest')
     plt.xticks([]), plt.yticks([])
+    #plt.show()
     plt.savefig("pics/backTrackerMazes/backTrackerMaze{0:0=2d}.png".format(number))
     np.savetxt("arrs/backTrackerMazes/{0:0=2d}.txt".format(number),Z,fmt='%d')
 
