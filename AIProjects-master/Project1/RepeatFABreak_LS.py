@@ -2,6 +2,7 @@
 #analyzing the difference between bigger and smaller g values
 import math
 import BreakLargeHeap
+import BreakSmallHeap
 import GridNode
 import random
 import sys
