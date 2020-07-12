@@ -27,8 +27,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             #if subnode.blocked:
                 #continue
             #subnode.setCostToCome(goal.x, goal.y)
-            #if subnode.blocked and subnode.costToGo == math.inf:
-                #continue
+            if node.action_cost == math.inf and node.blocked:
+                closedlist.append(node)
+                continue
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and
                 #set g value to infinity to ensure next if statement triggers
@@ -74,13 +75,14 @@ def main():
     print("goal: (", goal[0], ',', goal[1],")")
     lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
-
+    openlist = BreakLargeHeap.BLHeap()
+    
     while lstart != lgoal:
         lgoal.costToGo = math.inf
         #increment counter to keep track of nodes over iterations
         counter = counter+1
         #initialize lists
-        openlist = BreakLargeHeap.BLHeap()
+        openlist.wipe()
         closedlist = [] #make array for now. #TODO make closed list consistent over code
         openlist.insert(lstart)
         #run A*
