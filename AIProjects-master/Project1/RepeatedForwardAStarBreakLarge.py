@@ -24,8 +24,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             action_cost = 1
             if closedlist.count(subnode):
                 continue
-            if subnode.blocked:
-                continue
+            #if subnode.blocked:
+                #continue
             #subnode.setCostToCome(goal.x, goal.y)
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and
