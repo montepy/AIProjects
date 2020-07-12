@@ -41,7 +41,7 @@ def visualizer(out, grid):
     plt.tight_layout()
     plt.xticks([]), plt.yticks([])
     plt.show()
-    plt.savefig("Project1\\vis.png")
+    plt.savefig("Project1\vis.png")
 
 
 if __name__ == "__main__":
@@ -51,6 +51,3 @@ if __name__ == "__main__":
     other = output.readline().strip()
     grid = open(other)
     visualizer(output, grid)
-
-
-
