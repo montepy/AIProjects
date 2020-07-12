@@ -17,31 +17,35 @@ def visualizer(out, grid):
     }
     cmap = colors.ListedColormap(['white','black','blue','green','red','cyan','magenta','yellow'])
     #initialize grid
-    nvis = [[None for x in range(101)]for y in range(101)]
+    shape = (101,101)
+    nvis = np.random.choice([0,1], size=shape, p=[.70,.30])
+    #nvis = [[None for x in range(101)]for y in range(101)]
     #initialize initial grid graph
     for i in list(range(101)):  #converts text grid to more easily used array form
         line = grid.readline()
         for s in list(range(101)):
-            nvis[i][s] = int(line[s:s+2].rstrip())
+            nvis[i][s] = int(line[s*2:s*2+2].rstrip())
+    
     #out.readline() #dump grid data
     startStr = out.readline()
     goalStr = out.readline()
     start_list = startStr.split()
     goal_list = goalStr.split()
-    nvis[int(start_list[2])][int(start_list[4])] = 7
-    nvis[int(goal_list[2])][int(goal_list[4])] = 7
     node = out.readline()
     while not node.startswith('target reached'):
         node_list = node.split()
-        if nvis[int(node_list[1])][int(node_list[2].rstrip())] != 1:
-            nvis[int(node_list[1])][int(node_list[2].rstrip())] = (int(node_list[0]) % 5+2)
+        if nvis[int(node_list[2].rstrip())][int(node_list[1])] != 1:
+            nvis[int(node_list[2].rstrip())][int(node_list[1])] = (int(node_list[0]) % 5+2)
         node = out.readline()
-    plt.figure()
-    plt.imshow(nvis,vmin = 0, vmax = len(cmap.colors),cmap=cmap,interpolation='nearest')
-    plt.tight_layout()
-    plt.xticks([]), plt.yticks([])
+    nvis[int(start_list[4])][int(start_list[2])] = 7
+    nvis[int(goal_list[4])][int(goal_list[2])] = 7
+    out =np.asarray(nvis)
+    plt.imshow(nvis,vmin = 0, vmax = len(cmap.colors),cmap=cmap,interpolation='nearest',aspect='equal')
+    #plt.xticks([]), plt.yticks([])
+    plt.autoscale()
+    plt.savefig("Project1\\vis.png",bbox_inches="tight")
     plt.show()
-    plt.savefig("Project1\\vis.png")
+    plt.figure()
 
 
 if __name__ == "__main__":

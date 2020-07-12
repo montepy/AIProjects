@@ -27,6 +27,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             #if subnode.blocked:
                 #continue
             #subnode.setCostToCome(goal.x, goal.y)
+            #if subnode.blocked and subnode.costToGo == math.inf:
+                #continue
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and 
                 #set g value to infinity to ensure next if statement triggers
@@ -57,13 +59,13 @@ def main():
     for i in list(range(101)):  #converts text grid to more easily used array form
         line = grid.readline()
         for s in list(range(101)):
-            rgrid[i][s] = GridNode.node(i, s, math.inf, None, 0, line[s:s+2].rstrip() == "1")
+            rgrid[i][s] = GridNode.node(i, s, math.inf, None, 0, line[s*2:s*2+2].rstrip() == "1")
             #(x, y, costToGo, parent, search, blocked)
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
+        goal =(100,16) #(random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
+        start =(26,23) #(random.randint(0,100),random.randint(0,100)) # tuple(column, row) 
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]
@@ -91,25 +93,27 @@ def main():
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
         node = lgoal
-        while node.parent is not lstart:
+        while True:
             path.append(node)
             node = node.parent #why
+            if node is lstart:
+                break
         path.append(lstart)
-        check = path[-1]
         nstart = None
         flagnode = None
-        for i in range(len(path)):
+        for i in range(len(path),0,-1):
             #TODO implement later. 
+            check = path[i-1]
+            print(str(counter),check.x,check.y,str(check.blocked))
             if check == goal:
                 nstart = check
                 break
             if check.blocked:
                 flagnode = check
                 break
-            print(str(counter),check.x,check.y,str(check.blocked))
-            i += 1
+            #i -= 1
             nstart = check
-            check = path[len(path)-1-i]
+            #check = path[len(path)-1-i]
         lstart = nstart
         if flagnode is not None:
             flagnode.action_cost = math.inf
