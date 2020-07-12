@@ -11,9 +11,12 @@ class BLHeap:
         BLHeap.recursiveDisplay(self,0)
 
     def recursiveDisplay(self, i):
-        node = self.array[i]
-        print("Node - (", node.x,',', node.y,')')
-        print("Parent - ", node.parent)
+        node,childl,childr = BLHeap.getPC(self,i,None)
+        print("list number - ", i)
+        print(node)
+        print("Cord. - (", node.x,',', node.y,')')
+        print("childl - ", childl)
+        print("childr - ", childr)
         print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
         if self.size>i*2+1:
             BLHeap.recursiveDisplay(self,i*2+1)
