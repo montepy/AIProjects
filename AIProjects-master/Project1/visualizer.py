@@ -25,7 +25,7 @@ def visualizer(out, grid):
         line = grid.readline()
         for s in list(range(101)):
             nvis[i][s] = int(line[s*2:s*2+2].rstrip())
-    
+
     #out.readline() #dump grid data
     startStr = out.readline()
     goalStr = out.readline()
@@ -43,7 +43,7 @@ def visualizer(out, grid):
     plt.imshow(nvis,vmin = 0, vmax = len(cmap.colors),cmap=cmap,interpolation='nearest',aspect='equal')
     #plt.xticks([]), plt.yticks([])
     plt.autoscale()
-    plt.savefig("Project1\\vis.png",bbox_inches="tight")
+    plt.savefig("vis.png",bbox_inches="tight")
     plt.show()
     plt.figure()
 
