@@ -72,6 +72,9 @@ def main():
     lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
 
+    lstartCopy = copy.deepcopy(lstart)
+    lgoalCopy = copy.deepcopy(lgoal) 
+
     start_time = time()
     while lstart != lgoal:
         lgoal.costToGo = math.inf
@@ -79,7 +82,7 @@ def main():
         counter = counter+1
         #initialize lists
         openlist = BreakLargeHeap.BLHeap()
-        closedlist1 = [] #make array for now. #TODO make closed list consistent over code
+        closedlist = [] #make array for now. #TODO make closed list consistent over code
         openlist.insert(lstart)
         #run A*
         ComputePath(rgrid, lgoal, openlist, closedlist, counter)

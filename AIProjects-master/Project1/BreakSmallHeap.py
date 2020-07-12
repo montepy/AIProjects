@@ -1,4 +1,4 @@
-#finds smaller g values than with BGHeap
+#finds smaller g values than with BLHeap
 import math
 class BSHeap:
 
