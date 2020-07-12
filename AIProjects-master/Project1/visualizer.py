@@ -25,7 +25,7 @@ def visualizer(out, grid):
         line = grid.readline()
         for s in list(range(101)):
             nvis[i][s] = int(line[s*2:s*2+2].rstrip())
-    
+
     #out.readline() #dump grid data
     startStr = out.readline()
     goalStr = out.readline()
@@ -34,16 +34,16 @@ def visualizer(out, grid):
     node = out.readline()
     while not node.startswith('target reached'):
         node_list = node.split()
-        if nvis[int(node_list[2].rstrip())][int(node_list[1])] != 1:
-            nvis[int(node_list[2].rstrip())][int(node_list[1])] = (int(node_list[0]) % 5+2)
+        if nvis[int(node_list[1].rstrip())][int(node_list[2])] != 1:
+            nvis[int(node_list[1].rstrip())][int(node_list[2])] = (int(node_list[0]) % 5+2)
         node = out.readline()
-    nvis[int(start_list[4])][int(start_list[2])] = 7
-    nvis[int(goal_list[4])][int(goal_list[2])] = 7
+    nvis[int(start_list[2])][int(start_list[4])] = 7
+    nvis[int(goal_list[2])][int(goal_list[4])] = 7
     out =np.asarray(nvis)
     plt.imshow(nvis,vmin = 0, vmax = len(cmap.colors),cmap=cmap,interpolation='nearest',aspect='equal')
     #plt.xticks([]), plt.yticks([])
     plt.autoscale()
-    plt.savefig("Project1\\vis.png",bbox_inches="tight")
+    plt.savefig("vis.png",bbox_inches="tight")
     plt.show()
     plt.figure()
 
@@ -55,3 +55,5 @@ if __name__ == "__main__":
     other = output.readline().strip()
     grid = open(other)
     visualizer(output, grid)
+    output.close()
+    grid.close()
