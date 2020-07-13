@@ -6,19 +6,29 @@ import random
 import sys
 from time import time
 
+DEBUGFLAG = False
+
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
     #TODO finish implementing A* later.
+    acounter = 0
     while goal.costToGo > openlist.getMin().fvalue():  #while smallest f-value less than goal g value
+        acounter += 1
         #basically, while goal has not been reached, or fvalue() is greater than infinity, indicating a blocked path
         #take smallest node and expand
         node = openlist.removeMin()
         #TODO need to check if this current element is in the closed list and to throw it away if it is
+        if DEBUGFLAG:
+            print("computePath iteration#", acounter)
+            print("expanding - ")
+
         actions_possible = node.expand(openlist, closedlist, rgrid)
         #commenting for now
-        #print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
-        #print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
-        #print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist),"\n")
+        if DEBUGFLAG:
+            print("\texpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+            print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
+            print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist),"\n")
+
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
@@ -27,9 +37,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             #if subnode.blocked:
                 #continue
             #subnode.setCostToCome(goal.x, goal.y)
-            #if node.action_cost == math.inf and node.blocked:
-                #closedlist.append(node)
-                #continue
+            if node.action_cost == math.inf and node.blocked:
+                closedlist.append(node)
+                continue
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and
                 #set g value to infinity to ensure next if statement triggers
@@ -48,9 +58,11 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
-    sys.stdout = open('output.txt','w')
+    if DEBUGFLAG:
+        import pdb;pdb.set_trace()
+    else:
+        sys.stdout = open('output2.txt','w')
     start_time = time()
-    #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
@@ -95,16 +107,17 @@ def main():
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
         node = lgoal
-        while True:
+        while node != lstart:
             path.append(node)
             node = node.parent #why
-            if node is lstart:
-                break
+            #if node is lstart:
+                #break
         path.append(lstart)
         nstart = None
         flagnode = None
-        for i in range(len(path),0,-1):
-            #TODO implement later. 
+        sgoal = len(path)
+        for i in range(sgoal,0,-1):
+            #TODO implement later.
             check = path[i-1]
             print(str(counter),check.x,check.y,str(check.blocked))
             if check == goal:
@@ -119,6 +132,8 @@ def main():
         lstart = nstart
         if flagnode is not None:
             flagnode.action_cost = math.inf
+        for node in closedlist:
+            node.setCostToCome(sgoal-node.costToGo)
     print("target reached")
     print("num-expanded:" + str(expanded))
     print("counter:" + str(counter))
