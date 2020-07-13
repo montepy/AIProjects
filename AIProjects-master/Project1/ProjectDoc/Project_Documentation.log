@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.28)  13 JUL 2020 11:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.28)  13 JUL 2020 18:17
 entering extended mode
 **./Project_Documentation.tex
 (Project_Documentation.tex
@@ -117,30 +117,43 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 {C:/Users/epywa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2 <./visF.
-png> <./visB.png>] [3] [4] [5] (Project_Documentation.aux) ) 
+png> <./visB.png>] [3] [4]
+<visF2.png, id=28, 315.8199pt x 300.6432pt>
+File: visF2.png Graphic file (type png)
+<use visF2.png>
+Package pdftex.def Info: visF2.png  used on input line 144.
+(pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
+<visA.png, id=29, 315.8199pt x 300.6432pt>
+File: visA.png Graphic file (type png)
+<use visA.png>
+Package pdftex.def Info: visA.png  used on input line 149.
+(pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
+ [5] [6 <./visF2.png> <./visA.png>]
+[7] [8] (Project_Documentation.aux) ) 
 Here is how much of TeX's memory you used:
- 1171 strings out of 480756
- 17906 string characters out of 2893794
+ 1186 strings out of 480756
+ 18081 string characters out of 2893794
  256613 words of memory out of 3000000
- 17237 multiletter control sequences out of 15000+200000
+ 17252 multiletter control sequences out of 15000+200000
  536593 words of font info for 38 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,7n,25p,606b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/epywa/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Us
-ers/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx
-12.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmmi10.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmmi7.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/epywa/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/epywa/AppData
-/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/e
-pywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmsy7.pfb>
-Output written on Project_Documentation.pdf (5 pages, 138883 bytes).
+ 30i,7n,25p,833b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/epywa/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/epywa/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/epywa/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:
+/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mmi7.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmr10.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/epywa/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/epywa/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/
+epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pf
+b>
+Output written on Project_Documentation.pdf (8 pages, 174240 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
+ 78 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

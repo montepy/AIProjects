@@ -137,28 +137,56 @@ proving the inequality true
 \subsubsection{In the case neither are expanded}
 Unlike the other cases, the adaptive A* algorithm modifies neither s or s', so considering the fact that the consistency inequality should hold true in normal A*, we can conclude that this case holds true as well.
 \section{Part 5}
-To test Adaptive A* against Forward A*, we underwent a similar process to the Backward A* vs Forward A* trials, comparing the Adaptive A* algorithm for the same nodes as the initial Forward A* trials to determine which of them was the more efficient. A sample of ten of the trials is shown below.
-
+To test Adaptive A* against Forward A*, we underwent a similar process to the Backward A* vs Forward A* trials, comparing the Adaptive A* algorithm for the same nodes as the initial Forward A* trials to determine which of them was the more efficient. A sample of ten of the trials and an example comparison between paths is shown below.
+\begin{figure}
+	\caption{Example Forward A* path: Yellow denotes goal and start}
+	\centering
+	\includegraphics[scale=0.75]{visF2}
+\end{figure}
+\begin{figure}
+	\caption{Example Adaptive A* path}
+	\centering
+	\includegraphics[scale=0.75]{visA}
+\end{figure}
 \begin{center}
 	\begin{tabular}{|c|c|c|}
 		\hline
 		Percent Difference & Forward A* & Adaptive A* \\
 		\hline
-		0\% & 816 & 816 \\
-		0\% & 482 & 482 \\
-		0\% & 19 & 19 \\
-		0\% & 829 & 829 \\
-		0\% & 2024 & 2024 \\
-		0\% & 453 & 453 \\
-		0\% & 1974 & 1974 \\
-		0\% & 341 & 341 \\
-		0\% & 262 & 262 \\
-		0\% & 1783 & 1783 \\
+		6.1\% & 2690 & 2527 \\
+		-463.5\% & 2318 & 13062 \\
+		0.8\% & 2277 & 2258 \\
+		-131.4\% & 1349 & 3122 \\
+		-395.3\% & 495 & 2452 \\
+		-49.6\% & 679 & 1016 \\
+		-13.2\% & 930 & 1053 \\
+		2.8\% & 528 & 513 \\
+		-17.9\% & 756 & 891 \\
+		-51.6\% & 1719 & 2606 \\
 		\hline
 	\end{tabular}
 \end{center}
-As can be seen, in the majority of cases, Adaptive A* seems to perform almost exactly the same as 
+As can be seen, our implementation of Adaptive A* is somewhat inconsistent in runtime. In some of the cases, it makes improvements on the original, but in others, the runtime far exceeds a typical Forward A* implementation. There a number of possible reasons for this. The most likely would be that the implementation itself was incorrect and possessed some small errors that led to inconsistencies in performance. However, there is also the possibility that this is simply not it's usage case, considering that A* is said to handle moving goals best. 
 
 \section{Part 6}
+Each node in our implementation has the following members: x, y, costToGo, costToCome, parent, blocked, search, and action\_cost. X and Y may each take 7 bits (int up to 127) to implement considering the size of the gridworld (101), while costToGo and costToCome should each require 8 bits(int up to 255), taking into account the longest path with a manhattan heuristic should be around 200 nodes in length. Tree pointers should take 2 bits(int up to 3) to account for surrounding nodes. Blocked is a one bit boolean, and considering action\_cost is based off of it, we can do away with that all together. The search member is somewhat difficult to estimate for, but for leeway, we grant it 8 bits(int up to 255) Overall, each node should take 41 bits.
 
+Secondly, the open list is a heap, implemented with the following members: size, maxsize, and array. Size and maxsize should both be around 14 bits(int up to 18384), accounting for the size of the gridworld (10000). The array is a pointer reference(32 bits) pointing to a block of memory of length maxsize. References in the array to access each node can use the x,y coordinates, so each reference can be 14 bits in size. Therefore, the size of the array is 32+maxsize*14 bits. In this case, we doubled the maxsize every time size equaled it, but memory usage can be decreased if the program properly anticipates and adjusts max size in advance of entries entering the heap. Overall an optimal heap should just be 32+maxsize*14(max 10201) bits, considering we don't need size to keep track of anything.
+
+The closed list was implemented as a simple array. 32 bits for the initial reference to the block of memory, 14 bits for each reference to a node. Each entry is appended to the end, so it is essentially 32+14*expanded(max 10201) bits
+
+In addition, we also stored the path nodes in an array, resulting in 32 bits for the initial reference and 14*len(path) (max 200) bits, 32+14*len(path)
+Finally, we populated a 2 dimensional array at the beginning of the program for the sake of easy referencing. 32 bits for the initial reference, another 32*101 bits for each of the arrays, then we initialize 101 cells with their own nodes. Because the other data structures reference this grid for node information, each cell must also have a 32 bit reference. Hence, the overall memory usage is 32+32*101+10201*(32+41), resulting in a figure of 747937 bits. Optimally, we should've read directly from the file at each point and built nodes as we discovered them.
+
+Assuming the worst case scenario, for a grid world of 1001*1001 bits, we would first initialize a 2 dimensional array of 1001*1001, resulting in 32 bits for the initial reference, 32*1001 for each of the arrays, 32+41 for each of the 1001*1001 cells, resulting in a memory usage of 73178137. Given that the open and closed list are mutually exclusive for nodes, we store a memory reference for each of them (32*2), the size variable (14) and maxsize variable (14), and assume that all nodes are in one of the lists, resulting in 1001*1001*14. Hence, a memory usage of about 14092. The path list should be 32+14*(2000) assuming longest path. Overall, we should have a memory usage of about 87234275 bits.
+
+To calculate the largest gridworld usable within 4 MB, we must first simplify the equation. Let the length of the grid world be represented by x. Memory usage is then
+\begin{equation}
+32+32x+73x^2+32*2+14*2+14x^2+32+14*2(x-1) = M
+\end{equation}
+Simplified
+\begin{equation}
+	128+60x+87x^2 = M
+\end{equation}
+The subsequent equation is quadratic. We substitute 32000000 in for M, considering an MB has 8000000 bits, and solve for x using the quadratic formula. The maximum size of a grid world usable within 4 MB is about 606*606.
 \end{document}
