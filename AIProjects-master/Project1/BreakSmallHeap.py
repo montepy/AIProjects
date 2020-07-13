@@ -24,6 +24,28 @@ class BSHeap:
         if self.size>i*2+2:
             BSHeap.recursiveDisplay(self,i*2+2)
 
+    def printTree(self):
+        level = count = i = 1
+        while count + i < self.size:
+            print("\n\nlevel #", level)
+            level += 1
+            for j in range(i):
+                node = self.array[count-1]
+                print("Element#", count-1, "\t Branch - ", j+1, '\t', node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
+                if j % 2:
+                    print()
+                count += 1
+            i = 2 * i
+        print("\nlevel #", level)
+        j = 0
+        while count < self.size:
+            node = self.array[count-1]
+            print("Element#", count-1, "\t Branch - ", j+1, '\t',node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
+            if j % 2:
+                print()
+            count += 1
+            j += 1
+
     def wipe(self):
         self.size = 0
         self.maxsize = 3
