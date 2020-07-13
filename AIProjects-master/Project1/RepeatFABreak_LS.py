@@ -85,7 +85,7 @@ def main():
         goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         if False:
-            goal = (99,2)#guaranteed to be unsolvable of time while using randGrid/04.txt. useful for finding bugs
+            goal = (99,2)#guaranteed to be unsolvable while using randGrid/04.txt. useful for finding bugs
             start = (76,49)
         #using random gen for the moment
         #initialize start and goal nodes
