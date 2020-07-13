@@ -94,7 +94,7 @@ def main():
         #increment counter to keep track of nodes over iterations
         counter = counter+1
         #initialize lists
-        openlist = BreakSmallHeap.BSHeap()
+        openlist = BreakLargeHeap.BLHeap()
         closedlist = [] #make array for now. #TODO make closed list consistent over code
         openlist.insert(lstart)
         #run A*

@@ -23,6 +23,28 @@ class BLHeap:
         if self.size>i*2+2:
             BLHeap.recursiveDisplay(self,i*2+2)
 
+    def printTree(self):
+        level = count = i = 1
+        while count + i < self.size:
+            print("\n\nlevel #", level)
+            level += 1
+            for j in range(i):
+                node = self.array[count-1]
+                print("Element#", count-1, "\t Branch - ", j+1, '\t', node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
+                if j % 2:
+                    print()
+                count += 1
+            i = 2 * i
+        print("\nlevel #", level)
+        j = 0
+        while count < self.size:
+            node = self.array[count-1]
+            print("Element#", count-1, "\t Branch - ", j+1, '\t',node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
+            if j % 2:
+                print()
+            count += 1
+            j += 1
+
     def wipe(self):
         self.size = 0
         self.maxsize = 3
@@ -171,12 +193,15 @@ class BLHeap:
             self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
             i = int((i-1)/2)
             #self.array[i] = node
-        if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
-            if node.costToGo > self.array[int((i-1)/2)].costToGo:
+        #if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
+            #if node.costToGo > self.array[int((i-1)/2)].costToGo:
 
-                self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
-                i = int((i-1)/2)
+                #self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
+                #i = int((i-1)/2)
                 #self.array[i] = node
+        while i > 0 and node.fvalue() == self.array[int((i-1)/2)].fvalue() and node.costToGo > self.array[int((i-1)/2)].costToGo:
+            self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
+            i = int((i-1)/2)
         return
 
     def delete(self, index):

@@ -129,7 +129,11 @@ def main():
 
     return
 
-
+def printNodeList(closedlist):
+    count = 1
+    for node in closedlist:
+        print("Element#", count,'\t', node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
+        count +=1
 
 if __name__ == "__main__":
     main()
