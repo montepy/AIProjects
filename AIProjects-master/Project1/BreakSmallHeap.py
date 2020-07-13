@@ -8,6 +8,22 @@ class BSHeap:
         self.maxsize = 3
         self.array = [None]*self.maxsize
 
+    def printHeap(self):
+        BSHeap.recursiveDisplay(self,0)
+
+    def recursiveDisplay(self, i):
+        node,childl,childr = BSHeap.getPC(self,i,None)
+        print("list number - ", i)
+        print(node)
+        print("Cord. - (", node.x,',', node.y,')')
+        print("childl - ", childl)
+        print("childr - ", childr)
+        print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
+        if self.size>i*2+1:
+            BSHeap.recursiveDisplay(self,i*2+1)
+        if self.size>i*2+2:
+            BSHeap.recursiveDisplay(self,i*2+2)
+
     def wipe(self):
         self.size = 0
         self.maxsize = 3
@@ -36,7 +52,7 @@ class BSHeap:
             return out
         self.array[0],self.array[self.size] = self.array[self.size], self.array[0]#swap first and last elements
         i = 0
-        parent, childl, childr = BLHeap.getPC(self,i,out)
+        parent, childl, childr = BSHeap.getPC(self,i,out)
 
         #why is this so much more complicated than it needs to be?
         while (parent.fvalue() > childl.fvalue() or parent.fvalue() > childr.fvalue()) and self.size > 1:
@@ -59,7 +75,7 @@ class BSHeap:
                     i = int(i*2+2)
             else:
                 break
-            #previous issue with this code is that child object stayed constant if next level 
+            #previous issue with this code is that child object stayed constant if next level
             #not existent resulting in erroneous swaps
             parent = self.array[i]
             if self.size>i*2+1:
@@ -82,7 +98,7 @@ class BSHeap:
                 return out
 
 
-        while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue(): 
+        while parent.fvalue() == childl.fvalue() or parent.fvalue() == childr.fvalue():
             #removed break statements
             if parent.fvalue() == childl.fvalue() and self.size > i*2+1:
                 #swap if the left child lesser or if the two are equal
@@ -91,7 +107,7 @@ class BSHeap:
                 else:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                     i = int(i*2+1)
-                
+
             elif parent.fvalue() == childr.fvalue() and self.size > i*2+2:
                 #swap if the right child lesser or if the two are equal
                 if parent.costToGo < childr.costToGo:
@@ -143,9 +159,9 @@ class BSHeap:
 #        self.array.pop()
 #        self.size -= 1
         return out
-    
+
     def insert(self, node):
-        
+
         if (self.size + 1) == self.maxsize:
             self.allocateMemory()
         self.size += 1
@@ -158,7 +174,7 @@ class BSHeap:
             #self.array[i] = node
         if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
             if node.costToGo < self.array[int((i-1)/2)].costToGo:
-                
+
                 self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
                 i = int((i-1)/2)
                 #self.array[i] = node
@@ -193,7 +209,7 @@ class BSHeap:
                 return counter
             counter += 1
         return -1
-    
+
     def allocateMemory(self):
         self.maxsize = self.maxsize*2
         newarray = [None]*self.maxsize
@@ -201,9 +217,3 @@ class BSHeap:
             newarray[i] = self.array[i]
         self.array = newarray
         return
-
-
-
-
-
-
