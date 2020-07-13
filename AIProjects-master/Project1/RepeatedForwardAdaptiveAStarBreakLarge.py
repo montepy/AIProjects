@@ -37,9 +37,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             #if subnode.blocked:
                 #continue
             #subnode.setCostToCome(goal.x, goal.y)
-            #if node.action_cost == math.inf and node.blocked:
-            #    closedlist.append(node)
-            #    continue
+            if node.action_cost == math.inf and node.blocked:
+                closedlist.append(node)
+                continue
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and
                 #set g value to infinity to ensure next if statement triggers
@@ -61,7 +61,7 @@ def main():
     if DEBUGFLAG:
         import pdb;pdb.set_trace()
     else:
-        sys.stdout = open('output.txt','w')
+        sys.stdout = open('output2.txt','w')
     start_time = time()
     expanded = 0
     counter = 0  #set iteration counter
@@ -77,8 +77,8 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        goal = ( 0 , 0 ) #(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = ( 98 , 100 )#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]
@@ -115,7 +115,8 @@ def main():
         path.append(lstart)
         nstart = None
         flagnode = None
-        for i in range(len(path),0,-1):
+        sgoal = len(path)
+        for i in range(sgoal,0,-1):
             #TODO implement later.
             check = path[i-1]
             print(str(counter),check.x,check.y,str(check.blocked))
@@ -131,6 +132,8 @@ def main():
         lstart = nstart
         if flagnode is not None:
             flagnode.action_cost = math.inf
+        for node in closedlist:
+            node.setCostToCome(sgoal-node.costToGo)
     print("target reached")
     print("num-expanded:" + str(expanded))
     print("counter:" + str(counter))
