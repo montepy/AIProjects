@@ -6,29 +6,19 @@ import random
 import sys
 from time import time
 
-DEBUGFLAG = False
-
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
     #TODO finish implementing A* later.
-    acounter = 0
     while goal.costToGo > openlist.getMin().fvalue():  #while smallest f-value less than goal g value
-        acounter += 1
         #basically, while goal has not been reached, or fvalue() is greater than infinity, indicating a blocked path
         #take smallest node and expand
         node = openlist.removeMin()
         #TODO need to check if this current element is in the closed list and to throw it away if it is
-        if DEBUGFLAG:
-            print("computePath iteration#", acounter)
-            print("expanding - ")
-
         actions_possible = node.expand(openlist, closedlist, rgrid)
         #commenting for now
-        if DEBUGFLAG:
-            print("\texpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
-            print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
-            print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist),"\n")
-
+        #print("\nexpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+        #print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
+        #print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist),"\n")
         closedlist.append(node)
         for subnode in actions_possible:
             action_cost = 1
@@ -37,7 +27,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
             #if subnode.blocked:
                 #continue
             #subnode.setCostToCome(goal.x, goal.y)
-            #if subnode.blocked and subnode.costToGo == math.inf:
+            #if node.action_cost == math.inf and node.blocked:
+                #closedlist.append(node)
                 #continue
             if subnode.search < counter:
                 #if search value(last time encountered) is less than counter, set search to counter and
@@ -57,11 +48,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
-    if DEBUGFLAG:
-        import pdb;pdb.set_trace()
-    else:
-        sys.stdout = open('output.txt','w')
+    sys.stdout = open('output.txt','w')
     start_time = time()
+    #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
@@ -76,8 +65,8 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        goal = ( 0 , 0 ) #(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = ( 98 , 100 )#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]
@@ -86,13 +75,14 @@ def main():
     print("goal: (", goal[0], ',', goal[1],")")
     lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
-
+    openlist = BreakLargeHeap.BLHeap()
+    
     while lstart != lgoal:
         lgoal.costToGo = math.inf
         #increment counter to keep track of nodes over iterations
         counter = counter+1
         #initialize lists
-        openlist = BreakLargeHeap.BLHeap()
+        openlist.wipe()
         closedlist = [] #make array for now. #TODO make closed list consistent over code
         openlist.insert(lstart)
         #run A*
@@ -105,16 +95,16 @@ def main():
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
         node = lgoal
-        while node != lstart:
+        while True:
             path.append(node)
             node = node.parent #why
-            #if node is lstart:
-                #break
+            if node is lstart:
+                break
         path.append(lstart)
         nstart = None
         flagnode = None
         for i in range(len(path),0,-1):
-            #TODO implement later.
+            #TODO implement later. 
             check = path[i-1]
             print(str(counter),check.x,check.y,str(check.blocked))
             if check == goal:
