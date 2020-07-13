@@ -43,7 +43,7 @@ def visualizer(out, grid):
     plt.imshow(nvis,vmin = 0, vmax = len(cmap.colors),cmap=cmap,interpolation='nearest',aspect='equal')
     #plt.xticks([]), plt.yticks([])
     plt.autoscale()
-    plt.savefig("vis.png",bbox_inches="tight")
+    plt.savefig("visB.png",bbox_inches="tight")
     plt.show()
     plt.figure()
 
@@ -51,8 +51,9 @@ def visualizer(out, grid):
 if __name__ == "__main__":
     if os.path.exists("vis.png"):
         os.remove("vis.png")
-    output = open("output.txt")
+    output = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\outputB00.txt")
     other = output.readline().strip()
+    other = "C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\00.txt"
     grid = open(other)
     visualizer(output, grid)
     output.close()

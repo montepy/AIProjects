@@ -1,0 +1,71 @@
+44
+start: ( 79 , 98 )
+goal: ( 81 , 80 )
+1 79 98 False
+1 80 98 False
+1 81 98 True
+2 80 98 False
+2 80 97 True
+3 80 98 False
+3 79 98 False
+3 79 97 True
+4 79 98 False
+4 78 98 True
+5 79 98 False
+5 80 98 False
+5 80 99 False
+5 81 99 False
+5 82 99 False
+5 82 98 False
+5 82 97 False
+5 81 97 False
+5 81 96 False
+5 81 95 False
+5 81 94 True
+6 81 95 False
+6 82 95 False
+6 82 94 False
+6 82 93 False
+6 81 93 True
+7 82 93 False
+7 82 92 False
+7 81 92 True
+8 82 92 False
+8 82 91 False
+8 81 91 False
+8 81 90 True
+9 81 91 False
+9 82 91 False
+9 82 90 False
+9 82 89 False
+9 81 89 False
+9 81 88 False
+9 81 87 False
+9 81 86 False
+9 81 85 True
+10 81 86 False
+10 82 86 True
+11 81 86 False
+11 80 86 False
+11 80 85 True
+12 80 86 False
+12 79 86 False
+12 79 85 False
+12 79 84 False
+12 80 84 False
+12 81 84 False
+12 81 83 False
+12 81 82 True
+13 81 83 False
+13 82 83 False
+13 82 82 False
+13 82 81 False
+13 81 81 False
+13 81 80 False
+target reached
+num-expanded:201
+counter:13
+path_length:6
+start: ( 79 , 98 )
+goal: ( 81 , 80 )
+execution_time: 0.03292274475097656

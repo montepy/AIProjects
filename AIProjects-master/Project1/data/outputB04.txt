@@ -1,0 +1,105 @@
+04
+start: ( 61 , 63 )
+goal: ( 38 , 40 )
+1 61 63 False
+1 60 63 False
+1 59 63 True
+2 60 63 False
+2 60 62 False
+2 59 62 False
+2 58 62 True
+3 59 62 False
+3 59 61 False
+3 58 61 False
+3 57 61 False
+3 56 61 False
+3 55 61 False
+3 54 61 True
+4 55 61 False
+4 55 60 False
+4 54 60 False
+4 53 60 False
+4 52 60 False
+4 51 60 True
+5 52 60 False
+5 52 59 True
+6 52 60 False
+6 53 60 False
+6 53 59 False
+6 53 58 False
+6 52 58 False
+6 51 58 True
+7 52 58 False
+7 52 57 True
+8 52 58 False
+8 53 58 False
+8 53 57 False
+8 53 56 False
+8 52 56 False
+8 51 56 False
+8 50 56 False
+8 49 56 True
+9 50 56 False
+9 50 55 False
+9 49 55 False
+9 48 55 False
+9 47 55 False
+9 46 55 False
+9 45 55 False
+9 44 55 False
+9 43 55 False
+9 42 55 False
+9 41 55 False
+9 40 55 True
+10 41 55 False
+10 41 54 False
+10 40 54 False
+10 39 54 False
+10 38 54 False
+10 38 53 False
+10 38 52 False
+10 38 51 True
+11 38 52 False
+11 39 52 False
+11 39 51 False
+11 39 50 False
+11 38 50 False
+11 38 49 False
+11 38 48 False
+11 38 47 False
+11 38 46 False
+11 38 45 False
+11 38 44 True
+12 38 45 False
+12 39 45 True
+13 38 45 False
+13 37 45 True
+14 38 45 False
+14 38 46 False
+14 39 46 False
+14 40 46 False
+14 40 45 True
+15 40 46 False
+15 41 46 True
+16 40 46 False
+16 39 46 False
+16 38 46 False
+16 37 46 False
+16 36 46 False
+16 36 45 False
+16 36 44 False
+16 37 44 True
+17 36 44 False
+17 36 43 False
+17 37 43 False
+17 38 43 False
+17 38 42 False
+17 38 41 False
+17 38 40 False
+target reached
+num-expanded:437
+counter:17
+path_length:7
+start: ( 61 , 63 )
+goal: ( 38 , 40 )
+execution_time: 0.05481863021850586

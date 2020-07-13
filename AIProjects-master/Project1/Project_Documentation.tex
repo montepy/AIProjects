@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{graphicx}
 
 \title{Project 1 Answers}
 \date{2020-06-29}
@@ -17,7 +18,17 @@ The number of moves the agent can make is bounded from above by the number of un
 \section{Part 2}
 
 \section{Part 3}
-To test and compare the performance of Repeated Forward A* against Repeated Backward A*, we conducted ten runs of both algorithms. Firstly, we applied Forward A*, randomly choosing nodes for both the goal and start, then swapped those same nodes and ran it again to simulate Backward A*. We then took the resulting values for the number of expanded nodes and compared them to determine their efficiency.
+To test and compare the performance of Repeated Forward A* against Repeated Backward A*, we conducted runs of the algorithms once on each of the fifty grid worlds generated. Firstly, we applied Forward A*, randomly choosing nodes for both the goal and start, then swapped those same nodes and ran it again to simulate Backward A*. We then took the resulting values for the number of expanded nodes and compared them to determine their efficiency. Below are example runs, and the percent difference between the different algorithms in terms of nodes expanded.
+\begin{figure}
+	\caption{Example Forward A* path}
+	\centering
+	\includegraphics[scale=0.75]{visF}
+\end{figure}
+\begin{figure}
+	\caption{Example Backward A* path}
+	\centering
+	\includegraphics[scale=0.75]{visB}
+\end{figure}
 \begin{center}
 	\begin{tabular}{|c|c|c|}
 		\hline
@@ -37,7 +48,7 @@ To test and compare the performance of Repeated Forward A* against Repeated Back
 	\end{tabular}
 \end{center}
 
-On average, we determined that Forward A* had a runtime 31.55\% greater that that of Backward A* for the same grids and nodes. Overall, the data seems to suggest that Forward A* is significantly less efficient that Backward A*. However, it is also important to note that, in theory, the two algorithms should have similar performance, given that the obstacles/blocked nodes are spaced largely randomly. The results we have found are may largely be due to our small sample size. As such, it is hard to conclude off of our data that Forward A* is in fact slower than Backward A*
+On average, we determined that Forward A* had a runtime 19.66\% lesser that that of Backward A* for the same grids and nodes. Overall, the data seems to suggest that Forward A* is more efficient that Backward A*. However, it is also important to note that, in theory, the two algorithms should have similar performance, given that the obstacles/blocked nodes should hypothetically be spaced randomly. The results we have found are may be largely due to our small sample size. As such, it is hard to conclude off of our data that Forward A* is in fact slower than Backward A*.
 \section{Part 4}
 \subsection{Manhattan distances}
 The manhattan distance is calculated with the following formula
@@ -126,6 +137,27 @@ proving the inequality true
 \subsubsection{In the case neither are expanded}
 Unlike the other cases, the adaptive A* algorithm modifies neither s or s', so considering the fact that the consistency inequality should hold true in normal A*, we can conclude that this case holds true as well.
 \section{Part 5}
+To test Adaptive A* against Forward A*, we underwent a similar process to the Backward A* vs Forward A* trials, comparing the Adaptive A* algorithm for the same nodes as the initial Forward A* trials to determine which of them was the more efficient. A sample of ten of the trials is shown below.
+
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Percent Difference & Forward A* & Adaptive A* \\
+		\hline
+		0\% & 816 & 816 \\
+		0\% & 482 & 482 \\
+		0\% & 19 & 19 \\
+		0\% & 829 & 829 \\
+		0\% & 2024 & 2024 \\
+		0\% & 453 & 453 \\
+		0\% & 1974 & 1974 \\
+		0\% & 341 & 341 \\
+		0\% & 262 & 262 \\
+		0\% & 1783 & 1783 \\
+		\hline
+	\end{tabular}
+\end{center}
+As can be seen, in the majority of cases, Adaptive A* seems to perform almost exactly the same as 
 
 \section{Part 6}
 

@@ -48,13 +48,13 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
-    #sys.stdout = open('output.txt','w')
+    sys.stdout = open('C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\output'+sys.argv[1]+'.txt','w')
     start_time = time()
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
-    grid = open(text)
+    grid = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\"+sys.argv[1]+".txt")
     print(text)
     rgrid = [[None for x in range(101)]for y in range(101)]
     for i in list(range(101)):  #converts text grid to more easily used array form

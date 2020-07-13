@@ -61,12 +61,12 @@ def main():
     if DEBUGFLAG:
         import pdb;pdb.set_trace()
     else:
-        sys.stdout = open('output.txt','w')
+        sys.stdout = open('C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\outputB'+sys.argv[1]+'.txt','w')
     start_time = time()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
-    grid = open(text)
+    grid = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\"+sys.argv[1]+".txt")
     print(text)
     rgrid = [[None for x in range(101)]for y in range(101)]
     for i in list(range(101)):  #converts text grid to more easily used array form
@@ -77,8 +77,8 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        goal = (int(sys.argv[2]),int(sys.argv[3]))#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = (int(sys.argv[4]),int(sys.argv[5]))#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]
