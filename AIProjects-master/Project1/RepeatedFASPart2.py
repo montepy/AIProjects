@@ -1,18 +1,32 @@
 
 import math
 import BreakLargeHeap
+import BreakSmallHeap
 import GridNode
 import random
 import sys
 from time import time
 
+DEBUGFLAG = True
+
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
     #TODO finish implementing A* later.
+
+    acounter = 0
     while goal.costToGo > openlist.getMin().fvalue():  #while smallest f-value less than goal g value
         #basically, while goal has not been reached, or fvalue() is greater than infinity, indicating a blocked path
         #take smallest node and expand
         node = openlist.removeMin()
+
+        acounter += 1
+        if DEBUGFLAG:
+            print("computePath iteration#", acounter)
+            print("expanding - ")
+            print("\texpanding node at :  ( " + str(node.x), ',', str(node.y), ')')
+            print("\tfvalue - ", node.fvalue(), "\n\tcostToCome - ", node.costToCome, "\n\tcostToGo - ", node.costToGo, "\n\tblocked - ", node.blocked,  '\n')
+            print("openlist size = ", openlist.size, "\nclosedlist size = ", len(closedlist),"\n")
+
         #TODO need to check if this current element is in the closed list and to throw it away if it is
         actions_possible = node.expand(openlist, closedlist, rgrid)
         #commenting for now
@@ -48,9 +62,12 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
-    sys.stdout = open('output.txt','w')
+    if DEBUGFLAG:
+        import pdb;pdb.set_trace()
+    else:
+        #pass
+        sys.stdout = open('output.txt','w')
     start_time = time()
-    #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
@@ -97,11 +114,11 @@ def main():
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
         node = lgoal
-        while True:
+        while node != lstart:
             path.append(node)
             node = node.parent #why
-            if node is lstart:
-                break
+            #if node is lstart:
+                #break
         path.append(lstart)
         nstart = None
         flagnode = None
