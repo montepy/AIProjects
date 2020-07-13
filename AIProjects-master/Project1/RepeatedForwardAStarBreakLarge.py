@@ -48,9 +48,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
-    #sys.stdout = open('output.txt','w')
+    sys.stdout = open('output.txt','w')
     start_time = time()
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
