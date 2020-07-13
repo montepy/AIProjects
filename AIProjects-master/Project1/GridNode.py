@@ -29,11 +29,11 @@ class node:
         self.search = nval
         return
     #first two definitions shouldn't be called, so leaving uncommented for time being
-    def setCostToCome(self, goal_x, goal_y):
-        return
-    def setCostToCome(self, reeval):
-        self.costToCome = reeval
-        return
+    #def setCostToCome(self, goal_x, goal_y):
+        #return
+    #def setCostToCome(self, reeval):
+        #self.costToCome = reeval
+        #return
     def setCostToCome(self, first, second=-1):
         if second != -1:
             self.costToCome = abs(self.x - first) + abs(self.y - second)
