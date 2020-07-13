@@ -48,7 +48,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter, sgoal):
                         subnode.setCostToCome(sgoal-subnode.costToGo)
                     #subnode.setCostToCome(subnode.costToCome-(outlog[counter]-outlog[subnode.search]))
                     subnode.setCostToCome(max(subnode.costToCome,abs(subnode.x - goal.x) + abs(subnode.y - goal.y)))
-                else:     
+                else:
                     subnode.setCostToCome(goal.x, goal.y)
                 subnode.costToGo = math.inf
                 subnode.search = counter
@@ -70,18 +70,25 @@ def main():
     else:
         #print("blah")
         sys.stdout = open('C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\outputA'+sys.argv[1]+'.txt','w')
+        #sys.stdout = open("output.txt",'w')
     start_time = time()
     expanded = 0
     counter = 1  #set iteration counter
     text = sys.argv[1]
+    grid = open(text)
     grid = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\"+sys.argv[1]+".txt")
     #grid = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\00.txt")
     print(text)
 
     lstart = lgoal = start = goal = None
-    #while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-    goal = (69,25)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-    start = (59,50)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+    while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
+    #goal = (69,25)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+    #start = (59,50)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+    #if False:
+        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        lstart = rgrid[start[0]][start[1]]
+        lgoal = rgrid[goal[0]][goal[1]]
     #using random gen for the moment
     #initialize start and goal nodes
     rgrid = [[None for x in range(101)]for y in range(101)]

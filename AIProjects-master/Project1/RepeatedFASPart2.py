@@ -123,7 +123,8 @@ def main(wfile,firstRun,rgrid,startgoalCollection):
         path = []
         #TODO move along path and implement action-cost adjustments
         #need to have ability to track changes over the path and iterate until action changes
-        node = lgoal
+        #node = lgoal
+        node = openlist.getMin()
         while node != lstart:
             path.append(node)
             node = node.parent #why
@@ -195,6 +196,16 @@ if __name__ == "__main__":
     rgrid = makergrid(sys.argv[1])
     startgoalCollection = getRandomSG(rgrid)
     main('output1.txt', True, rgrid, startgoalCollection)
-    print("Finished search with larger G value!")
+    print("Finished search with larger G value.")
+
+
+    rgrid = []#Im sorry if this is a big memory leak this is my first time programing in python
+
+    rgrid = makergrid(sys.argv[1])
+    lstart, lgoal, start, goal = startgoalCollection
+    lstart = rgrid[start[0]][start[1]]
+    lgoal = rgrid[goal[0]][goal[1]]
+    startgoalCollection = lstart, lgoal, start, goal#doing this because I am afraid that many of the nodes have already been set in the previous run
+
     main('output2.txt', False, rgrid, startgoalCollection)#false is for second runthrough with minimum G value dominating
-    print("Finished search with smaller G value!")
+    print("Finished search with smaller G value.")

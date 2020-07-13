@@ -3,6 +3,7 @@ from matplotlib import colors
 import numpy as np
 import fileinput
 import os
+import sys
 
 def visualizer(out, grid):
     colDict = {
@@ -51,9 +52,10 @@ def visualizer(out, grid):
 if __name__ == "__main__":
     if os.path.exists("vis.png"):
         os.remove("vis.png")
-    output = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\outputA00.txt")
+    #output = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\outputA00.txt")
+    output = open(sys.argv[1])
     other = output.readline().strip()
-    other = "C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\00.txt"
+    #other = "C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\00.txt"
     grid = open(other)
     visualizer(output, grid)
     output.close()
