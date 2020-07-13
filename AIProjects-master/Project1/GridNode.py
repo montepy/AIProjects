@@ -1,4 +1,3 @@
-from typing import overload
 
 class node:
     def __init__(self, x, y, costToGo, parent, search, blocked):
@@ -28,19 +27,10 @@ class node:
     def setSearch(self, nval):
         self.search = nval
         return
-    #first two definitions shouldn't be called, so leaving uncommented for time being
-    def setCostToCome(self, goal_x, goal_y):
-        return
-    def setCostToCome(self, reeval):
-        self.costToCome = reeval
-        return
-    def setCostToCome(self, first, second=-1):
-        if second != -1:
-            self.costToCome = abs(self.x - first) + abs(self.y - second)
-        else:
-            self.costToCome = first
-        return
 
+    def setCostToCome(self, goal_x, goal_y):
+        self.costToCome = abs(self.x - goal_x) + abs(self.y - goal_y)
+        return
 
     def setParent(self, parent):
         self.parent = parent
