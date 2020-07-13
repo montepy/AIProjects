@@ -48,7 +48,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
-    sys.stdout = open('C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\output'+sys.argv[1]+'.txt','w')
+    sys.stdout = open('C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\output'+sys.argv[1]+'.txt','w')#need to change this for it to work on other computers
     start_time = time()
     #import pdb;pdb.set_trace()
     expanded = 0

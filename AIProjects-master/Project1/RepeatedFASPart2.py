@@ -5,9 +5,10 @@ import BreakSmallHeap
 import GridNode
 import random
 import sys
+import os
 from time import time
 
-DEBUGFLAG = True
+DEBUGFLAG = False
 
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
@@ -61,18 +62,26 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
                 openlist.insert(subnode)
         actions_possible = []
 
-def main():
+def main(wfile,firstRun,rgrid,startgoalCollection):
+    f = None
     if DEBUGFLAG:
         import pdb;pdb.set_trace()
     else:
         #pass
-        sys.stdout = open('output.txt','w')
+        if os.path.exists(wfile):
+            os.remove(wfile)
+        old_stdout = sys.stdout
+        f = open(wfile,'w')
+        sys.stdout = f
+        #sys.stdout = open(wfile,'w')
     start_time = time()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
-    grid = open(text)
+    #grid = open(text)
     print(text)
+
+    """ commenting out this block becuase I want to make this outside of main
     rgrid = [[None for x in range(101)]for y in range(101)]
     for i in list(range(101)):  #converts text grid to more easily used array form
         line = grid.readline()
@@ -80,21 +89,22 @@ def main():
             rgrid[i][s] = GridNode.node(i, s, math.inf, None, 0, line[s*2:s*2+2].rstrip() == "1")
             #(x, y, costToGo, parent, search, blocked)
 
-    lstart = lgoal = start = goal = None
-    while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        #goal = ( 0 , 0 )
-        #start = ( 98 , 100 )
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        #using random gen for the moment
-        #initialize start and goal nodes
-        lstart = rgrid[start[0]][start[1]]
-        lgoal = rgrid[goal[0]][goal[1]]
+    """
+    #lstart, lgoal, start, goal = getRandomSG(rgrid)
+
+    lstart, lgoal, start, goal = startgoalCollection
+
     print("start: (", start[0], ',', start[1],")")
     print("goal: (", goal[0], ',', goal[1],")")
     lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
-    openlist = BreakLargeHeap.BLHeap()
+
+    if firstRun:
+        openlist = BreakLargeHeap.BLHeap()
+    else:
+        openlist = BreakSmallHeap.BSHeap()
+
+    closedlist = []
 
     while lstart != lgoal:
         lgoal.costToGo = math.inf
@@ -146,7 +156,34 @@ def main():
     print("goal: (", goal[0], ',', goal[1],")")
     print("execution_time:",str(time()-start_time))
 
+    if f != None:
+        sys.stdout = old_stdout #https://stackoverflow.com/questions/7152762/how-to-redirect-print-output-to-a-file-using-python
+        f.close()
     return
+
+def getRandomSG(rgrid):
+    lstart = lgoal = start = goal = None
+    while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
+        #goal = ( 0 , 0 )
+        #start = ( 98 , 100 )
+        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        #using random gen for the moment
+        #initialize start and goal nodes
+        lstart = rgrid[start[0]][start[1]]
+        lgoal = rgrid[goal[0]][goal[1]]
+
+    return lstart, lgoal, start, goal
+
+def makergrid(gridf):
+    grid = open(gridf)
+    rgrid = [[None for x in range(101)]for y in range(101)]
+    for i in list(range(101)):  #converts text grid to more easily used array form
+        line = grid.readline()
+        for s in list(range(101)):
+            rgrid[i][s] = GridNode.node(i, s, math.inf, None, 0, line[s*2:s*2+2].rstrip() == "1")
+            #(x, y, costToGo, parent, search, blocked)
+    return rgrid
 
 def printNodeList(closedlist):
     count = 1
@@ -155,4 +192,9 @@ def printNodeList(closedlist):
         count +=1
 
 if __name__ == "__main__":
-    main()
+    rgrid = makergrid(sys.argv[1])
+    startgoalCollection = getRandomSG(rgrid)
+    main('output1.txt', True, rgrid, startgoalCollection)
+    print("Finished search with larger G value!")
+    main('output2.txt', False, rgrid, startgoalCollection)#false is for second runthrough with minimum G value dominating
+    print("Finished search with smaller G value!")

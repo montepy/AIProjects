@@ -26,6 +26,8 @@ class BSHeap:
 
     def printTree(self):
         level = count = i = 1
+        node = self.array[0]
+
         while count + i < self.size:
             print("\n\nlevel #", level)
             level += 1
@@ -45,6 +47,8 @@ class BSHeap:
                 print()
             count += 1
             j += 1
+
+        print("Element#", count-1, "\t Branch - ", j+1, '\t',node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
 
     def wipe(self):
         self.size = 0
@@ -88,7 +92,7 @@ class BSHeap:
                 i = int(i*2+2)
             #if the two are equal
             elif childl.fvalue() == childr.fvalue() and self.size > i*2+2:
-                if childl.costToGo > childr.costToGo:
+                if childl.costToGo < childr.costToGo:
                     self.array[i],self.array[i*2+1] = self.array[int(i*2+1)],self.array[i]
                     i = int(i*2+1)
                 #favor right, doesn't matter
@@ -194,12 +198,10 @@ class BSHeap:
             self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
             i = int((i-1)/2)
             #self.array[i] = node
-        if node.fvalue() == self.array[int((i-1)/2)].fvalue() and i > 0:
-            if node.costToGo < self.array[int((i-1)/2)].costToGo:
+        while i > 0 and node.fvalue() == self.array[int((i-1)/2)].fvalue() and node.costToGo < self.array[int((i-1)/2)].costToGo:
+            self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
+            i = int((i-1)/2)
 
-                self.array[i],self.array[int((i-1)/2)] = self.array[int((i-1)/2)], self.array[i]
-                i = int((i-1)/2)
-                #self.array[i] = node
         return
 
     def delete(self, index):

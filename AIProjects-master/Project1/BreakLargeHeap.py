@@ -45,6 +45,8 @@ class BLHeap:
             count += 1
             j += 1
 
+        print("Element#", count-1, "\t Branch - ", j+1, '\t',node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
+
     def wipe(self):
         self.size = 0
         self.maxsize = 3
