@@ -8,7 +8,7 @@ import random
 import sys
 from time import time
 
-DEBUGFLAG = True
+DEBUGFLAG = False
 
 def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #loggrid = [101][101]
@@ -141,7 +141,11 @@ def main():
 
     return
 
-
+def printNodeList(closedlist):
+    count = 1
+    for node in closedlist:
+        print("Element#", count,'\t', node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
+        count +=1
 
 if __name__ == "__main__":
     main()

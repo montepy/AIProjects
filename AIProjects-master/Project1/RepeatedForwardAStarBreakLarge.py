@@ -48,9 +48,9 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
         actions_possible = []
 
 def main():
-    sys.stdout = open('output.txt','w')
+    #sys.stdout = open('output.txt','w')
     start_time = time()
-    #import pdb;pdb.set_trace()
+    import pdb;pdb.set_trace()
     expanded = 0
     counter = 0  #set iteration counter
     text = sys.argv[1]
@@ -65,8 +65,10 @@ def main():
 
     lstart = lgoal = start = goal = None
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-        goal = ( 0 , 0 ) #(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        start = ( 98 , 100 )#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        #goal = ( 0 , 0 )
+        #start = ( 98 , 100 )
+        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         #using random gen for the moment
         #initialize start and goal nodes
         lstart = rgrid[start[0]][start[1]]
@@ -76,7 +78,7 @@ def main():
     lstart.setCostToCome(goal[0], goal[1])
     lstart.costToGo = 0
     openlist = BreakLargeHeap.BLHeap()
-    
+
     while lstart != lgoal:
         lgoal.costToGo = math.inf
         #increment counter to keep track of nodes over iterations
@@ -104,7 +106,7 @@ def main():
         nstart = None
         flagnode = None
         for i in range(len(path),0,-1):
-            #TODO implement later. 
+            #TODO implement later.
             check = path[i-1]
             print(str(counter),check.x,check.y,str(check.blocked))
             if check == goal:
