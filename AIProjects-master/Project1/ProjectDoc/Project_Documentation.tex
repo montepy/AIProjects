@@ -16,7 +16,17 @@ b. In a finite gridworld, there will be a limited number of cells which the agen
 The number of moves the agent can make is bounded from above by the number of unblocked cells squared because if an adjacent cell is blocked then the agent will backtrack to the same cell at most one time meaning that they will have visited the cell at most two times within the algorithm before either realizing that there is another path or that there is no path at all to the target. 
 
 \section{Part 2}
-To test the performance differences for breaking ties between larger and smaller G values, we ran the same algorithm on two different binary heaps that would specialize which g values they would prefer. 
+To test the performance differences for breaking ties between larger and smaller G values, we ran the same algorithm on two different binary heaps that would specialize which g values they would prefer. We ran the algorithm on 25 different gridworlds twice, altering the type of heap it used while keeping the same start and goal nodes. Then, the data from the two heaps were compared by their speeds and number of expanded nodes.
+\begin{figure}
+	\caption{Example: Forward A* Path That Promotes Larger G Values: Yellow denotes goal and start}
+	\centering
+	\includegraphics[scale=0.75]{visP2_1}
+\end{figure}
+\begin{figure}
+	\caption{Example: Forward A* Path That Promotes Smaler G Values: Yellow denotes goal and start}
+	\centering
+	\includegraphics[scale=0.75]{visP2_2}
+\end{figure}
 \section{Part 3}
 To test and compare the performance of Repeated Forward A* against Repeated Backward A*, we conducted runs of the algorithms once on each of the fifty grid worlds generated. Firstly, we applied Forward A*, randomly choosing nodes for both the goal and start, then swapped those same nodes and ran it again to simulate Backward A*. We then took the resulting values for the number of expanded nodes and compared them to determine their efficiency. Below are example runs, and the percent difference between the different algorithms in terms of nodes expanded.
 \begin{figure}
