@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.28)  13 JUL 2020 21:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7440 64-bit) (preloaded format=pdflatex 2020.6.28)  14 JUL 2020 10:26
 entering extended mode
 **./Project_Documentation.tex
 (Project_Documentation.tex
@@ -100,60 +100,71 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 9.
-<visF.png, id=1, 315.8199pt x 300.6432pt>
-File: visF.png Graphic file (type png)
-<use visF.png>
-Package pdftex.def Info: visF.png  used on input line 25.
+<visP2_1.png, id=1, 315.8199pt x 300.6432pt>
+File: visP2_1.png Graphic file (type png)
+<use visP2_1.png>
+Package pdftex.def Info: visP2_1.png  used on input line 23.
 (pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
-<visB.png, id=3, 315.8199pt x 300.6432pt>
-File: visB.png Graphic file (type png)
-<use visB.png>
-Package pdftex.def Info: visB.png  used on input line 30.
+<visP2_2.png, id=3, 315.8199pt x 300.6432pt>
+File: visP2_2.png Graphic file (type png)
+<use visP2_2.png>
+Package pdftex.def Info: visP2_2.png  used on input line 28.
 (pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 33.
+(Font)              <7> on input line 31.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 33.
+(Font)              <5> on input line 31.
  [1
 
-{C:/Users/epywa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2 <./visF.
-png> <./visB.png>] [3] [4]
-<visF2.png, id=28, 315.8199pt x 300.6432pt>
+{C:/Users/epywa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2 <./visP2
+_1.png> <./visP2_2.png>]
+<visF.png, id=17, 315.8199pt x 300.6432pt>
+File: visF.png Graphic file (type png)
+<use visF.png>
+Package pdftex.def Info: visF.png  used on input line 50.
+(pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
+<visB.png, id=18, 315.8199pt x 300.6432pt>
+File: visB.png Graphic file (type png)
+<use visB.png>
+Package pdftex.def Info: visB.png  used on input line 55.
+(pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
+ [3 <./visF.png>] [4 <./visB.png>]
+[5]
+<visF2.png, id=34, 315.8199pt x 300.6432pt>
 File: visF2.png Graphic file (type png)
 <use visF2.png>
-Package pdftex.def Info: visF2.png  used on input line 144.
+Package pdftex.def Info: visF2.png  used on input line 169.
 (pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
-<visA.png, id=29, 315.8199pt x 300.6432pt>
+<visA.png, id=35, 315.8199pt x 300.6432pt>
 File: visA.png Graphic file (type png)
 <use visA.png>
-Package pdftex.def Info: visA.png  used on input line 149.
+Package pdftex.def Info: visA.png  used on input line 174.
 (pdftex.def)             Requested size: 236.86433pt x 225.48184pt.
- [5] [6 <./visF2.png> <./visA.png>]
-[7] [8] (Project_Documentation.aux) ) 
+ [6] [7 <./visF2.png>] [8 <./visA.png>] [9] (Project_Documentation.aux) ) 
 Here is how much of TeX's memory you used:
- 1186 strings out of 480756
- 18081 string characters out of 2893794
- 256613 words of memory out of 3000000
- 17252 multiletter control sequences out of 15000+200000
+ 1200 strings out of 480756
+ 18273 string characters out of 2893794
+ 255613 words of memory out of 3000000
+ 17266 multiletter control sequences out of 15000+200000
  536593 words of font info for 38 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,7n,25p,863b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/epywa/AppData/Local/Programs/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/epywa/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/epywa/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:
-/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mmi7.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmr10.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmr12.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/epywa/AppData/Local/Prog
-rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/epywa/AppData
-/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/
-epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pf
-b>
-Output written on Project_Documentation.pdf (8 pages, 174577 bytes).
+<C:/Us
+ers/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx
+10.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/epywa/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/epywa/AppDat
+a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/
+epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pf
+b><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr7.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb><C:/Users/epywa/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on Project_Documentation.pdf (9 pages, 197210 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
+ 85 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

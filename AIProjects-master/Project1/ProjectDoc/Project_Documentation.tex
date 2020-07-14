@@ -32,11 +32,11 @@ To test the performance differences for breaking ties between larger and smaller
 		\hline
 		Percent Difference & Larger G Values & Smaller G values \\
 		\hline
-		23.3\% & 4485 & 3437
-		2.4\% & 4022 & 3934
-		-58.8\% & 3312 & 5261
-		13.7\% & 1452 & 1253
-		-62.2\% & 1931 & 3133
+		23.3\% & 4485 & 3437 \\
+		2.4\% & 4022 & 3934 \\
+		-58.8\% & 3312 & 5261 \\
+		13.7\% & 1452 & 1253 \\
+		-62.2\% & 1931 & 3133 \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -120,7 +120,7 @@ we say
 \end{equation}
 Therefore, manhattan distances can be said to be consistent heuristics.
 \subsection{Adaptive A*}
-To prove conclusively that Adaptive A* leaves heuristics consistent over iterations, we must prove it's validity for the following three cases
+To prove conclusively that Adaptive A* leaves heuristics consistent over iterations, we must prove it's validity for the following three cases, where s denotes a parent node, and s', its successor.
 \subsubsection{In the case both s and s' are expanded}
 The new heuristics for both of the nodes are as follows
 \begin{equation}
@@ -150,7 +150,7 @@ Furthermore,
 \begin{equation}
 f(s) <= f(s')
 \end{equation}
-because the algorithm prioritizes the smallest f-value to expand nodes. Therefore, if we substitute into the equation above as follows, splitting the f-value into h+g values,
+because the f value of a visited node in the previous search (s') cannot be any smaller than an expanded node in the previous search (s) because the algorithm prioritizes expanding the nodes with the smallest f values. Therefore, if we substitute into the equation above as follows, splitting the f-value into h+g values,
 \begin{equation}
 	h_{new}(s) + g(s) <= h(s') + c(s,a,s') + g(s)
 \end{equation}
