@@ -166,7 +166,7 @@ To test Adaptive A* against Forward A*, we underwent a similar process to the Ba
 		\hline
 	\end{tabular}
 \end{center}
-As can be seen, our implementation of Adaptive A* is somewhat inconsistent in runtime. In some of the cases, it makes improvements on the original, but in others, the runtime far exceeds a typical Forward A* implementation. There a number of possible reasons for this. The most likely would be that the implementation itself was incorrect and possessed some small errors that led to inconsistencies in performance. However, there is also the possibility that this is simply not it's usage case, considering that A* is said to handle moving goals best. 
+As can be seen, our implementation of Adaptive A* is somewhat inconsistent in runtime. In some of the cases, it makes improvements on the original, but in most others, the runtime far exceeds a typical Forward A* implementation. There are a number of possible reasons for this. The most likely would be that the implementation itself was incorrect and possessed some small errors that led to inconsistencies in performance. In coding, the algorithm was difficult to debug, and after a certain point, it felt as if there was no proper way to optimize further. However, there is also the possibility that this is simply not it's usage case, considering that Adaptive A* is said to handle moving goals best. Either way, this section of the project can only be inconclusive on whether or not Adaptive A* is truly superior to Forward A*.
 
 \section{Part 6}
 Each node in our implementation has the following members: x, y, costToGo, costToCome, parent, blocked, search, and action\_cost. X and Y may each take 7 bits (int up to 127) to implement considering the size of the gridworld (101), while costToGo and costToCome should each require 8 bits(int up to 255), taking into account the longest path with a manhattan heuristic should be around 200 nodes in length. Tree pointers should take 2 bits(int up to 3) to account for surrounding nodes. Blocked is a one bit boolean, and considering action\_cost is based off of it, we can do away with that all together. The search member is somewhat difficult to estimate for, but for leeway, we grant it 8 bits(int up to 255) Overall, each node should take 41 bits.
@@ -188,5 +188,5 @@ Simplified
 \begin{equation}
 	128+60x+87x^2 = M
 \end{equation}
-The subsequent equation is quadratic. We substitute 32000000 in for M, considering an MB has 8000000 bits, and solve for x using the quadratic formula. The maximum size of a grid world usable within 4 MB is about 606*606.
+The subsequent equation is quadratic. We substitute 32000000 in for M, considering an MB has 8000000 bits, and solve for x using the quadratic formula. The maximum size of a grid world usable within 4 MB, assuming an optimal memory allocation, is about 606*606.
 \end{document}

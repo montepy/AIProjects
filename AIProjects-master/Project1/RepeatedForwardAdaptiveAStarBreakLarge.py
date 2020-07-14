@@ -6,7 +6,7 @@ import random
 import sys
 from time import time
 
-DEBUGFLAG = False
+DEBUGFLAG = True
 
 def ComputePath(rgrid, goal, openlist, closedlist, counter, sgoal):
     #loggrid = [101][101]
@@ -65,8 +65,8 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter, sgoal):
 
 def main():
     if DEBUGFLAG:
-        #print("blah")
-        import pdb;pdb.set_trace()
+        print("blah")
+        #import pdb;pdb.set_trace()
     else:
         #print("blah")
         sys.stdout = open('outputA.txt','w')
@@ -81,9 +81,15 @@ def main():
     print(text)
 
     lstart = lgoal = start = goal = None
+    rgrid = [[None for x in range(101)]for y in range(101)]
+    for i in list(range(101)):  #converts text grid to more easily used array form
+        line = grid.readline()
+        for s in list(range(101)):
+            rgrid[i][s] = GridNode.node(i, s, math.inf, None, 0, line[s*2:s*2+2].rstrip() == "1")
+            #(x, y, costToGo, parent, search, blocked)
     while (lstart is None) or (lgoal is None) or lstart.blocked or lgoal.blocked:
-    #goal = (69,25)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-    #start = (59,50)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        #goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        #start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
     #if False:
         start = (int(sys.argv[2]),int(sys.argv[3]))#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         goal = (int(sys.argv[4]),int(sys.argv[5]))#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
@@ -91,14 +97,8 @@ def main():
         lgoal = rgrid[goal[0]][goal[1]]
     #using random gen for the moment
     #initialize start and goal nodes
-    rgrid = [[None for x in range(101)]for y in range(101)]
-    for i in list(range(101)):  #converts text grid to more easily used array form
-        line = grid.readline()
-        for s in list(range(101)):
-            rgrid[i][s] = GridNode.node(i, s, math.inf, None, 0, line[s*2:s*2+2].rstrip() == "1")
-            #(x, y, costToGo, parent, search, blocked)
-    lstart = rgrid[start[0]][start[1]]
-    lgoal = rgrid[goal[0]][goal[1]]
+    #lstart = rgrid[start[0]][start[1]]
+    #lgoal = rgrid[goal[0]][goal[1]]
     print("start: (", start[0], ',', start[1],")")
     print("goal: (", goal[0], ',', goal[1],")")
     lstart.setCostToCome(goal[0], goal[1])

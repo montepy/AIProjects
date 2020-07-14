@@ -89,4 +89,4 @@ counter:20
 path_length:6
 start: ( 59 , 50 )
 goal: ( 69 , 25 )
-execution_time: 0.17552947998046875
+execution_time: 0.22539782524108887
