@@ -69,14 +69,14 @@ def main():
         import pdb;pdb.set_trace()
     else:
         #print("blah")
-        sys.stdout = open('C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\Project1\\data\\outputA'+sys.argv[1]+'.txt','w')
+        sys.stdout = open('outputA.txt','w')
         #sys.stdout = open("output.txt",'w')
     start_time = time()
     expanded = 0
     counter = 1  #set iteration counter
     text = sys.argv[1]
     grid = open(text)
-    grid = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\"+sys.argv[1]+".txt")
+    #grid = open(sys.argv[1])
     #grid = open("C:\\Users\\epywa\\OneDrive\\Documents\\vscode\\AIProjects-master\\arrs\\randGrid\\00.txt")
     print(text)
 
@@ -85,8 +85,8 @@ def main():
     #goal = (69,25)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
     #start = (59,50)#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
     #if False:
-        goal = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
-        start = (random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        start = (int(sys.argv[2]),int(sys.argv[3]))#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
+        goal = (int(sys.argv[4]),int(sys.argv[5]))#(random.randint(0,100),random.randint(0,100)) # tuple(column, row)
         lstart = rgrid[start[0]][start[1]]
         lgoal = rgrid[goal[0]][goal[1]]
     #using random gen for the moment
