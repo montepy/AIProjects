@@ -23,10 +23,19 @@ To test the performance differences for breaking ties between larger and smaller
 	\includegraphics[scale=0.75]{visP2_1}
 \end{figure}
 \begin{figure}
-	\caption{Example: Forward A* Path That Promotes Smaler G Values: Yellow denotes goal and start}
+	\caption{Example: Forward A* Path That Promotes Smaler G Values (Note:Although the Path Looks shorter, the Algorithm took longer and needed to expand more nodes)}
 	\centering
 	\includegraphics[scale=0.75]{visP2_2}
 \end{figure}
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Percent Difference & Forward A* & Backward A* \\
+		\hline
+		
+		\hline
+	\end{tabular}
+\end{center}
 \section{Part 3}
 To test and compare the performance of Repeated Forward A* against Repeated Backward A*, we conducted runs of the algorithms once on each of the fifty grid worlds generated. Firstly, we applied Forward A*, randomly choosing nodes for both the goal and start, then swapped those same nodes and ran it again to simulate Backward A*. We then took the resulting values for the number of expanded nodes and compared them to determine their efficiency. Below are example runs, and the percent difference between the different algorithms in terms of nodes expanded.
 \begin{figure}
