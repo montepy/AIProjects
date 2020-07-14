@@ -30,12 +30,18 @@ To test the performance differences for breaking ties between larger and smaller
 \begin{center}
 	\begin{tabular}{|c|c|c|}
 		\hline
-		Percent Difference & Forward A* & Backward A* \\
+		Percent Difference & Larger G Values & Smaller G values \\
 		\hline
-		
+		23.3\% & 4485 & 3437
+		2.4\% & 4022 & 3934
+		-58.8\% & 3312 & 5261
+		13.7\% & 1452 & 1253
+		-62.2\% & 1931 & 3133
 		\hline
 	\end{tabular}
 \end{center}
+
+It was found that the algorithm using larger G values was  68\% faster than smaller g values. Both methods of breaking tie breaks usually create similar paths, but sometimes the function with smaller g values will get caught overanalyzing bad paths, thus making it expand more times and take longer to compute the optimal path. 
 \section{Part 3}
 To test and compare the performance of Repeated Forward A* against Repeated Backward A*, we conducted runs of the algorithms once on each of the fifty grid worlds generated. Firstly, we applied Forward A*, randomly choosing nodes for both the goal and start, then swapped those same nodes and ran it again to simulate Backward A*. We then took the resulting values for the number of expanded nodes and compared them to determine their efficiency. Below are example runs, and the percent difference between the different algorithms in terms of nodes expanded.
 \begin{figure}
