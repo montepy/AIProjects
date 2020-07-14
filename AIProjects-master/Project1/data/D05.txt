@@ -1,0 +1,21 @@
+C:\Users\Kyle\Documents\GitHub\AIProjects\AIProjects-master\arrs\randGrid\05.txt
+start: ( 90 , 79 )
+goal: ( 20 , 49 )
+1 90 79 False
+1 89 79 False
+1 88 79 True
+2 89 79 False
+2 89 78 False
+2 88 78 True
+Cannot reach target
+num-expanded:5138
+counter:3
+start: ( 90 , 79 )
+goal: ( 20 , 49 )
+execution_time: 6.597188234329224
+Finished search with smaller G value.
+Running Grid -  6
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  7
+Finished search with larger G value.

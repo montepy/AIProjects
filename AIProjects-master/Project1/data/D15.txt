@@ -1,0 +1,37 @@
+C:\Users\Kyle\Documents\GitHub\AIProjects\AIProjects-master\arrs\randGrid\15.txt
+start: ( 81 , 9 )
+goal: ( 22 , 84 )
+1 81 9 False
+1 81 10 False
+1 81 11 True
+Cannot reach target
+Finished search with smaller G value.
+Running Grid -  16
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  17
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  18
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  19
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  20
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  21
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  22
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  23
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  24
+Finished search with larger G value.
+Finished search with smaller G value.
+Running Grid -  25
+Finished search with larger G value.

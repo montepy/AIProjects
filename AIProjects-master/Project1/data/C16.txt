@@ -1,0 +1,88 @@
+C:\Users\Kyle\Documents\GitHub\AIProjects\AIProjects-master\arrs\randGrid\16.txt
+start: ( 47 , 2 )
+goal: ( 47 , 27 )
+1 47 2 False
+1 47 3 True
+2 47 2 False
+2 48 2 False
+2 48 3 False
+2 48 4 False
+2 47 4 False
+2 47 5 True
+3 47 4 False
+3 48 4 False
+3 48 5 False
+3 48 6 False
+3 47 6 True
+4 48 6 False
+4 48 7 False
+4 47 7 False
+4 47 8 False
+4 47 9 False
+4 47 10 True
+5 47 9 False
+5 48 9 False
+5 48 10 True
+6 48 9 False
+6 47 9 False
+6 46 9 False
+6 46 10 False
+6 46 11 False
+6 47 11 True
+7 46 11 False
+7 46 12 True
+8 46 11 False
+8 45 11 False
+8 45 12 False
+8 45 13 False
+8 46 13 True
+9 45 13 False
+9 45 14 False
+9 46 14 False
+9 47 14 False
+9 47 15 True
+10 47 14 False
+10 48 14 False
+10 48 15 True
+11 48 14 False
+11 47 14 False
+11 46 14 False
+11 46 15 False
+11 46 16 True
+12 46 15 False
+12 45 15 True
+13 46 15 False
+13 46 14 False
+13 47 14 False
+13 48 14 False
+13 49 14 False
+13 49 15 False
+13 49 16 False
+13 48 16 False
+13 47 16 False
+13 47 17 False
+13 47 18 False
+13 47 19 True
+14 47 18 False
+14 48 18 False
+14 48 19 False
+14 48 20 False
+14 47 20 False
+14 47 21 False
+14 47 22 False
+14 47 23 False
+14 47 24 False
+14 47 25 True
+15 47 24 False
+15 48 24 False
+15 48 25 False
+15 48 26 False
+15 47 26 False
+15 47 27 False
+target reached
+num-expanded:275
+counter:15
+path_length:6
+start: ( 47 , 2 )
+goal: ( 47 , 27 )
+execution_time: 0.02692866325378418

@@ -1,0 +1,79 @@
+C:\Users\Kyle\Documents\GitHub\AIProjects\AIProjects-master\arrs\randGrid\01.txt
+start: ( 61 , 91 )
+goal: ( 83 , 81 )
+1 61 91 False
+1 62 91 False
+1 63 91 False
+1 64 91 False
+1 65 91 False
+1 66 91 True
+2 65 91 False
+2 65 90 False
+2 66 90 False
+2 67 90 False
+2 68 90 False
+2 69 90 False
+2 70 90 True
+3 69 90 False
+3 69 89 True
+4 69 90 False
+4 68 90 False
+4 68 89 False
+4 68 88 False
+4 69 88 True
+5 68 88 False
+5 68 87 False
+5 69 87 False
+5 70 87 True
+6 69 87 False
+6 69 86 True
+7 69 87 False
+7 68 87 False
+7 68 86 False
+7 68 85 False
+7 69 85 False
+7 70 85 False
+7 71 85 False
+7 72 85 False
+7 73 85 True
+8 72 85 False
+8 72 84 False
+8 73 84 False
+8 74 84 True
+9 73 84 False
+9 73 83 False
+9 74 83 False
+9 75 83 True
+10 74 83 False
+10 74 82 False
+10 75 82 False
+10 76 82 False
+10 77 82 True
+11 76 82 False
+11 76 81 False
+11 77 81 True
+12 76 81 False
+12 76 80 True
+13 76 81 False
+13 76 82 False
+13 76 83 False
+13 77 83 False
+13 78 83 False
+13 79 83 False
+13 80 83 False
+13 81 83 False
+13 82 83 False
+13 83 83 False
+13 83 82 True
+14 83 83 False
+14 84 83 False
+14 84 82 False
+14 84 81 False
+14 83 81 False
+target reached
+num-expanded:247
+counter:14
+path_length:5
+start: ( 61 , 91 )
+goal: ( 83 , 81 )
+execution_time: 0.020939350128173828

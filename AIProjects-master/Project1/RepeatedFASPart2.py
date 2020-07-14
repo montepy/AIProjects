@@ -15,7 +15,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
     #TODO finish implementing A* later.
 
     acounter = 0
-    while goal.costToGo > openlist.getMin().fvalue():  #while smallest f-value less than goal g value
+    while goal.costToGo > openlist.getMin().fvalue() and openlist.size != 500:  #while smallest f-value less than goal g value
         #basically, while goal has not been reached, or fvalue() is greater than infinity, indicating a blocked path
         #take smallest node and expand
         node = openlist.removeMin()
@@ -62,7 +62,7 @@ def ComputePath(rgrid, goal, openlist, closedlist, counter):
                 openlist.insert(subnode)
         actions_possible = []
 
-def main(wfile,firstRun,rgrid,startgoalCollection):
+def main(wfile,firstRun,gridf,rgrid,startgoalCollection):
     f = None
     if DEBUGFLAG:
         import pdb;pdb.set_trace()
@@ -77,7 +77,7 @@ def main(wfile,firstRun,rgrid,startgoalCollection):
     start_time = time()
     expanded = 0
     counter = 0  #set iteration counter
-    text = sys.argv[1]
+    text = gridf
     #grid = open(text)
     print(text)
 
@@ -117,8 +117,15 @@ def main(wfile,firstRun,rgrid,startgoalCollection):
         #run A*
         ComputePath(rgrid, lgoal, openlist, closedlist, counter)
         expanded += len(closedlist)
-        if openlist.size == 0:
+        #if openlist.size == 0 or openlist.size > 500 or len(closedlist)> 2500 or time() - start_time > 10*10*10*10:
+        if openlist.size == 0 or time() - start_time > 5:
             print("Cannot reach target")
+            print("num-expanded:" + str(expanded))
+            print("counter:" + str(counter))
+            #print("path_length:" + str(len(path)))
+            print("start: (", start[0], ',', start[1],")")
+            print("goal: (", goal[0], ',', goal[1],")")
+            print("execution_time:",str(time()-start_time))
             return
         path = []
         #TODO move along path and implement action-cost adjustments
@@ -197,22 +204,41 @@ def argv1Check():
         print("Please Input a Grid File from the arrs/randGrid folder")
         exit()
 
+def listOfGridFiles():
+    gridflist = []
+    for i in range(10):
+        gridflist.append('0' + str(i) + '.txt')
+
+    for i in range(41):
+        gridflist.append(str(i+10)+'.txt')
+
+    #print(gridflist)
+    #exit()
+    return gridflist
+
 if __name__ == "__main__":
     argv1Check()
+    gridflist = listOfGridFiles()
 
-    rgrid = makergrid(sys.argv[1])
-    startgoalCollection = getRandomSG(rgrid)
-    main('output1.txt', True, rgrid, startgoalCollection)
-    print("Finished search with larger G value.")
+    for i in range(20):
+        print("Running Grid - ", i)
+        currentGrid = gridflist[i]
+        gridf = sys.argv[1] + "\\" + currentGrid
+        writef = sys.argv[2] + "\\C" + currentGrid
+        rgrid = makergrid(gridf)
+        startgoalCollection = getRandomSG(rgrid)
+        main(writef, True, gridf, rgrid, startgoalCollection)
+        print("Finished search with larger G value.")
 
 
-    rgrid = []#Im sorry if this is a big memory leak this is my first time programing in python
+        rgrid = []#Im sorry if this is a big memory leak this is my first time programing in python
 
-    rgrid = makergrid(sys.argv[1])
-    lstart, lgoal, start, goal = startgoalCollection
-    lstart = rgrid[start[0]][start[1]]
-    lgoal = rgrid[goal[0]][goal[1]]
-    startgoalCollection = lstart, lgoal, start, goal#doing this because I am afraid that many of the nodes have already been set in the previous run
+        rgrid = makergrid(gridf)
+        lstart, lgoal, start, goal = startgoalCollection
+        lstart = rgrid[start[0]][start[1]]
+        lgoal = rgrid[goal[0]][goal[1]]
+        startgoalCollection = lstart, lgoal, start, goal#doing this because I am afraid that many of the nodes have already been set in the previous run
 
-    main('output2.txt', False, rgrid, startgoalCollection)#false is for second runthrough with minimum G value dominating
-    print("Finished search with smaller G value.")
+        writef = sys.argv[2] + "\\D" + currentGrid
+        main(writef, False, gridf, rgrid, startgoalCollection)#false is for second runthrough with minimum G value dominating
+        print("Finished search with smaller G value.")

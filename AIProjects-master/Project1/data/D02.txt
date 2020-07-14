@@ -1,0 +1,59 @@
+C:\Users\Kyle\Documents\GitHub\AIProjects\AIProjects-master\arrs\randGrid\02.txt
+start: ( 11 , 21 )
+goal: ( 24 , 87 )
+1 11 21 False
+1 11 22 False
+1 11 23 False
+1 11 24 False
+1 11 25 False
+1 11 26 False
+1 11 27 False
+1 11 28 False
+1 11 29 True
+2 11 28 False
+2 12 28 True
+3 11 28 False
+3 10 28 False
+3 10 29 False
+3 10 30 False
+3 10 31 False
+3 10 32 False
+3 10 33 False
+3 10 34 False
+3 10 35 True
+4 10 34 False
+4 11 34 True
+5 10 34 False
+5 9 34 False
+5 9 35 True
+6 9 34 False
+6 8 34 False
+6 8 35 False
+6 8 36 True
+7 8 35 False
+7 7 35 True
+8 8 35 False
+8 8 34 False
+8 9 34 False
+8 10 34 False
+8 10 33 False
+8 11 33 False
+8 12 33 True
+9 11 33 False
+9 11 32 True
+10 11 33 False
+10 10 33 False
+10 10 32 False
+10 10 31 False
+10 11 31 False
+10 12 31 False
+10 13 31 True
+Cannot reach target
+num-expanded:8212
+counter:11
+start: ( 11 , 21 )
+goal: ( 24 , 87 )
+execution_time: 5.17393946647644
+Finished search with smaller G value.
+Running Grid -  3
+Finished search with larger G value.
