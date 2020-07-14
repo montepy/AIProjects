@@ -192,7 +192,14 @@ def printNodeList(closedlist):
         print("Element#", count,'\t', node," : fvalue - ", node.fvalue(), " , CostToGo - ", node.costToGo)
         count +=1
 
+def argv1Check():
+    if len(sys.argv) <= 1:
+        print("Please Input a Grid File from the arrs/randGrid folder")
+        exit()
+
 if __name__ == "__main__":
+    argv1Check()
+
     rgrid = makergrid(sys.argv[1])
     startgoalCollection = getRandomSG(rgrid)
     main('output1.txt', True, rgrid, startgoalCollection)
