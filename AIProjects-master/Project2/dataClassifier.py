@@ -12,7 +12,7 @@
 import mostFrequent
 import naiveBayes
 import perceptron
-import mira
+#import mira
 import samples
 import sys
 import util
@@ -63,11 +63,19 @@ def enhancedFeatureExtractorDigit(datum):
   You should return a util.Counter() of features
   for this datum (datum is of type samples.Datum).
   
-  ## DESCRIBE YOUR ENHANCED FEATURES HERE...
+  Retrieve 2x2 block of pixel values for use in classification.
+  forget above for now, just pixel values
   
   ##
   """
-  features =  basicFeatureExtractorDigit(datum)
+  features = basicFeatureExtractorDigit(datum)
+  #out = util.Counter()
+  #for x in range(FACE_DATUM_WIDTH/2):
+  #  for y in range(FACE_DATUM_HEIGHT/2):
+  #    w = x*2
+  #    l = y*2
+  #    out[(w,l)] = {features[(w,l)],features[(w+1,l)],features[(w,l+1)],features[(w+1,l+1)]}
+      
 
   "*** YOUR CODE HERE ***"
   
@@ -86,7 +94,7 @@ def enhancedFeatureExtractorFace(datum):
   Your feature extraction playground for faces.
   It is your choice to modify this.
   """
-  features =  basicFeatureExtractorFace(datum)
+  features = basicFeatureExtractorFace(datum)
   return features
 
 def analysis(classifier, guesses, testLabels, testData, rawTestData, printImage):

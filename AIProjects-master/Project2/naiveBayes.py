@@ -9,6 +9,7 @@
 import util
 import classificationMethod
 import math
+import statistics
 
 class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
   """
@@ -37,7 +38,8 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
       
     # might be useful in your code later...
     # this is a list of all features in the training set.
-    self.features = list(set([ f for datum in trainingData for f in datum.keys() ]));
+    # presumably is pixel data in format determined in dataClass
+    self.features = list(set([ f for datum in trainingData for f in datum.keys() ]))
     
     if (self.automaticTuning):
         kgrid = [0.001, 0.01, 0.05, 0.1, 0.5, 1, 5, 10, 20, 50]
@@ -59,9 +61,47 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     To get the list of all possible features or labels, use self.features and 
     self.legalLabels.
     """
+    trainingClasses = dict()
+    counter = 0
 
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    for i in self.legalLabels:
+      trainingClasses[i] = []
+    #classify data by class for training
+    #don't even know if we need this for now. keeping in case.
+    for it in trainingData:
+      trainingClasses[trainingLabels[counter]].append(it) 
+      counter += 1
+    dataStats = dict()
+    for num in self.legalLabels:
+      #instantiate empty list of digit objects per each class
+      dataStats[num] = []
+      #want to somehow compile all values within one pixel for each class and calculate mean/stdev
+      #how to do? need to iterate down digit objects for each value.
+      #get list of digit drawings.
+      diglist = trainingClasses[num]
+      pixNum = len(diglist[0])
+      #iterate through each pixel
+      for val in list(range(pixNum)):
+        calcList = []
+        #iterate through each digit object
+        for obval in list(range(len(diglist))):
+          #add val found to list for stat calcs
+          pix = self.features[obval*pixNum+val]
+          if pix == '+':
+            calcList.append(2)
+          elif pix == '#':
+            calcList.append(1)
+          else:
+            calcList.append(0)
+        #smooth values
+        calcList.append(self.k)
+        #calculate stdev and mean for list
+        dataStats[num].append(statistics.mean(calcList),statistics.stdev(calcList))
+      #have to get counts of class for prior probability, append to end of array
+      dataStats[num].append(len(trainingClasses[num])/len(trainingLabels))
+    self.dataStats = dataStats
+    #util.raiseNotDefined()
         
   def classify(self, testData):
     """
@@ -87,11 +127,21 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     self.legalLabels.
     """
     logJoint = util.Counter()
-    
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-    
+    #from what I can tell, the basic idea here is to calculate the probabilities for all labels and output a list with them.
+    for label in self.legalLabels:
+      condprob = 1
+      counter = 0
+      for feature in datum.keys():
+        condprob *= GaussianPDF(feature,self.dataStats[label][counter][0],self.dataStats[label][counter][1])
+        counter += 1
+      logJoint[label] = condProb*dataStats[label][-1]
+      
     return logJoint
+  
+  def GaussianPDF(self, feature, mean, stdev):
+    """Gaussian probability density function"""
+    principal = (1/(math.sqrt(2*math.pi)*stdev))* math.exp(-1*(math.pow(feature-mean,2)/(2*math.pow(stdev,2)))))
+    return principal
   
   def findHighOddsFeatures(self, label1, label2):
     """
