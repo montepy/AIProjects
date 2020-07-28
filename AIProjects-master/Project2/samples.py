@@ -13,6 +13,8 @@ import os
 DATUM_WIDTH = 0 # in pixels
 DATUM_HEIGHT = 0 # in pixels
 
+DEBUGING_MODE = False
+
 ## Module Classes
 
 class Datum:
@@ -122,6 +124,7 @@ def readlines(filename):
   if(os.path.exists(filename)): 
     return [l[:-1] for l in open(filename).readlines()]
   else: 
+    print(os.getcwd())
     z = zipfile.ZipFile('data.zip')
     return z.read(filename).split('\n')
     
@@ -189,5 +192,7 @@ def _test():
 if __name__ == "__main__":
   #print(os.getcwd())
   #print(__file__[:-10])
-  os.chdir(__file__[:-10])
+  if DEBUGING_MODE:
+    import pdb; pdb.set_trace()
+  os.chdir(__file__[:-len('samples.py')])
   _test()  

@@ -16,12 +16,15 @@ import perceptron
 import samples
 import sys
 import util
+import os
 
 TEST_SET_SIZE = 100
 DIGIT_DATUM_WIDTH=28
 DIGIT_DATUM_HEIGHT=28
 FACE_DATUM_WIDTH=60
 FACE_DATUM_HEIGHT=70
+
+DEBUGING_MODE = True
 
 
 def basicFeatureExtractorDigit(datum):
@@ -244,22 +247,21 @@ def readCommand( argv ):
         print("using smoothing parameter k=%f for naivebayes" %  options.smoothing)
   elif(options.classifier == "perceptron"):
     classifier = perceptron.PerceptronClassifier(legalLabels,options.iterations)
-  """
-  elif(options.classifier == "mira"):
-    classifier = mira.MiraClassifier(legalLabels, options.iterations)
-    if (options.autotune):
-        print("using automatic tuning for MIRA")
-        classifier.automaticTuning = True
-    else:
-        print("using default C=0.001 for MIRA")
-  """
-  elif(options.classifier == 'minicontest'):
-    import minicontest
-    classifier = minicontest.contestClassifier(legalLabels)
+  
+  #elif(options.classifier == "mira"):
+    #classifier = mira.MiraClassifier(legalLabels, options.iterations)
+    #if (options.autotune):
+        #print("using automatic tuning for MIRA")
+        #classifier.automaticTuning = True
+    #else:
+        #print("using default C=0.001 for MIRA")
+  
+  #elif(options.classifier == 'minicontest'):
+    #import minicontest
+    #classifier = minicontest.contestClassifier(legalLabels)
   else:
     print("Unknown classifier:", options.classifier)
     print(USAGE_STRING)
-    
     sys.exit(2)
 
   args['classifier'] = classifier
@@ -348,6 +350,10 @@ def runClassifier(args, options):
       printImage(features_weights)
 
 if __name__ == '__main__':
+  if DEBUGING_MODE:
+    import pdb; pdb.set_trace()
+  #print(__file__[:-len('dataClassifier.py')])
+  os.chdir(__file__[:-(len('dataClassifier.py'))])
   # Read input
   args, options = readCommand( sys.argv[1:] ) 
   # Run classifier
