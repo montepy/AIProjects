@@ -134,6 +134,7 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
       for feature in datum.keys():
         condprob *= GaussianPDF(feature,self.dataStats[label][counter][0],self.dataStats[label][counter][1])
         counter += 1
+      #multiply by prior probability
       logJoint[label] = condProb*dataStats[label][-1]
       
     return logJoint
@@ -151,9 +152,25 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     Note: you may find 'self.features' a useful way to loop through all possible features
     """
     featuresOdds = []
-       
+    for i,j in dataStats[label1],dataStats[label2]:
+      #generate normal distribution with mean and stdev from dataStats
+      ndisti = statistics.NormalDist(i[0],i[1])
+      ndistj = statistics.NormalDist(j[0],j[1])
+      odds = (ndisti.cdf(2.0)-ndisti.cdf(1.0))/(ndistj.cdf(2.0)-ndistj.cdf(1.0))
+      if len(featuresOdds) < 100:
+        featuresOdds.append(odds)
+      else:
+        min = 2.0
+        index = 0
+        for i in list(range(featuresOdds)):
+          if featuresOdds[i] < min:
+            min = featuresOdds[i]
+            index = i
+        if min < odds:
+          featuresOdds[index] = odds
+
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    #util.raiseNotDefined()
 
     return featuresOdds
     
