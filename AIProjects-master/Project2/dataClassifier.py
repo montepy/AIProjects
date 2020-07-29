@@ -168,7 +168,7 @@ def readCommand( argv ):
   from optparse import OptionParser  
   parser = OptionParser(USAGE_STRING)
   
-  parser.add_option('-c', '--classifier', help=default('The type of classifier'), choices=['mostFrequent', 'nb', 'naiveBayes', 'perceptron', 'mira', 'minicontest'], default='mostFrequent')
+  parser.add_option('-c', '--classifier', help=default('The type of classifier'), choices=['mostFrequent', 'nb', 'naiveBayes', 'perceptron', 'mira', 'minicontest'], default='naiveBayes')
   parser.add_option('-d', '--data', help=default('Dataset to use'), choices=['digits', 'faces'], default='digits')
   parser.add_option('-t', '--training', help=default('The size of the training set'), default=100, type="int")
   parser.add_option('-f', '--features', help=default('Whether to use enhanced features'), default=False, action="store_true")
@@ -297,19 +297,19 @@ def runClassifier(args, options):
   numTest = options.test
 
   if(options.data=="faces"):
-    rawTrainingData = samples.loadDataFile("facedata/facedatatrain", numTraining,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    trainingLabels = samples.loadLabelsFile("facedata/facedatatrainlabels", numTraining)
-    rawValidationData = samples.loadDataFile("facedata/facedatatrain", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    validationLabels = samples.loadLabelsFile("facedata/facedatatrainlabels", numTest)
-    rawTestData = samples.loadDataFile("facedata/facedatatest", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    testLabels = samples.loadLabelsFile("facedata/facedatatestlabels", numTest)
+    rawTrainingData = samples.loadDataFile("data/facedata/data/facedatatrain", numTraining,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
+    trainingLabels = samples.loadLabelsFile("data/facedata/data/facedatatrainlabels", numTraining)
+    rawValidationData = samples.loadDataFile("data/facedata/data/facedatatrain", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
+    validationLabels = samples.loadLabelsFile("data/facedata/data/facedatatrainlabels", numTest)
+    rawTestData = samples.loadDataFile("data/facedata/data/facedatatest", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
+    testLabels = samples.loadLabelsFile("data/facedata/data/facedatatestlabels", numTest)
   else:
-    rawTrainingData = samples.loadDataFile("digitdata/trainingimages", numTraining,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
-    trainingLabels = samples.loadLabelsFile("digitdata/traininglabels", numTraining)
-    rawValidationData = samples.loadDataFile("digitdata/validationimages", numTest,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
-    validationLabels = samples.loadLabelsFile("digitdata/validationlabels", numTest)
-    rawTestData = samples.loadDataFile("digitdata/testimages", numTest,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
-    testLabels = samples.loadLabelsFile("digitdata/testlabels", numTest)
+    rawTrainingData = samples.loadDataFile("data/digitdata/trainingimages", numTraining,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
+    trainingLabels = samples.loadLabelsFile("data/digitdata/traininglabels", numTraining)
+    rawValidationData = samples.loadDataFile("data/digitdata/validationimages", numTest,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
+    validationLabels = samples.loadLabelsFile("data/digitdata/validationlabels", numTest)
+    rawTestData = samples.loadDataFile("data/digitdata/testimages", numTest,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
+    testLabels = samples.loadLabelsFile("data/digitdata/testlabels", numTest)
     
   
   # Extract features
@@ -350,10 +350,10 @@ def runClassifier(args, options):
       printImage(features_weights)
 
 if __name__ == '__main__':
+  os.chdir(__file__[:-(len('dataClassifier.py'))])
   if DEBUGING_MODE:
     import pdb; pdb.set_trace()
   #print(__file__[:-len('dataClassifier.py')])
-  os.chdir(__file__[:-(len('dataClassifier.py'))])
   # Read input
   args, options = readCommand( sys.argv[1:] ) 
   # Run classifier
