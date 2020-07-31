@@ -24,7 +24,7 @@ DIGIT_DATUM_HEIGHT=28
 FACE_DATUM_WIDTH=60
 FACE_DATUM_HEIGHT=70
 
-DEBUGING_MODE = True
+DEBUGING_MODE = False
 
 
 def basicFeatureExtractorDigit(datum):
