@@ -124,7 +124,7 @@ def readlines(filename):
   if(os.path.exists(filename)): 
     return [l[:-1] for l in open(filename).readlines()]
   else: 
-    print(os.getcwd())
+    #print(os.getcwd())
     z = zipfile.ZipFile('data.zip')
     return z.read(filename).split('\n')
     
@@ -169,7 +169,7 @@ def convertToInteger(data):
   if type(data) != type([]):
     return IntegerConversionFunction(data)
   else:
-    return map(convertToInteger, data)
+    return list(map(convertToInteger, data))
 
 # Testing
 

@@ -141,7 +141,7 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
   
   def GaussianPDF(self, feature, mean, stdev):
     """Gaussian probability density function"""
-    principal = (1/(math.sqrt(2*math.pi)*stdev))* math.exp(-1*(math.pow(feature-mean,2)/(2*math.pow(stdev,2)))))
+    principal = (1/(math.sqrt(2*math.pi)*stdev))* math.exp(-1*(math.pow(feature-mean,2)/(2*math.pow(stdev,2))))
     return principal
   
   def findHighOddsFeatures(self, label1, label2):
