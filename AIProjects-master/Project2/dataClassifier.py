@@ -24,7 +24,7 @@ DIGIT_DATUM_HEIGHT=28
 FACE_DATUM_WIDTH=60
 FACE_DATUM_HEIGHT=70
 
-DEBUGING_MODE = True
+DEBUGING_MODE = False
 
 
 def basicFeatureExtractorDigit(datum):
@@ -35,12 +35,13 @@ def basicFeatureExtractorDigit(datum):
   a = datum.getPixels()
 
   features = util.Counter()
-  for x in range(DIGIT_DATUM_WIDTH):
-    for y in range(DIGIT_DATUM_HEIGHT):
-      if datum.getPixel(x, y) > 0:
-        features[(x,y)] = 1
-      else:
-        features[(x,y)] = 0
+  for x in list(range(DIGIT_DATUM_WIDTH)):
+    for y in list(range(DIGIT_DATUM_HEIGHT)):
+      features[(x,y)] = datum.getPixel(x,y)
+      #if datum.getPixel(x, y) > 0:
+      #  features[(x,y)] = 1
+      #else:
+      #  features[(x,y)] = 0
   return features
 
 def basicFeatureExtractorFace(datum):
@@ -361,7 +362,7 @@ if __name__ == '__main__':
   os.chdir(__file__[:-(len('dataClassifier.py'))])
   if DEBUGING_MODE:
     import pdb; pdb.set_trace()
-  #print(__file__[:-len('dataClassifier.py')])
+  print(__file__[:-len('dataClassifier.py')])
   # Read input
   args, options = readCommand( sys.argv[1:] ) 
   # Run classifier

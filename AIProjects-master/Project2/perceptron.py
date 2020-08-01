@@ -8,7 +8,7 @@
 
 # Perceptron implementation
 import util
-print = True
+DEBUG = True
 
 class PerceptronClassifier:
   """

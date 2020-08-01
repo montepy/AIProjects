@@ -195,4 +195,4 @@ if __name__ == "__main__":
   if DEBUGING_MODE:
     import pdb; pdb.set_trace()
   os.chdir(__file__[:-len('samples.py')])
-  _test()  
+  #_test()  

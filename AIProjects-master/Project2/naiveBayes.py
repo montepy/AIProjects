@@ -80,26 +80,30 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
       #how to do? need to iterate down digit objects for each value.
       #get list of digit drawings.
       diglist = trainingClasses[num]
-      pixNum = len(diglist[0])
+      pixNum = trainingClasses[num][0].keys()
       #iterate through each pixel
-      for val in list(range(pixNum)):
-        calcList = []
+      for valid in pixNum:
+        #calcList = []
+        pixList = [0,0,0]
         #iterate through each digit object
-        for obval in list(range(len(diglist))):
+        for obval in diglist:
           #add val found to list for stat calcs
-          pix = self.features[obval*pixNum+val]
-          if pix == '+':
-            calcList.append(2)
-          elif pix == '#':
-            calcList.append(1)
-          else:
-            calcList.append(0)
+          pix = obval[valid]
+          pixList[pix] += 1
+          #calcList.append(pix)
+        for i in list(range(3)):
+          pixList[i] = (pixList[i]+self.k)/(len(diglist)+self.k)
+
         #smooth values
-        calcList.append(self.k)
+        #calcList.append(self.k)
         #calculate stdev and mean for list
-        dataStats[num].append(statistics.mean(calcList),statistics.stdev(calcList))
+        #add small number to fudge for stdev
+        #dataStats[num].append((statistics.mean(calcList),statistics.stdev(calcList)))
+        #commenting above for now, trying to switch methods
+        dataStats[num].append(pixList)
       #have to get counts of class for prior probability, append to end of array
-      dataStats[num].append(len(trainingClasses[num])/len(trainingLabels))
+      priprob = (len(trainingClasses[num])+self.k)/(len(trainingLabels)+self.k)
+      dataStats[num].append(priprob)
     self.dataStats = dataStats
     #util.raiseNotDefined()
         
@@ -131,17 +135,19 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     for label in self.legalLabels:
       condprob = 1
       counter = 0
-      for feature in datum.keys():
-        condprob *= GaussianPDF(feature,self.dataStats[label][counter][0],self.dataStats[label][counter][1])
+      for feature in datum.values():
+        condprob *= self.dataStats[label][counter][feature]
+        #condprob *= self.GaussianPDF(feature,self.dataStats[label][counter][0],self.dataStats[label][counter][1])
         counter += 1
       #multiply by prior probability
-      logJoint[label] = condProb*dataStats[label][-1]
+      holder = self.dataStats[label][-1]
+      logJoint[label] = condprob*holder #*self.dataStats[label][-1]
       
     return logJoint
   
   def GaussianPDF(self, feature, mean, stdev):
     """Gaussian probability density function"""
-    principal = (1/(math.sqrt(2*math.pi)*stdev))* math.exp(-1*(math.pow(feature-mean,2)/(2*math.pow(stdev,2)))))
+    principal = (1/(math.sqrt(2*math.pi)*stdev))*math.exp(-1*(math.pow(feature-mean,2)/(2*math.pow(stdev,2))))
     return principal
   
   def findHighOddsFeatures(self, label1, label2):
