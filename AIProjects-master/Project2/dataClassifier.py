@@ -49,7 +49,8 @@ def basicFeatureExtractorDigit(datum):
 def basicFeatureExtractorFace(datum):
   """
   Returns a set of pixel features indicating whether
-  each pixel in the provided datum is an edge (1) or no edge (0)
+  each 2x2 box in the provided datum has a line and which type
+  Note boxes with 1 pixel get filed under blank spaces
   """
   a = datum.getPixels()
 
