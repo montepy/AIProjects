@@ -76,22 +76,27 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     for num in self.legalLabels:
       #instantiate empty list of digit objects per each class
       dataStats[num] = []
-      #want to somehow compile all values within one pixel for each class and calculate mean/stdev
+      #want to somehow compile all values within one pixel/box for each class and calculate ratio
       #how to do? need to iterate down digit objects for each value.
-      #get list of digit drawings.
+      #get list of drawings.
       diglist = trainingClasses[num]
+      #find number of pixels/boxes
       pixNum = trainingClasses[num][0].keys()
-      #iterate through each pixel
+      uniqueNums = trainingClasses[num][0][(-1,-1)]
+      #iterate through each pixel/box
       for valid in pixNum:
         #calcList = []
-        pixList = [0,0]
+        pixList = [0]*uniqueNums
+        if valid == (-1,-1):
+          continue
         #iterate through each digit object
+        
         for obval in diglist:
           #add val found to list for stat calcs
           pix = obval[valid]
           pixList[pix] += 1
           #calcList.append(pix)
-        for i in list(range(2)):
+        for i in list(range(uniqueNums)):
           pixList[i] = (pixList[i]+self.k)/(len(diglist)+self.k)
 
         #smooth values
@@ -135,8 +140,10 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     for label in self.legalLabels:
       condprob = 1
       counter = 0
-      for feature in datum.values():
-        condprob *= self.dataStats[label][counter][feature]
+      for feature in datum.keys():
+        if feature == (-1,-1):
+          continue
+        condprob *= self.dataStats[label][counter][datum[feature]]
         #condprob *= self.GaussianPDF(feature,self.dataStats[label][counter][0],self.dataStats[label][counter][1])
         counter += 1
       #multiply by prior probability

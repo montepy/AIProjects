@@ -43,6 +43,7 @@ def basicFeatureExtractorDigit(datum):
         features[(x,y)] = 1
       else:
         features[(x,y)] = 0
+  features[(-1,-1)] = 2
   return features
 
 def basicFeatureExtractorFace(datum):
@@ -53,12 +54,33 @@ def basicFeatureExtractorFace(datum):
   a = datum.getPixels()
 
   features = util.Counter()
-  for x in range(FACE_DATUM_WIDTH):
-    for y in range(FACE_DATUM_HEIGHT):
-      if datum.getPixel(x, y) > 0:
-        features[(x,y)] = 1
+  for x in range(FACE_DATUM_WIDTH/2):
+    for y in range(FACE_DATUM_HEIGHT/2):
+      xdist = x*2
+      ydist = y*2
+      if datum.getPixel(xdist,ydist) > 0 and datum.getPixel(xdist,ydist+1):
+        features[(xdist,ydist)] = 1
+      elif datum.getPixel(xdist,ydist) > 0 and datum.getPixel(xdist+1,ydist):
+        features[(xdist,ydist)] = 2
+      elif datum.getPixel(xdist,ydist) >0 and datum.getPixel(xdist+1,ydist+1):
+        features[(xdist,ydist)] = 3
+      elif datum.getPixel(xdist+1,ydist) >0 and datum.getPixel(xdist, ydist+1):
+        features[(xdist,ydist)] = 4
+      elif datum.getPixel(xdist+1,ydist) >0 and datum.getPixel(xdist+1,ydist+1):
+        features[(xdist,ydist)] = 5
+      elif datum.getPixel(xdist,ydist+1) > 0 and datum.getPixel(xdist+1,ydist+1):
+        features[(xdist,ydist)] = 6
       else:
-        features[(x,y)] = 0
+        features[(xdist,ydist)] = 0
+        
+
+      
+      #if datum.getPixel(x, y) > 0:
+      #  features[(x,y)] = 1
+      #else:
+      #  features[(x,y)] = 0
+  #make -1,-1 store num of possible values
+  features[(-1,-1)] = 7
   return features
 
 def enhancedFeatureExtractorDigit(datum):
