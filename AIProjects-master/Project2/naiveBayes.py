@@ -84,14 +84,14 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
       #iterate through each pixel
       for valid in pixNum:
         #calcList = []
-        pixList = [0,0,0]
+        pixList = [0,0]
         #iterate through each digit object
         for obval in diglist:
           #add val found to list for stat calcs
           pix = obval[valid]
           pixList[pix] += 1
           #calcList.append(pix)
-        for i in list(range(3)):
+        for i in list(range(2)):
           pixList[i] = (pixList[i]+self.k)/(len(diglist)+self.k)
 
         #smooth values

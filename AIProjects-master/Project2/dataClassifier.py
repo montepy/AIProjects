@@ -32,16 +32,17 @@ def basicFeatureExtractorDigit(datum):
   Returns a set of pixel features indicating whether
   each pixel in the provided datum is white (0) or gray/black (1)
   """
-  a = datum.getPixels()
+  #a = datum.getPixels()
 
   features = util.Counter()
   for x in list(range(DIGIT_DATUM_WIDTH)):
     for y in list(range(DIGIT_DATUM_HEIGHT)):
-      features[(x,y)] = datum.getPixel(x,y)
-      #if datum.getPixel(x, y) > 0:
-      #  features[(x,y)] = 1
-      #else:
-      #  features[(x,y)] = 0
+      #features[(x,y)] = datum.getPixel(x,y)
+      #note to self: making the relevant features a little less specific increases success rate.
+      if datum.getPixel(x, y) > 0:
+        features[(x,y)] = 1
+      else:
+        features[(x,y)] = 0
   return features
 
 def basicFeatureExtractorFace(datum):
