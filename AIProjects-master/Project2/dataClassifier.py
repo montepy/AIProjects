@@ -307,12 +307,12 @@ def runClassifier(args, options):
   numTest = options.test
 
   if(options.data=="faces"):
-    rawTrainingData = samples.loadDataFile("data/facedata/data/facedatatrain", numTraining,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    trainingLabels = samples.loadLabelsFile("data/facedata/data/facedatatrainlabels", numTraining)
-    rawValidationData = samples.loadDataFile("data/facedata/data/facedatatrain", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    validationLabels = samples.loadLabelsFile("data/facedata/data/facedatatrainlabels", numTest)
-    rawTestData = samples.loadDataFile("data/facedata/data/facedatatest", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    testLabels = samples.loadLabelsFile("data/facedata/data/facedatatestlabels", numTest)
+    rawTrainingData = samples.loadDataFile("data/facedata/facedatatrain", numTraining,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
+    trainingLabels = samples.loadLabelsFile("data/facedata/facedatatrainlabels", numTraining)
+    rawValidationData = samples.loadDataFile("data/facedata/facedatatrain", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
+    validationLabels = samples.loadLabelsFile("data/facedata/facedatatrainlabels", numTest)
+    rawTestData = samples.loadDataFile("data/facedata/facedatatest", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
+    testLabels = samples.loadLabelsFile("data/facedata/facedatatestlabels", numTest)
   else:
     rawTrainingData = samples.loadDataFile("data/digitdata/trainingimages", numTraining,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
     trainingLabels = samples.loadLabelsFile("data/digitdata/traininglabels", numTraining)
