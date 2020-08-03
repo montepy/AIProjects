@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{graphicx}
+
+\title{Project 2}
+\date{2020-08-03}
+\author{Edward Wang, Kyle Love}
+
+\begin{document}
+\maketitle
+
+\section{Naive Bayes}
+Naive Bayes is an algorithm for recognizing objects based upon the probability of their collective features, i.e, height, width, color, et cetera. In real life, if enough features line up with our mental image of a certain class of object, we can determine that the object is likely to be in that class easily. For example, identifying a car by the fact it has four wheels, is made out of metal, and makes roaring sounds. But computers aren't able to make those deductions because they don't have the knowledge base or reasoning ability that we do. So how do we solve this issue?
+
+The first step is building a base of knowledge to work off of. To determine that a particular object is of a certain class, we must know that each member of the class has certain features, and that the object's features match up with the class's features enough that the probability of the object being in the class is greater than the probability of any other class being the case. To that end, we must have sufficiently detailed features that there is little, if any, likelihood of false positives. Initially, we used solely individual pixels as the features. However, as we'll see later, that will prove problematic.
+
+We used the training data to find probability distributions for each feature in each class of object, finding the frequency of each value at each feature. Then, we applied it. The reasoning for how to identify the class of each object was as follows. Firstly, we took the prior probability, that is, the frequency of the class with relation to the overall training set. Essentially, the initial likelihood of picking the class of the object blindly. Then, for each feature in the object being checked, we multiplied by the probability of that feature having that value in the class overall. Naturally, if the probability of the feature was higher, the likelihood of the object being of that class would increase. We then collected the values found for each class and picked the larger of them to find the object class.
+Overall, rather simple in principle. But we did make some missteps along the way. As said before, our features were initially not very accurate, and they yielded results far below the 60/70\% threshold for acceptability. For digits, we started by using 0 for blank spaces, 1 for #, and 2 for +, which yielded success rates around 40\%. It seemed odd that this had occurred. After all, common sense would dictate that higher detail in features would result in more accurate results. But we soon realized that that was exactly the issue. By making more detailed features, we lowered the probabilities across the board for each of them, making it more likely that the object would be misidentified. So instead, we moved to use a simple, binary schema, where 0 indicated blank space, and 1 indicated a symbol.
+On the other hand, the facial features suffered the opposite issue. They were too sparsely detailed to determine the faces properly, especially considering the size of each image and their largely line defined shapes. As such, instead of pixels, we moved to using 2x2 boxes to define features, giving them a numerical value based on the presence/shape of lines within them. The result was a drastic increase in the accuracy, from near 20\% to high 80s. More detail will be given in the Conclusions section.  
+\section{Perceptron}
+
+\section{Conclusions}
+
+
+
+\end{document}

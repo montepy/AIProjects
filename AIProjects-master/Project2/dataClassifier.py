@@ -388,6 +388,9 @@ if __name__ == '__main__':
     import pdb; pdb.set_trace()
   print(__file__[:-len('dataClassifier.py')])
   # Read input
+  from time import time
+  runtime = time()
   args, options = readCommand( sys.argv[1:] ) 
   # Run classifier
   runClassifier(args, options)
+  print(time()-runtime)
