@@ -50,21 +50,25 @@ class PerceptronClassifier:
       print("Starting iteration ", iteration, "...")
       for i in range(len(trainingData)):
           counter = 0
-          "*** YOUR CODE HERE ***"
+          
           for num in self.legalLabels:
             counter += 1
             productCheck = self.weights[num].__mul__(trainingData[i]) >= 0
             isLabel = trainingLabels[i] == num
             n+=1
-            print("trainingData#",i,"- checking if weight", num, "is correct with data")
+            #print("trainingData#",i,"- checking if weight", num, "is correct with data")
             if(productCheck and isLabel):
-                print(counter, " productCheck is >= 0 ", num, "and Label is correct")
+                #print(counter, " productCheck is >= 0 ", num, "and Label is correct")
+                pass
             elif(productCheck and not isLabel):
-                print(counter, " productCheck is < 0 ", num, "and Label is incorrect")
+                #print(counter, " productCheck is >= 0 ", num, "and Label is incorrect ...correcting")
+                self.weights[num] = self.weights[num].__sub__(trainingData[i])
             elif(not productCheck and not isLabel):
-                print(counter, " productCheck is < 0 ", num, "and Label is correct")
+                #print(counter, " productCheck is < 0 ", num, "and Label is correct")
+                pass
             elif(not productCheck and isLabel):
-                print(counter, " productCheck is >= 0 ", num, "and Label is incorrect")
+                #print(counter, " productCheck is < 0 ", num, "and Label is incorrect ...correcting")
+                self.weights[num] = self.weights[num].__add__(trainingData[i])
 
 
           #util.raiseNotDefined()
