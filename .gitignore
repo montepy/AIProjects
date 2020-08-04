@@ -20978,3 +20978,4 @@ AIProjects-master/.venv/Lib/site-packages/prompt_toolkit-3.0.5.dist-info/METADAT
 AIProjects-master/.venv/Lib/site-packages/prompt_toolkit-3.0.5.dist-info/RECORD
 AIProjects-master/.venv/Lib/site-packages/prompt_toolkit-3.0.5.dist-info/top_level.txt
 AIProjects-master/.venv/Lib/site-packages/prompt_toolkit-3.0.5.dist-info/WHEEL
+*.pyc
