@@ -45,17 +45,15 @@ class PerceptronClassifier:
     # DO NOT ZERO OUT YOUR WEIGHTS BEFORE STARTING TRAINING, OR
     # THE AUTOGRADER WILL LIKELY DEDUCT POINTS.
 
-    n = 0
     for iteration in range(self.max_iterations):
       print("Starting iteration ", iteration, "...")
       for i in range(len(trainingData)):
           counter = 0
-          
+
           for num in self.legalLabels:
             counter += 1
             productCheck = self.weights[num].__mul__(trainingData[i]) >= 0
             isLabel = trainingLabels[i] == num
-            n+=1
             #print("trainingData#",i,"- checking if weight", num, "is correct with data")
             if(productCheck and isLabel):
                 #print(counter, " productCheck is >= 0 ", num, "and Label is correct")
