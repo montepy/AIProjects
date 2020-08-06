@@ -48,10 +48,10 @@ class PerceptronClassifier:
     for iteration in range(self.max_iterations):
       print("Starting iteration ", iteration, "...")
       for i in range(len(trainingData)):
-          counter = 0
+          #counter = 0
 
           for num in self.legalLabels:
-            counter += 1
+            #counter += 1
             productCheck = self.weights[num].__mul__(trainingData[i]) >= 0
             isLabel = trainingLabels[i] == num
 
