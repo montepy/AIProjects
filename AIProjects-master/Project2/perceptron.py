@@ -54,20 +54,26 @@ class PerceptronClassifier:
             counter += 1
             productCheck = self.weights[num].__mul__(trainingData[i]) >= 0
             isLabel = trainingLabels[i] == num
-            #print("trainingData#",i,"- checking if weight", num, "is correct with data")
-            if(productCheck and isLabel):
-                #print(counter, " productCheck is >= 0 ", num, "and Label is correct")
-                pass
-            elif(productCheck and not isLabel):
-                #print(counter, " productCheck is >= 0 ", num, "and Label is incorrect ...correcting")
-                self.weights[num] = self.weights[num].__sub__(trainingData[i])
-            elif(not productCheck and not isLabel):
-                #print(counter, " productCheck is < 0 ", num, "and Label is correct")
-                pass
-            elif(not productCheck and isLabel):
-                #print(counter, " productCheck is < 0 ", num, "and Label is incorrect ...correcting")
-                self.weights[num] = self.weights[num].__add__(trainingData[i])
 
+            #print("trainingData#",i,"- checking if weight", num, "is correct with data")
+            #f(productCheck and isLabel):
+                #print(counter, " productCheck is >= 0 ", num, "and Label is correct")
+                #pass
+            #elif(productCheck and not isLabel):
+                #print(counter, " productCheck is >= 0 ", num, "and Label is incorrect ...correcting")
+                #self.weights[num] = self.weights[num].__sub__(trainingData[i])
+            #elif(not productCheck and not isLabel):
+                #print(counter, " productCheck is < 0 ", num, "and Label is correct")
+                #pass
+            #elif(not productCheck and isLabel):
+                #print(counter, " productCheck is < 0 ", num, "and Label is incorrect ...correcting")
+                #self.weights[num] = self.weights[num].__add__(trainingData[i])
+
+            #optimized form of above
+            if(productCheck and not isLabel):
+                self.weights[num] = self.weights[num].__sub__(trainingData[i])
+            elif(not productCheck and isLabel):
+                self.weights[num] = self.weights[num].__add__(trainingData[i])
 
           #util.raiseNotDefined()
 
