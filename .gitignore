@@ -20982,3 +20982,5 @@ AIProjects-master/.venv/Lib/site-packages/prompt_toolkit-3.0.5.dist-info/WHEEL
 AIProjects-master/Project2/*.pyc
 AIProjects-master/Project2/perceptron.pyc
 AIProjects-master/Project2/perceptron.pyc
+AIProjects-master/Project2/perceptron.pyc
+AIProjects-master/Project2/classificationMethod.pyc
