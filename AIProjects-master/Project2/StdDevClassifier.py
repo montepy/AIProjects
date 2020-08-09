@@ -11,26 +11,18 @@ import sys
 import util
 import os
 
+import random
+
 TEST_SET_SIZE = 100
 DIGIT_DATUM_WIDTH=28
 DIGIT_DATUM_HEIGHT=28
 FACE_DATUM_WIDTH=60
 FACE_DATUM_HEIGHT=70
 
-DEBUGING_MODE = false
+FACE_MAX_TRAINING=450
+DIGIT_MAX_TRAINING=5000
 
-if __name__ == '__main__':
-  os.chdir(__file__[:-(len('StdDevClassifier.py'))])
-  if DEBUGING_MODE:
-    import pdb; pdb.set_trace()
-  print(__file__[:-len('StdDevClassifier.py')])
-  # Read input
-  from time import time
-  runtime = time()
-  args, options = dataClassifier.readCommand( sys.argv[1:] )
-  # Run classifier
-  devClassifier(args, options)
-  print(time()-runtime)
+DEBUGING_MODE = False
 
 
 def devClassifier(args, options):
@@ -41,23 +33,17 @@ def devClassifier(args, options):
 
   # Load data
   numTraining = options.training
-  numTest = 1
+  numTest = options.test
 
-  if(options.data=="faces"):
-    rawTrainingData = samples.loadDataFile("data/facedata/facedatatrain", numTraining,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    trainingLabels = samples.loadLabelsFile("data/facedata/facedatatrainlabels", numTraining)
-    rawValidationData = samples.loadDataFile("data/facedata/facedatatrain", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    validationLabels = samples.loadLabelsFile("data/facedata/facedatatrainlabels", numTest)
-    rawTestData = samples.loadDataFile("data/facedata/facedatatest", numTest,FACE_DATUM_WIDTH,FACE_DATUM_HEIGHT)
-    testLabels = samples.loadLabelsFile("data/facedata/facedatatestlabels", numTest)
-  else:
-    rawTrainingData = samples.loadDataFile("data/digitdata/trainingimages", numTraining,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
-    trainingLabels = samples.loadLabelsFile("data/digitdata/traininglabels", numTraining)
-    rawValidationData = samples.loadDataFile("data/digitdata/validationimages", numTest,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
-    validationLabels = samples.loadLabelsFile("data/digitdata/validationlabels", numTest)
-    rawTestData = samples.loadDataFile("data/digitdata/testimages", numTest,DIGIT_DATUM_WIDTH,DIGIT_DATUM_HEIGHT)
-    testLabels = samples.loadLabelsFile("data/digitdata/testlabels", numTest)
 
+  dataCollection = rLoadDataFile(options.data, numTraining)
+
+  rawTrainingData = dataCollection['rawTrainingData']
+  trainingLabels = dataCollection['trainingLabels']
+  rawValidationData = dataCollection['rawValidationData']
+  validationLabels = dataCollection['validationLabels']
+  rawTestData = dataCollection['rawTestData']
+  testLabels = dataCollection['testLabels']
 
   # Extract features
   print("Extracting features...")
@@ -98,24 +84,57 @@ def devClassifier(args, options):
 
 
 def rLoadDataFile(inputDataType, numTraining):
+    dataCollection = {}
     if(inputDataType == "faces"):
-        pass
+        maxTraining = FACE_MAX_TRAINING
+        for i in range(numTraining)
+            rand = random.randint(1, maxTraining)
+            dataCollection['rawTrainingData'] = load1Data("data/facedata/facedatatrain", rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT)
+            dataCollection['trainingLabels'] = load1Label("data/facedata/facedatatrainlabels", rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT)
+            dataCollection['rawValidationData'] = load1Data("data/facedata/facedatatrain", rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT)
+            dataCollection['rawValidationLabels'] = load1Label("data/facedata/facedatatrainlabels", rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT)
+            dataCollection['rawTestData'] = load1Data("data/facedata/facedatatest", rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT)
+            dataCollection['testLabels'] = load1Label("data/facedata/facedatatestlabels", rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT)
     elif(inputDataType == "digits"):
-        pass
+        maxTraining = DIGIT_MAX_TRAINING
+        for i in range(numTraining)
+            rand = random.randint(1, maxTraining)
+            dataCollection['rawTrainingData'] = load1Data("data/digitdata/trainingimages", rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT)
+            dataCollection['trainingLabels'] = load1Label("data/digitdata/traininglabels", rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT)
+            dataCollection['rawValidationData'] = load1Data("data/digitdata/validationimages", rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT)
+            dataCollection['rawValidationLabels'] = load1Label("data/digitdata/validationlabels", rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT)
+            dataCollection['rawTestData'] = load1Data("data/digitdata/testimages", rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT)
+            dataCollection['testLabels'] = load1Label("data/digitdata/testlabels", rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT)
+    return dataCollection
 
 def load1Data(filename, n, width, height):
-    pass
-
-def load1Label(filename, n, width, height):
-      fin = samples.readlines(filename)
-      i = 1
-      label = 0
-      for line in fin[:min(n, len(fin))]:
-        if line == '':
+    fin = samples.readlines(filename)
+    #fin.reverse()
+    data = []
+    for j in range(height):
+        data.append(list(fin[(n*height)+j]))
+        if (len(data[0]) < width-1):
+        # we encountered end of file...
+            print(("Truncating at %d examples (maximum)" % i))
             break
-        if(i == n):
-            label = int(line)
-            break
-        i+=1
+    item = samples.Datum(data,width,height)
 
-      return label
+    return item
+
+def load1Label(filename, n):
+      fin = list(samples.readlines(filename))
+      return fin[n]
+
+
+if __name__ == '__main__':
+  os.chdir(__file__[:-(len('StdDevClassifier.py'))])
+  if DEBUGING_MODE:
+    import pdb; pdb.set_trace()
+  print(__file__[:-len('StdDevClassifier.py')])
+  # Read input
+  from time import time
+  runtime = time()
+  args, options = dataClassifier.readCommand( sys.argv[1:] )
+  # Run classifier
+  devClassifier(args, options)
+  print(time()-runtime)
