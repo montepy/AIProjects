@@ -77,12 +77,11 @@ class PerceptronClassifier:
 
                 #optimized form of above
                 if(productCheck and not isLabel):
-                    self.weights[num] = self.weights[num].__sub__(trainingData[i])
+                    self.weights[num].__rsub__(trainingData[i])
                 elif(not productCheck and isLabel):
                     self.weights[num].__radd__(trainingData[i])
 
                 #ultra optimizations - don't try this at home
-                self.weights[num] = self.weights[num].__sub__(trainingData[i]) * (productCheck and not isLabel) + 
 
                 weightLabelTimeAve += time() - labelStart
             weightLabelTimeAve /= len(self.legalLabels)+1*(i>0)
