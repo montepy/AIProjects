@@ -27,42 +27,50 @@ DEBUGING_MODE = False
 
 def devClassifier(args, options):
 
-  featureFunction = args['featureFunction']
-  classifier = args['classifier']
-  printImage = args['printImage']
+    featureFunction = args['featureFunction']
+    classifier = args['classifier']
+    printImage = args['printImage']
 
-  # Load data
-  numTraining = options.training
-  numTest = options.test
+    # Load data
+    numTraining = options.training
+    numTest = options.test
 
+    iterations = 5
+    correctAverage = 0
 
-  dataCollection = rLoadDataFile(options.data, numTraining)
+    for i in range(iterations):
+        dataCollection = rLoadDataFile(options.data, numTraining)
 
-  rawTrainingData = dataCollection['rawTrainingData']
-  trainingLabels = dataCollection['trainingLabels']
-  rawValidationData = dataCollection['rawValidationData']
-  validationLabels = dataCollection['validationLabels']
-  rawTestData = dataCollection['rawTestData']
-  testLabels = dataCollection['testLabels']
+        rawTrainingData = dataCollection['rawTrainingData']
+        trainingLabels = dataCollection['trainingLabels']
+        rawValidationData = dataCollection['rawValidationData']
+        validationLabels = dataCollection['validationLabels']
+        rawTestData = dataCollection['rawTestData']
+        testLabels = dataCollection['testLabels']
 
-  # Extract features
-  print("Extracting features...")
-  trainingData = map(featureFunction, rawTrainingData)
-  validationData = map(featureFunction, rawValidationData)
-  testData = map(featureFunction, rawTestData)
+        # Extract features
+        #print("Extracting features...")
+        trainingData = map(featureFunction, rawTrainingData)
+        validationData = map(featureFunction, rawValidationData)
+        testData = map(featureFunction, rawTestData)
 
-  # Conduct training and testing
-  print("Training...")
-  classifier.train(trainingData, trainingLabels, validationData, validationLabels)
-  print("Validating...")
-  guesses = classifier.classify(validationData)
-  correct = [guesses[i] == validationLabels[i] for i in range(len(validationLabels))].count(True)
-  print(str(correct), ("correct out of " + str(len(validationLabels)) + " (%.1f%%).") % (100.0 * correct / len(validationLabels)))
-  print("Testing...")
-  guesses = classifier.classify(testData)
-  correct = [guesses[i] == testLabels[i] for i in range(len(testLabels))].count(True)
-  print(str(correct), ("correct out of " + str(len(testLabels)) + " (%.1f%%).") % (100.0 * correct / len(testLabels)))
-  dataClassifier.analysis(classifier, guesses, testLabels, testData, rawTestData, printImage)
+        # Conduct training and testing
+        print("Iteration: ", i)
+        print("Training...")
+        classifier.train(trainingData, trainingLabels, validationData, validationLabels)
+        #print("Validating...")
+        #guesses = classifier.classify(validationData)
+        #correct = [guesses[i] == validationLabels[i] for i in range(len(validationLabels))].count(True)
+        #print(str(correct), ("correct out of " + str(len(validationLabels)) + " (%.1f%%).") % (100.0 * correct / len(validationLabels)))
+        print("Testing...")
+        guesses = classifier.classify(testData)
+        correct = [guesses[i] == testLabels[i] for i in range(len(testLabels))].count(True)
+        print(str(correct), ("correct out of " + str(len(testLabels)) + " (%.1f%%).") % (100.0 * correct / len(testLabels)))
+        correctAverage = correctAverage + (100.0 * correct / len(testLabels))
+        #dataClassifier.analysis(classifier, guesses, testLabels, testData, rawTestData, printImage)
+
+    correctAverage = correctAverage/iterations
+    print "Percent accuracy -", correctAverage, '\n'
 
 
 
@@ -71,11 +79,13 @@ def rLoadDataFile(inputDataType, numTraining):
     dataCollection['rawTrainingData'] = []
     dataCollection['trainingLabels'] = []
     if(inputDataType == "faces"):
-        maxTraining = FACE_MAX_TRAINING
+        maxTraining = FACE_MAX_TRAINING -1
+        rawTrainingDataFile = samples.readlines("data/facedata/facedatatrain")
+        trainingLabelsFile = samples.readlines("data/facedata/facedatatrainlabels")
         for i in range(numTraining):
-            rand = random.randint(1, maxTraining)
-            dataCollection['rawTrainingData'].append(load1Data("data/facedata/facedatatrain", rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT))
-            dataCollection['trainingLabels'].append(load1Label("data/facedata/facedatatrainlabels", rand))
+            rand = random.randint(1, maxTraining - i)
+            dataCollection['rawTrainingData'].append(load1Data(rawTrainingDataFile, rand, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT))
+            dataCollection['trainingLabels'].append(load1Label(trainingLabelsFile, rand))
 
         dataCollection['rawValidationData'] = samples.loadDataFile("data/facedata/facedatatrain", numTraining, FACE_DATUM_WIDTH, FACE_DATUM_HEIGHT)
         dataCollection['validationLabels'] = samples.loadLabelsFile("data/facedata/facedatatrainlabels", numTraining)
@@ -83,11 +93,13 @@ def rLoadDataFile(inputDataType, numTraining):
         dataCollection['testLabels'] = samples.loadLabelsFile("data/facedata/facedatatestlabels", numTraining)
 
     elif(inputDataType == "digits"):
-        maxTraining = DIGIT_MAX_TRAINING
+        maxTraining = DIGIT_MAX_TRAINING -1
+        rawTrainingDataFile = samples.readlines("data/digitdata/trainingimages")
+        trainingLabelsFile = samples.readlines("data/digitdata/traininglabels")
         for i in range(numTraining):
-            rand = random.randint(1, maxTraining)
-            dataCollection['rawTrainingData'].append(load1Data("data/digitdata/trainingimages", rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT))
-            dataCollection['trainingLabels'].append(load1Label("data/digitdata/traininglabels", rand))
+            rand = random.randint(1, maxTraining - i)
+            dataCollection['rawTrainingData'].append(load1Data(rawTrainingDataFile, rand, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT))
+            dataCollection['trainingLabels'].append(load1Label(trainingLabelsFile, rand))
 
         dataCollection['rawValidationData'] = samples.loadDataFile("data/digitdata/validationimages", numTraining, DIGIT_DATUM_WIDTH, DIGIT_DATUM_HEIGHT)
         dataCollection['validationLabels'] = samples.loadLabelsFile("data/digitdata/validationlabels", numTraining)
@@ -96,12 +108,12 @@ def rLoadDataFile(inputDataType, numTraining):
 
     return dataCollection
 
-def load1Data(filename, n, width, height):
-    fin = samples.readlines(filename)
+def load1Data(file, n, width, height):
+    #fin = samples.readlines(filename)
     #fin.reverse()
     data = []
     for j in range(height):
-        data.append(list(fin[(n*height)+j]))
+        data.append(list(file[(n*height)+j]))
         if (len(data[0]) < width-1):
         # we encountered end of file...
             print(("Truncating at %d examples (maximum)" % i))
@@ -110,9 +122,9 @@ def load1Data(filename, n, width, height):
 
     return item
 
-def load1Label(filename, n):
-      fin = list(samples.readlines(filename))
-      return fin[n]
+def load1Label(file, n):
+      #fin = list(samples.readlines(filename))
+      return file[n]
 
 
 if __name__ == '__main__':

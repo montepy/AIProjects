@@ -70,7 +70,7 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     #classify data by class for training
     #don't even know if we need this for now. keeping in case.
     for it in trainingData:
-      trainingClasses[trainingLabels[counter]].append(it)
+      trainingClasses[int(trainingLabels[counter])].append(it)
       counter += 1
     dataStats = dict()
     for num in self.legalLabels:
