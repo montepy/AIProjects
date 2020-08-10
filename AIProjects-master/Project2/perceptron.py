@@ -8,7 +8,10 @@
 
 # Perceptron implementation
 import util
-DEBUG = True
+import sys
+from time import time
+
+DEBUG = False
 
 class PerceptronClassifier:
   """
@@ -45,37 +48,47 @@ class PerceptronClassifier:
     # DO NOT ZERO OUT YOUR WEIGHTS BEFORE STARTING TRAINING, OR
     # THE AUTOGRADER WILL LIKELY DEDUCT POINTS.
 
+    weightLabelTimeAve = 0
+
     for iteration in range(self.max_iterations):
-      print("Starting iteration ", iteration, "...")
-      for i in range(len(trainingData)):
-          #counter = 0
+        print("Starting iteration ", iteration, "...")
+        for i in range(len(trainingData)):
+            #counter = 0
 
-          for num in self.legalLabels:
-            #counter += 1
-            productCheck = self.weights[num].__mul__(trainingData[i]) >= 0
-            isLabel = trainingLabels[i] == num
+            for num in self.legalLabels:
+                labelStart = time()
+                #counter += 1
+                productCheck = self.weights[num].__mul__(trainingData[i]) >= 0
+                isLabel = trainingLabels[i] == num
 
-            #print("trainingData#",i,"- checking if weight", num, "is correct with data")
-            #f(productCheck and isLabel):
-                #print(counter, " productCheck is >= 0 ", num, "and Label is correct")
-                #pass
-            #elif(productCheck and not isLabel):
-                #print(counter, " productCheck is >= 0 ", num, "and Label is incorrect ...correcting")
-                #self.weights[num] = self.weights[num].__sub__(trainingData[i])
-            #elif(not productCheck and not isLabel):
-                #print(counter, " productCheck is < 0 ", num, "and Label is correct")
-                #pass
-            #elif(not productCheck and isLabel):
-                #print(counter, " productCheck is < 0 ", num, "and Label is incorrect ...correcting")
-                #self.weights[num] = self.weights[num].__add__(trainingData[i])
+                #print("trainingData#",i,"- checking if weight", num, "is correct with data")
+                #f(productCheck and isLabel):
+                    #print(counter, " productCheck is >= 0 ", num, "and Label is correct")
+                    #pass
+                #elif(productCheck and not isLabel):
+                    #print(counter, " productCheck is >= 0 ", num, "and Label is incorrect ...correcting")
+                    #self.weights[num] = self.weights[num].__sub__(trainingData[i])
+                #elif(not productCheck and not isLabel):
+                    #print(counter, " productCheck is < 0 ", num, "and Label is correct")
+                    #pass
+                #elif(not productCheck and isLabel):
+                    #print(counter, " productCheck is < 0 ", num, "and Label is incorrect ...correcting")
+                    #self.weights[num] = self.weights[num].__add__(trainingData[i])
 
-            #optimized form of above
-            if(productCheck and not isLabel):
-                self.weights[num] = self.weights[num].__sub__(trainingData[i])
-            elif(not productCheck and isLabel):
-                self.weights[num] = self.weights[num].__add__(trainingData[i])
+                #optimized form of above
+                if(productCheck and not isLabel):
+                    self.weights[num] = self.weights[num].__sub__(trainingData[i])
+                elif(not productCheck and isLabel):
+                    self.weights[num].__radd__(trainingData[i])
 
-          #util.raiseNotDefined()
+                #ultra optimizations - don't try this at home
+                self.weights[num] = self.weights[num].__sub__(trainingData[i]) * (productCheck and not isLabel) + 
+
+                weightLabelTimeAve += time() - labelStart
+            weightLabelTimeAve /= len(self.legalLabels)+1*(i>0)
+
+        print "Average time to check a label -", weightLabelTimeAve
+        #util.raiseNotDefined()
 
   def classify(self, data ):
     """

@@ -36,12 +36,15 @@ def devClassifier(args, options):
     numTraining = options.training
     numTest = options.test
 
-    iterations = 5
+    iterations = 1
     percentCorrect = []
     correctAverage = 0
 
     for i in range(iterations):
+        print "\nLoading new data"
+        dataLoadTime = time()
         dataCollection = rLoadDataFile(options.data, numTraining, numTest)
+        print "Loaded data in -", time() - dataLoadTime,'\n'
 
         rawTrainingData = dataCollection['rawTrainingData']
         trainingLabels = dataCollection['trainingLabels']
@@ -57,15 +60,20 @@ def devClassifier(args, options):
         testData = map(featureFunction, rawTestData)
 
         # Conduct training and testing
-        print("Iteration: ", i)
-        print("Training...")
+        print "Iteration: ", i
+        print "Training..."
+        trainingTime = time()
         classifier.train(trainingData, trainingLabels, validationData, validationLabels)
+        print "Trained in -", time()-trainingTime
+
         #print("Validating...")
         #guesses = classifier.classify(validationData)
         #correct = [guesses[i] == validationLabels[i] for i in range(len(validationLabels))].count(True)
         #print(str(correct), ("correct out of " + str(len(validationLabels)) + " (%.1f%%).") % (100.0 * correct / len(validationLabels)))
-        print("Testing...")
+        print("\nTesting...")
+        testingTime = time()
         guesses = classifier.classify(testData)
+        print "Time to test -", time() - testingTime
         correct = [guesses[i] == testLabels[i] for i in range(len(testLabels))].count(True)
         print(str(correct), ("correct out of " + str(len(testLabels)) + " (%.1f%%).") % (100.0 * correct / len(testLabels)))
 
@@ -73,7 +81,7 @@ def devClassifier(args, options):
         correctAverage = correctAverage + (100.0 * correct / len(testLabels))
         #dataClassifier.analysis(classifier, guesses, testLabels, testData, rawTestData, printImage)
 
-    correctAverage = correctAverage/iterations
+    correctAverage = (correctAverage)/iterations
     print "\nPercent accuracy -", correctAverage
 
     sumOfSquares = 0
@@ -150,4 +158,4 @@ if __name__ == '__main__':
   args, options = dataClassifier.readCommand( sys.argv[1:] )
   # Run classifier
   devClassifier(args, options)
-  print(time()-runtime)
+  print "\nTotal runtime -", time()-runtime
