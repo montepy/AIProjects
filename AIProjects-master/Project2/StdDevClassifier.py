@@ -10,6 +10,7 @@ import samples
 import sys
 import util
 import os
+import math
 
 import random
 
@@ -79,7 +80,7 @@ def devClassifier(args, options):
     for i in range(iterations):
         sumOfSquares += (percentCorrect[i] - correctAverage) ** 2
 
-    standardDeviation = sumOfSquares/iterations
+    standardDeviation = math.sqrt(sumOfSquares/iterations)
     print "Standard deviation - ", standardDeviation
 
 
