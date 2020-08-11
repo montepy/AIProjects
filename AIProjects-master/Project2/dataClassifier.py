@@ -106,6 +106,8 @@ def enhancedFeatureExtractorDigit(datum):
 
 
   "*** YOUR CODE HERE ***"
+  #features = util.Counter()
+  #for n in range(DIGIT_DATUM_WIDTH/2)
 
   return features
 
