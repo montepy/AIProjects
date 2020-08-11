@@ -1,8 +1,9 @@
 \documentclass{article}
 \usepackage{graphicx}	
+\usepackage{float}
 
 \title{Project 2}
-\date{2020-08-03}
+\date{2020-08-09}
 \author{Edward Wang, Kyle Love}
 
 \begin{document}
@@ -24,7 +25,7 @@ Our features were initially not very accurate, and they yielded results far belo
 On the other hand, the facial features suffered the opposite issue. They were too sparsely detailed to determine the faces properly, especially considering the size of each image and their largely line defined shapes. As such, instead of pixels, we moved to using 2x2 boxes to define features, giving them a numerical value based on the presence/shape of lines within them. The result was a drastic increase in the accuracy, up to proper thresholds for acceptability.
 
 \section{Test Data}
-\begin{table}[!htb]
+\begin{table}[H]
 	\centering
 	\caption{Naive Bayes Test Results}
 	\begin{tabular}{|*{5}{c|}|}
@@ -46,7 +47,7 @@ On the other hand, the facial features suffered the opposite issue. They were to
 		\hline
 	\end{tabular}%
 \end{table}%
-\begin{table}[!htb]
+\begin{table}[H]
 	\centering
 	\caption{Perceptron Test Results}
 	\begin{tabular}{|*{5}{c|}|}
@@ -68,7 +69,7 @@ On the other hand, the facial features suffered the opposite issue. They were to
 		\hline
 	\end{tabular}%
 \end{table}%
-\begin{table}[!htb]
+\begin{table}[H]
 	\centering
 	\caption{Runtime Results in Seconds}
 	\begin{tabular}{|*{5}{c|}|}
@@ -90,13 +91,53 @@ On the other hand, the facial features suffered the opposite issue. They were to
 		\hline
 	\end{tabular}%
 \end{table}%
+\begin{table}[H]
+	\centering
+	\caption{Perceptron Mean/Standard Deviation Data}
+	\begin{tabular}{|*{5}{c|}|}
+		\hline
+		\% of Data & Digit accuracy & Digit Std Dev & Face accuracy & Face Std Dev \\
+		\hline
+		10\%  & 77.2  & 3.24  & 80    & 2.44 \\
+		20\%  & 77.4  & 4.07  & 81.8  & 3.96 \\
+		30\%  & 79.4  & 1.74  & 79.2  & 5.38 \\
+		40\%  & 82.8  & 2.13  & 84    & 2.82 \\
+		50\%  & 82.8  & 4.16  & 81.2  & 0.74 \\
+		60\%  & 81.4  & 2.33  & 85.4  & 3.38 \\
+		70\%  & 83.14 & 2.49  & 87.6  & 1.49 \\
+		80\%  & 79.4  & 3.13  & 83.6  & 2.65 \\
+		90\%  & 84.4  & 2.33  & 79.8  & 2.03 \\
+		100\% & 80.6  & 2.5   & 85.4  & 1.49 \\
+		\hline
+	\end{tabular}%
+\end{table}%
+\begin{table}[H]
+\centering
+\caption{Naive Bayes Mean/Standard Deviation Data}
+	\begin{tabular}{|*{5}{c|}|}
+		\hline
+		\% of Data & Digit accuracy & Digit Std Dev & Face accuracy & Face Std Dev \\
+		\hline
+	    10\%  & 78.2  & 1.32  & 64.6  & 13.03 \\
+		20\%  & 78    & 1.09  & 69.6  & 2.8 \\
+		30\%  & 78.4  & 2.05  & 77.4  & 4.63 \\
+		40\%  & 77.2  & 2.31  & 78.4  & 2.49 \\
+		50\%  & 78.6  & 1.01  & 82.4  & 3.13 \\
+		60\%  & 78    & 1.41  & 81.2  & 2.31 \\
+		70\%  & 77.8  & 0.74  & 83    & 1.67 \\
+		80\%  & 78.4  & 1.49  & 82.4  & 1.2 \\
+		90\%  & 79.8  & 1.6   & 81.2  & 1.16 \\
+		100\% & 78.8  & 0.74  & 81.4  & 0.48 \\
+		\hline
+	\end{tabular}%
+\end{table}%
 \section{Conclusions}
-As our data shows, both algorithms meet the requisite sixty percent minimum to be effective. However, it is clear to see that the Perceptron algorithm, although being somewhat variable in results, has a generally higher degree of accuracy than Naive Bayes. For example, while the Naive Bayes validation identification rate fluctuates around 90-95\% near 100\% training data for faces, Perceptron reaches 100\% or near it rather consistently around the same area. Perceptron also tends to hit high degrees of accuracy earlier on, while Naive Bayes can sometimes start with accuracy in the fifties. Evidently, Naive Bayes needs a higher minimum amount of training data to hit decent accuracy.
+As our data shows, both algorithms meet the requisite sixty percent minimum to be effective. However, it is clear to see that the Perceptron algorithm, although being somewhat variable in results, has a generally higher degree of accuracy than Naive Bayes. For example, in the test results, while the Naive Bayes validation identification rate fluctuates around 90-95\% near 100\% training data for faces, Perceptron reaches 100\% or near it rather consistently around the same area. Likewise, in the Mean/Standard Deviation data, Perceptron achieves high/mid 80s accuracy while Naive Bayes fluctuates around high 70s in the same areas. Perceptron also tends to hit high degrees of accuracy earlier on, while Naive Bayes can sometimes start with accuracy in the fifties. Evidently, Naive Bayes needs a higher minimum amount of training data to hit decent accuracy.
 \par
-That said, for all its apparent benefits over Naive Bayes, the Perceptron algorithm also seems to be consistently slower than Naive Bayes for both digits and faces. Although both algorithms seem to have consistent linear runtime growth, Perceptron takes more time to process each additional amount of data provided, resulting in higher runtimes across the board, and in the case of digits, even exceeding its counterpart in time by an order of magnitude. Thus, although Naive Bayes is somewhat less accurate, it may be more usable for everyday applications, or at least more useful for consistently identifying new classes of data.
+That said, for all its apparent benefits over Naive Bayes, the Perceptron algorithm also seems to be consistently slower than Naive Bayes for both digits and faces. Although both algorithms seem to have consistent linear runtime growth, Perceptron takes more time to process each additional amount of data provided, resulting in higher runtimes across the board, and in the case of digits, even exceeding its counterpart in time by an order of magnitude. Moreover, at least for digits, the standard deviation data seems to indicate that Naive Bayes is the more consistent and reliable algorithm. Thus, although Naive Bayes is somewhat less accurate, it may be more usable for everyday applications, or at least more useful for consistently identifying new classes of data.
 \par
 It's also interesting to note that in some cases, the success rate fell as more training data was introduced for both algorithms. It seems like it is possible to have too much data. Why? One possible reason is that, by random chance, the cumulative model from the data introduced at a certain point was closer to the ideal of the class of object, and further data only fudged the numbers, so to speak. Or conversely, the data introduced always brought the model closer to the ideal, but that resulted in an inability to account for outliers in the test data. It seems that sometimes, it's better to have a 'fuzzier' model that's less accurate to the ideal so that outliers are more likely to be properly identified.
-
+\par
 
 
 \end{document}
